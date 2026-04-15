@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文提交并推送"
+  short_description: "按 Conventional Commits 规范用中文提交并推送当前分支。"
+  default_prompt: "使用 $commit-and-push 分析当前 git 变更，按 Conventional Commits 规范用中文提交并推送当前分支。"

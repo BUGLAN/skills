@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文提交"
+  short_description: "按 Conventional Commits 规范用中文生成并执行提交。"
+  default_prompt: "使用 $commit-with-chinese 分析当前 git 变更，按 Conventional Commits 规范用中文生成提交信息并完成提交。"
