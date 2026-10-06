@@ -1,6 +1,6 @@
 ---
 name: push-skills
-description: 把本机 skills 目录中的 skill 同步进 skills 仓库（新增与更新都自动纳入），自动刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「把本机 skills 同步/推送上去」「推送到 GitHub」或提到 `/push_skills`（skill 名为 `push-skills`）时。支持：(1) 只处理含 SKILL.md 的 skill 目录，本机其它内容不关心；(2) 本机独有 skill 默认作为「新增」同步，本机更新过的 skill 默认先用 fetch 校验远端没有领先，然后自动覆盖仓库版本；(3) 远端领先或 fetch 失败时停下提示，不冒进；(4) 中文 Conventional Commits 提交；(5) 推送失败时保留本地提交并如实汇报。
+description: 把本机 skills 目录中的 skill 同步进 skills 仓库（新增与更新都自动纳入），自动刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「把本机 skills 同步/推送上去」「推送到 GitHub」或提到 `/push_skills`（skill 名为 `push-skills`）时。支持：(1) 只处理含 SKILL.md 的 skill 目录，本机其它内容不关心；(2) 本机独有 skill 默认作为「新增」同步，本机更新过的 skill 默认先用 fetch 校验远端没有领先，然后自动覆盖仓库版本；(3) 远端领先或 fetch 失败时停下提示，不冒进；(4) 中文 Conventional Commits 提交；(5) 推送失败时保留本地提交并如实汇报；(6) README 简介保持全中文——缺中文时由 agent 译好写进 scripts/readme-i18n.json，绝不修改 skill 自己的 description。
 ---
 
 # /push_skills —— 本机 skills → 仓库 → 远端
@@ -31,9 +31,14 @@ description: 把本机 skills 目录中的 skill 同步进 skills 仓库（新�
    - **远端领先，或 fetch 失败无法确认**时 → 停下（退出码 2），让用户先 `/pull_skills` 拉平远端，避免把别的设备的改动顶掉；
    - 无条件覆盖用 `--on-conflict=overwrite`（危险，需用户明确同意）；`--on-conflict=ask` 可退回「先提示」的旧行为；`--on-conflict=skip` 只同步新增。
 5. **README.md 自动刷新**：push 会按仓库当前 skill 重新生成 README 的技能列表并一起提交推送；新增 skill 时无需手工改 README。`--no-readme` 可跳过。
-6. **仓库有、本机没有的 skill 一律不动**，绝不删除仓库内容（删除是 `/delete_skills` 的职责）。
-7. **提交信息用中文 Conventional Commits，提交后自动 push**（`origin master`）。不要改动 git 配置。
-8. 推送失败时本地提交不丢，如实汇报失败原因和建议的重试命令，**不要** force push。
+6. **README 的简介必须是中文，而且绝不动 skill 自己的 description**：
+   - README 简介的数据来源是 `<仓库根>/scripts/readme-i18n.json`（中文简介映射表）；表里没有的 skill 会回落到 `SKILL.md` 的英文原文。
+   - 引擎会提示「在 README 里显示的还是英文简介」，**翻译这件事由你（agent）做，不要推给用户**：把简介译成中文写进映射表，最少一条 `{"zh": "中文简介"}`，然后重新 push。
+   - 想同时获得「原文变了 → 中文简介可能过期」的检测，再补 `src` 字段：该 skill `SKILL.md` 原文 `description` 归一化（连续空白压成一个空格）后的 **sha1 前 12 位**；不填不影响使用。
+   - **绝对不要为了让 README 变中文去改 `SKILL.md` 的 `description`**：那会让本机相对仓库永远处于「已更新」状态、反复产生无意义提交，还会偏离上游。映射表只是展示层，skill 本体保持原样。
+7. **仓库有、本机没有的 skill 一律不动**，绝不删除仓库内容（删除是 `/delete_skills` 的职责）。
+8. **提交信息用中文 Conventional Commits，提交后自动 push**（`origin master`）。不要改动 git 配置。
+9. 推送失败时本地提交不丢，如实汇报失败原因和建议的重试命令，**不要** force push。
 
 ## 执行步骤
 
@@ -73,7 +78,31 @@ python3 <仓库根>/scripts/skill_sync.py push
 
 成功时汇报：新增/更新了哪些 skill、README 是否刷新、提交号与提交信息、推送到的远端与分支。
 
-### 4. 退出码 2：停下来问人
+### 4. 出现「英文简介」提示时（这是 agent 的活）
+
+引擎会列出 README 里仍显示英文简介的 skill。**不要推给用户，也不要改 SKILL.md**，按下面做：
+
+1. 读这些 skill 的 `SKILL.md`，把 `description` 译成中文（保留触发场景与关键信息；GSAP、CSS、React 这类术语可留英文）；
+2. 写进 `<仓库根>/scripts/readme-i18n.json`：`"skill名": { "zh": "中文简介……", "src": "<原文 sha1 前 12 位，可省略>" }`；
+3. 重新执行 `push`，README 会用中文简介重新生成。
+
+```bash
+# 只想补中文、不算 src（最省事）
+python3 - <<'PY'
+import json, pathlib
+p = pathlib.Path("<仓库根>/scripts/readme-i18n.json")
+data = json.loads(p.read_text(encoding="utf-8"))
+data["<skill名>"] = {"zh": "<中文简介>"}
+p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+PY
+
+# 需要 src（原文 sha1 前 12 位）时：
+python3 -c "import hashlib,sys;print(hashlib.sha1(' '.join(sys.argv[1].split()).encode()).hexdigest()[:12])" "<SKILL.md 原文 description>"
+```
+
+同理，若引擎提示「中文简介可能过期」，说明该 skill 的原文 `description` 变了：重新读一遍、更新映射表里的 `zh` 与 `src` 即可。
+
+### 5. 退出码 2：停下来问人
 
 | 触发原因 | 处理 |
 |---|---|
@@ -83,12 +112,13 @@ python3 <仓库根>/scripts/skill_sync.py push
 
 **不要**在用户没确认的情况下用 `--on-conflict=overwrite` 顶掉远端历史。
 
-### 5. 汇报模板
+### 6. 汇报模板
 
 - 选中的本机目录 + 为什么选它（同附候选列表）；
 - 远端状态：fetch 是否成功、是否领先；
 - 新增 N 个 / 更新 N 个 / 一致 N 个 / 跳过 N 个；
 - README.md：已刷新 / 本来就是最新 / 按 `--no-readme` 跳过；
+- README 中文简介：全部中文 / 刚补了 N 条（列出名字）/ 有 M 条可能过期；
 - 提交：`<短 SHA> <提交标题>`；推送：`origin master` 成功或失败原因。
 
 ## 参数速查
@@ -113,6 +143,8 @@ python3 <仓库根>/scripts/skill_sync.py push
 python3 <仓库根>/scripts/skill_sync.py readme          # 按仓库当前内容刷新
 python3 <仓库根>/scripts/skill_sync.py readme --check  # 只检查（需更新时退出码 2）
 ```
+
+README 的中文简介数据文件是 `<仓库根>/scripts/readme-i18n.json`：**由 agent 维护，用户不需要手改**；`description` 保持在 skill 里原样不动。
 
 ## 手工兜底（没有 Python 时）
 
