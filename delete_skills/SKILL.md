@@ -1,6 +1,6 @@
 ---
 name: delete-skills
-description: 按自然语言指令从 skills 仓库中删除一个或多个 skill，提交并推送到远端（默认 origin master），同时刷新 README.md 技能列表。用于用户要求「删除/移除某个 skill」「把 X 从 skills 仓库删掉」「skills 里不要 X 了」或提到 `/delete_skills`（skill 名为 `delete-skills`）时。
+description: 按自然语言指令从 skills 仓库中删除一个或多个 skill，自动写入 .skillignore 忽略名单（防止下次 push 又把它带回来），刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「删除/移除某个 skill」「把 X 从 skills 仓库删掉」「skills 里不要 X 了」或提到 `/delete_skills`（skill 名为 `delete-skills`）时。
 ---
 
 # /delete_skills —— 从仓库删除 skill 并推送
@@ -13,16 +13,17 @@ description: 按自然语言指令从 skills 仓库中删除一个或多个 skil
 ## 核心行为（必须遵守）
 
 1. **只删仓库里的 skill 目录**（含 `SKILL.md` 的目录）。默认**不动**本机 skills 目录里的真实内容。
-2. **自然语言必须先落到明确的名字上**：把用户的话映射到仓库中**确实存在**的 skill 名。
+2. **删完自动把名字写进 `<仓库根>/.skillignore`**：否则本机残留的副本会在下次 `/push_skills` 时被当成「新增」重新传回仓库，删除等于白做。`--no-ignore` 可关掉这个行为（明确说「只删这次、以后还要用」时才用）。
+3. **自然语言必须先落到明确的名字上**：把用户的话映射到仓库中**确实存在**的 skill 名。
    - 明确点名 → 直接使用；
-   - 靠功能/关键词描述 → 用 README 的技能列表（名称 + 简介）匹配；
+   - 靠功能/关键词描述 → 用 README 的技能列表（名称 + 简介）匹配；被 `.skillignore` 拉黑的 skill 不会出现在 README 里；
    - 匹配到 0 个或匹配到多个 → **停下，把候选列给用户选**，绝不猜着删。
-3. **删完自动刷新 README**，用中文 Conventional Commits 提交并推送 `origin master`。
-4. **远端领先时先停下**：删除前会 `git fetch`，若远端有本地缺少的提交，就停止并让用户先 `/pull_skills`，避免造成分叉。
-5. **本机残留要如实告知**：
+4. **删完自动刷新 README**，用中文 Conventional Commits 提交并推送 `origin master`（`.skillignore` 的改动会一起提交）。
+5. **远端领先时先停下**：删除前会 `git fetch`，若远端有本地缺少的提交，就停止并让用户先 `/pull_skills`，避免造成分叉。
+6. **本机残留要如实告知**：
    - 本机对应位置若是**软链接/junction**（指向被删目录）→ 自动清理该链接，避免悬空；
-   - 本机对应位置若是**实体目录** → 默认保留，并明确警告：它仍会出现在本机 skill 列表里，且**下次 `/push_skills` 会把它重新带回仓库**；要一起删干净得加 `--also-local`。
-6. 删除是破坏性操作（远端也会同步删除），但历史仍可回滚。执行前用 `--dry-run` 展示将删除的清单。
+   - 本机对应位置若是**实体目录** → 默认保留。因为已写入 `.skillignore`，它**不会再被 push 带回仓库**，只会在本机 skill 列表里继续存在；想连本机一起删掉用 `--also-local`。
+7. 删除是破坏性操作（远端也会同步删除），但历史仍可回滚。执行前用 `--dry-run` 展示将删除的清单。
 
 ## 执行步骤
 
@@ -47,7 +48,7 @@ readlink -f '<skill 目录>'                            # 其父目录即仓库�
 先看仓库里有什么（名称 + 简介）：
 
 ```bash
-python3 <仓库根>/scripts/skill_sync.py status     # 列出仓库 skill 与状态
+python3 <仓库根>/scripts/skill_sync.py status     # 列出仓库 skill、状态与已忽略项
 # 或直接读 <仓库根>/README.md 的「技能列表」小节
 ```
 
@@ -71,20 +72,31 @@ python3 <仓库根>/scripts/skill_sync.py delete <skill1> <skill2>
 python3 <仓库根>/scripts/skill_sync.py delete <skill1> --also-local
 ```
 
+用户只想删这一次、以后还要重新上传（**不推荐**，会被 push 带回）：
+
+```bash
+python3 <仓库根>/scripts/skill_sync.py delete <skill1> --no-ignore
+```
+
 ### 5. 按退出码处理
 
 | 退出码 | 含义 | 你要做的 |
 |---|---|---|
-| 0 | 删除并推送成功（或 dry-run 完成） | 按汇报模板说明删了什么、本机残留如何 |
+| 0 | 删除并推送成功（或 dry-run 完成） | 按汇报模板说明删了什么、写入了哪些忽略项、本机残留如何 |
 | 1 | 错误（名字不存在、fetch/push 失败） | 原样转达，不要绕过；名字不存在时列出仓库现有 skill |
 | 2 | 已停止（分支不符 / 远端领先） | 让用户先 `/pull_skills` 或切回正确分支 |
 
 ### 6. 汇报模板
 
 - 从仓库删除：N 个（逐个名字）；
+- `.skillignore`：新增了哪些忽略项（这是"删除生效"的关键）；
 - README.md 是否已刷新；
-- 本机：清理了哪些链接、保留了哪些实体目录（以及「下次 push 会带回来」的警告）；
+- 本机：清理了哪些链接、保留了哪些实体目录（以及「已拉黑，不会再被 push 带回」）；
 - 提交：`<短 SHA> <提交标题>`；推送 `origin master` 成功或失败原因。
+
+### 7. 恢复被删的 skill
+
+从 `<仓库根>/.skillignore` 删掉对应行，然后在**仍有本机副本**的设备上执行 `/push_skills`，它就会被重新收入仓库。
 
 ## 参数速查
 
@@ -92,6 +104,7 @@ python3 <仓库根>/scripts/skill_sync.py delete <skill1> --also-local
 |---|---|
 | `--dry-run` | 只展示将删除的清单，不写入 |
 | `--also-local` | 同时删除本机对应目录（危险，需用户明确要求） |
+| `--no-ignore` | 不写入 `.skillignore`（下次 push 会把它带回来） |
 | `--no-readme` | 不刷新 README.md |
 | `--no-commit` / `--no-push` | 只删工作区 / 提交但不推送 |
 | `--allow-behind` | 远端领先时也继续（危险） |
@@ -105,7 +118,9 @@ python3 <仓库根>/scripts/skill_sync.py delete <skill1> --also-local
 ```bash
 git -C <仓库> fetch origin && git -C <仓库> rev-list --count HEAD..origin/master   # 非 0 → 先停下
 git -C <仓库> rm -r -- <skill>            # 删除并暂存
+printf '%s\n' <skill> >> <仓库>/.skillignore   # 写入忽略名单（关键：否则下次 push 会带回来）
 # 同步刷新 README 的技能列表，然后：
+git -C <仓库> add .skillignore README.md
 git -C <仓库> commit -m "chore(skills): 删除 skills（<skill>）"
 git -C <仓库> push origin master
 ```
@@ -114,4 +129,4 @@ git -C <仓库> push origin master
 
 - 不要删除 `scripts/`、`.git/` 或任何不含 `SKILL.md` 的内容。
 - 不要在用户只要求「从仓库删除」时顺手删掉本机实体目录。
-- 本机实体目录被保留是**特意**的设计：删掉别人的工作副本比你预期的影响更大，需要用户显式选择 `--also-local`。
+- 本机实体目录被保留是**特意**的设计：删掉别人的工作副本比你预期的影响更大，需要用户显式选择 `--also-local`；有了 `.skillignore`，保留本机副本也不会让删除失效。

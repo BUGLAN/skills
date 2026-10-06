@@ -1,6 +1,6 @@
 ---
 name: push-skills
-description: 把本机 skills 目录中的 skill 同步进 skills 仓库（新增与更新都自动纳入），自动刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「把本机 skills 同步/推送上去」「推送到 GitHub」或提到 `/push_skills`（skill 名为 `push-skills`）时。支持：(1) 只处理含 SKILL.md 的 skill 目录，本机其它内容不关心；(2) 本机独有 skill 默认作为「新增」同步，本机更新过的 skill 默认先用 fetch 校验远端没有领先，然后自动覆盖仓库版本；(3) 远端领先或 fetch 失败时停下提示，不冒进；(4) 中文 Conventional Commits 提交；(5) 推送失败时保留本地提交并如实汇报；(6) README 简介保持全中文——缺中文时由 agent 译好写进 scripts/readme-i18n.json，绝不修改 skill 自己的 description。
+description: 把本机 skills 目录中的 skill 同步进 skills 仓库（新增与更新都自动纳入），自动刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「把本机 skills 同步/推送上去」「推送到 GitHub」或提到 `/push_skills`（skill 名为 `push-skills`）时。支持：(1) 只处理含 SKILL.md 的 skill 目录，本机其它内容不关心；(2) 本机独有 skill 默认作为「新增」同步，本机更新过的 skill 默认先用 fetch 校验远端没有领先，然后自动覆盖仓库版本；(3) 远端领先或 fetch 失败时停下提示，不冒进；(4) 中文 Conventional Commits 提交；(5) 推送失败时保留本地提交并如实汇报；(6) README 简介保持全中文——缺中文时由 agent 译好写进 scripts/readme-i18n.json，绝不修改 skill 自己的 description；(7) 遵守 .skillignore 黑名单：名单内的 skill 不新增、不更新、不安装、不进 README，删除过的 skill 因此不会被重新上传。
 ---
 
 # /push_skills —— 本机 skills → 仓库 → 远端
@@ -36,9 +36,14 @@ description: 把本机 skills 目录中的 skill 同步进 skills 仓库（新�
    - 引擎会提示「在 README 里显示的还是英文简介」，**翻译这件事由你（agent）做，不要推给用户**：把简介译成中文写进映射表，最少一条 `{"zh": "中文简介"}`，然后重新 push。
    - 想同时获得「原文变了 → 中文简介可能过期」的检测，再补 `src` 字段：该 skill `SKILL.md` 原文 `description` 归一化（连续空白压成一个空格）后的 **sha1 前 12 位**；不填不影响使用。
    - **绝对不要为了让 README 变中文去改 `SKILL.md` 的 `description`**：那会让本机相对仓库永远处于「已更新」状态、反复产生无意义提交，还会偏离上游。映射表只是展示层，skill 本体保持原样。
-7. **仓库有、本机没有的 skill 一律不动**，绝不删除仓库内容（删除是 `/delete_skills` 的职责）。
-8. **提交信息用中文 Conventional Commits，提交后自动 push**（`origin master`）。不要改动 git 配置。
-9. 推送失败时本地提交不丢，如实汇报失败原因和建议的重试命令，**不要** force push。
+7. **`.skillignore` 黑名单：名单里的 skill 不新增、不更新、不安装、不进 README**：
+   - 它的用途是让「已经删掉的 skill」不会被本机残留副本在下次 push 时带回来；`/delete_skills` 会自动写入名单，用户手动增删忽略项也可以（push 会把 `.skillignore` 的改动一起提交）。
+   - 引擎会打印「按 .skillignore 跳过：…」，**这不是静默忽略**，要写进汇报。
+   - 若名单里某个 skill **仍存在于仓库中**（矛盾状态），引擎会警告但**不自动删除**：提示用户用 `/delete_skills <名字>` 清理，或从名单里删掉该行以恢复跟踪。
+   - 取消忽略后，本机那份会在下次 push 被正常收回仓库。
+8. **仓库有、本机没有的 skill 一律不动**，绝不删除仓库内容（删除是 `/delete_skills` 的职责）。
+9. **提交信息用中文 Conventional Commits，提交后自动 push**（`origin master`）。不要改动 git 配置。
+10. 推送失败时本地提交不丢，如实汇报失败原因和建议的重试命令，**不要** force push。
 
 ## 执行步骤
 
@@ -117,6 +122,7 @@ python3 -c "import hashlib,sys;print(hashlib.sha1(' '.join(sys.argv[1].split()).
 - 选中的本机目录 + 为什么选它（同附候选列表）；
 - 远端状态：fetch 是否成功、是否领先；
 - 新增 N 个 / 更新 N 个 / 一致 N 个 / 跳过 N 个；
+- 按 `.skillignore` 跳过 N 个（列出名字）；
 - README.md：已刷新 / 本来就是最新 / 按 `--no-readme` 跳过；
 - README 中文简介：全部中文 / 刚补了 N 条（列出名字）/ 有 M 条可能过期；
 - 提交：`<短 SHA> <提交标题>`；推送：`origin master` 成功或失败原因。
@@ -145,6 +151,8 @@ python3 <仓库根>/scripts/skill_sync.py readme --check  # 只检查（需更�
 ```
 
 README 的中文简介数据文件是 `<仓库根>/scripts/readme-i18n.json`：**由 agent 维护，用户不需要手改**；`description` 保持在 skill 里原样不动。
+
+忽略名单文件是 `<仓库根>/.skillignore`（每行一个 skill 目录名，`#` 开头为注释，不支持通配符）：名单里的 skill 不新增、不更新、不安装、不进 README；push 会把它的改动一起提交，所以用户手动增删忽略项也会被同步到其它设备。
 
 ## 手工兜底（没有 Python 时）
 

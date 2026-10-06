@@ -182,6 +182,50 @@ def _escape_cell(text: str) -> str:
     return text.replace("\\", "\\\\").replace("|", "\\|")
 
 
+IGNORE_FILE = ".skillignore"
+IGNORE_HEADER = """# .skillignore —— 不纳入本仓库的 skill 名单（push / pull / readme / status 都会忽略它们）
+# 每行一个 skill 目录名；# 开头为注释；空行忽略；不支持通配符。
+# 用 /delete_skills 删除 skill 时会自动写入这里，避免下次 push 又把它带回来。
+# 取消忽略：删掉对应行，然后在仍有本机副本的设备上 push 即可恢复。
+"""
+
+
+def ignore_file(repo: Path) -> Path:
+    return repo / IGNORE_FILE
+
+
+def load_ignore(repo: Path) -> set:
+    """读取 .skillignore 里的 skill 名（黑名单）。"""
+    path = ignore_file(repo)
+    if not path.exists():
+        return set()
+    names = set()
+    try:
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                names.add(line)
+    except OSError:
+        return set()
+    return names
+
+
+def save_ignore(repo: Path, names) -> bool:
+    """写回 .skillignore（排序 + 说明头部），返回是否真的发生变化。"""
+    path = ignore_file(repo)
+    body = IGNORE_HEADER + "".join("%s\n" % name for name in sorted(names))
+    old = path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
+    if _normalize(old) == _normalize(body):
+        return False
+    path.write_text(body, encoding="utf-8", newline="\n")
+    return True
+
+
+def ignored_present(repo: Path) -> list:
+    """矛盾状态：.skillignore 里写了、但仓库中确实还留着这些 skill。"""
+    return sorted(name for name in load_ignore(repo) if is_skill_dir(repo / name))
+
+
 # --------------------------------------------------------------------------- #
 # 收集与渲染
 # --------------------------------------------------------------------------- #
@@ -195,7 +239,8 @@ def is_skill_dir(path: Path) -> bool:
 
 
 def collect(repo: Path):
-    """返回按名称排序的 [(name, description, skill_dir)]。"""
+    """返回按名称排序的 [(name, description, skill_dir)]，已排除 .skillignore 拉黑的 skill。"""
+    ignored = load_ignore(repo)
     found = []
     try:
         entries = sorted(repo.iterdir(), key=lambda p: p.name.lower())
@@ -203,6 +248,8 @@ def collect(repo: Path):
         return found
     for entry in entries:
         if entry.name.startswith(".") or entry.name in SKIP_DIRS:
+            continue
+        if entry.name in ignored:
             continue
         if is_skill_dir(entry):
             found.append((entry.name, read_description(entry), entry))

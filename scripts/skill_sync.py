@@ -197,6 +197,12 @@ def has_skill_md(path: Path) -> bool:
         return False
 
 
+def repo_skills(repo: Path) -> dict:
+    """仓库里的 skill，已排除 .skillignore 拉黑的（黑名单 = 不纳入本仓库）。"""
+    blacklist = skill_readme.load_ignore(repo)
+    return {k: v for k, v in scan_skills(repo).items() if k not in blacklist}
+
+
 def scan_skills(root: Path) -> dict:
     """root 下所有“目录且含 SKILL.md”的条目 —— 即 skill。"""
     found = {}
@@ -506,17 +512,22 @@ def cmd_push(args) -> int:
         return report.finish(EXIT_ERROR, "错误：本机 skills 目录不存在：%s" % local_dir)
 
     local_skills = scan_skills(local_dir)
-    repo_skills = scan_skills(repo)
+    blacklist = skill_readme.load_ignore(repo)
+    repo_skill_map = repo_skills(repo)
+    ignored_in_repo = skill_readme.ignored_present(repo)
     if not local_skills:
         return report.finish(EXIT_OK, "本机 skills 目录里没有找到任何 skill（含 SKILL.md 的目录），无事可做。")
 
-    new_items, changed_items, same_items, ignored_items = [], [], [], []
+    new_items, changed_items, same_items, ignored_items, skipped_ignore = [], [], [], [], []
 
     for name in sorted(local_skills):
+        if name in blacklist:
+            skipped_ignore.append(name)
+            continue
         local_path = local_skills[name]
         repo_path = repo / name
 
-        if name not in repo_skills:
+        if name not in repo_skill_map:
             if args.only_tracked:
                 ignored_items.append((name, "本机独有（--only-tracked 已跳过）"))
             else:
@@ -553,9 +564,22 @@ def cmd_push(args) -> int:
         report.say("无需改动：%s" % "、".join(n for n, _ in same_items))
     if ignored_items:
         report.say("已跳过：%s" % "、".join("%s(%s)" % (n, m) for n, m in ignored_items))
-    repo_only = sorted(set(repo_skills) - set(local_skills))
+    if skipped_ignore:
+        report.say("按 .skillignore 跳过（本机有、仓库不跟踪）：%s" % "、".join(skipped_ignore))
+    repo_only = sorted(set(repo_skill_map) - set(local_skills))
     if repo_only:
         report.say("仓库有、本机没有（不改动、不删除）：%s" % "、".join(repo_only))
+
+    report.data["ignored_skipped"] = skipped_ignore
+    report.data["ignored_in_repo"] = ignored_in_repo
+    if ignored_in_repo:
+        report.say("")
+        report.say(
+            "警告：.skillignore 里的这些 skill 仍存在于仓库中（矛盾状态，本次未自动删除）：%s"
+            % "、".join(ignored_in_repo)
+        )
+        report.say("      要清理请运行 /delete_skills <名字>；要恢复跟踪就从 .skillignore 里删掉对应行。")
+        report.data["attention"].append("忽略名单与仓库内容矛盾：%s" % "、".join(ignored_in_repo))
 
     if changed_items:
         report.say("")
@@ -601,9 +625,15 @@ def cmd_push(args) -> int:
         )
 
     readme_stale = (not args.no_readme) and skill_readme.is_stale(repo)
+    # .skillignore 是仓库状态：用户手动增删忽略项后也要能被 push 提交
+    ignore_file = skill_readme.ignore_file(repo)
+    ignore_dirty = bool(
+        ignore_file.exists()
+        and git_ok(repo, "status", "--porcelain", "--", skill_readme.IGNORE_FILE).strip()
+    )
 
-    if not plan and not readme_stale:
-        return report.finish(EXIT_OK, "没有需要同步的变更（新增 0、更新 0、README 已最新）。")
+    if not plan and not readme_stale and not ignore_dirty:
+        return report.finish(EXIT_OK, "没有需要同步的变更（新增 0、更新 0、README 与 .skillignore 已最新）。")
 
     if args.dry_run:
         report.data["actions"] = [{"action": "copy", "name": n, "dry_run": True} for n in plan]
@@ -642,6 +672,12 @@ def cmd_push(args) -> int:
             staged_paths.append(str(repo / "README.md"))
             report.data["actions"].append({"action": "readme", "state": "updated"})
     report.data["readme_changed"] = readme_changed
+
+    if ignore_dirty:
+        report.say("  .skillignore 有改动，一并提交")
+        staged_paths.append(str(ignore_file))
+        report.data["actions"].append({"action": "ignore", "state": "updated"})
+    report.data["ignore_changed"] = ignore_dirty
 
     need_zh = skill_readme.needs_translation(repo)
     stale_zh = skill_readme.stale_translations(repo)
@@ -682,6 +718,8 @@ def cmd_push(args) -> int:
         subject = "chore(skills): 同步本机 skills 更新（%s）" % "、".join(updated)
         if len(subject) > 72:
             subject = "chore(skills): 同步本机 skills 更新（%d 个）" % len(updated)
+    elif ignore_dirty and not readme_changed:
+        subject = "chore(skills): 更新 .skillignore 忽略名单"
     else:
         subject = "docs(readme): 更新 skills 列表"
     body_lines = []
@@ -691,6 +729,8 @@ def cmd_push(args) -> int:
         body_lines.append("更新：%s" % "、".join(updated))
     if readme_changed:
         body_lines.append("文档：刷新 README.md 技能列表")
+    if ignore_dirty:
+        body_lines.append("忽略：更新 .skillignore")
     message = subject + "\n\n" + "\n".join(body_lines) + "\n" if body_lines else subject + "\n"
 
     import tempfile
@@ -805,7 +845,9 @@ def cmd_pull(args) -> int:
         report.say("当前 HEAD：%s" % head)
         report.data["actions"].append({"action": "pull", "head": head})
 
-    repo_skills = scan_skills(repo)
+    repo_skill_map = repo_skills(repo)
+    blacklist = skill_readme.load_ignore(repo)
+    ignored_in_repo = skill_readme.ignored_present(repo)
     local_dir, group, note, candidates = resolve_local_dir(args)
     report.data["local_dir"] = str(local_dir)
     report.data["local_group"] = group
@@ -818,7 +860,7 @@ def cmd_pull(args) -> int:
         report.say(table(rows, ["组", "状态", "skill 数", "路径"]))
         report.say("（同名目录同时存在时只取其一，优先级 dsh > claude > codex）")
 
-    if not repo_skills:
+    if not repo_skill_map:
         return report.finish(EXIT_OK, "仓库里没有找到任何 skill，无事可做。")
 
     def classify(name: str):
@@ -838,7 +880,7 @@ def cmd_pull(args) -> int:
         return "drift", local_path, repo_path, (linked, tree_diff(local_path, repo_path))
 
     states = {}
-    for name in sorted(repo_skills):
+    for name in sorted(repo_skill_map):
         states[name] = classify(name)
 
     report.section("本机状态")
@@ -853,10 +895,24 @@ def cmd_pull(args) -> int:
         rows.append((name, label))
     report.say(table(rows, ["skill", "状态"]))
 
-    local_only = sorted(set(scan_skills(local_dir)) - set(repo_skills))
+    all_local = set(scan_skills(local_dir))
+    blacklisted_local = sorted(all_local & blacklist)
+    local_only = sorted(all_local - set(repo_skill_map) - blacklist)
     if local_only:
         report.say("")
         report.say("本机有、仓库没有（一律不动）：%s" % "、".join(local_only))
+    if blacklisted_local:
+        report.say("")
+        report.say("按 .skillignore 忽略（不安装、不处理）：%s" % "、".join(blacklisted_local))
+    report.data["ignored_skipped"] = blacklisted_local
+    report.data["ignored_in_repo"] = ignored_in_repo
+    if ignored_in_repo:
+        report.say("")
+        report.say(
+            "警告：.skillignore 里的这些 skill 仍存在于仓库中（矛盾状态，本次未安装也未删除）：%s"
+            % "、".join(ignored_in_repo)
+        )
+        report.say("      要清理请运行 /delete_skills <名字>；要恢复跟踪就从 .skillignore 里删掉对应行。")
 
     to_install = [n for n, s in states.items() if s[0] == "missing"]
     drifted = [n for n, s in states.items() if s[0] == "drift"]
@@ -960,7 +1016,7 @@ def cmd_pull(args) -> int:
         )
 
     if not to_install and not overwritten:
-        return report.finish(EXIT_OK, "本机已是最新：仓库 %d 个 skill 全部就位，无需安装。" % len(repo_skills))
+        return report.finish(EXIT_OK, "本机已是最新：仓库 %d 个 skill 全部就位，无需安装。" % len(repo_skill_map))
 
     return report.finish(
         EXIT_OK,
@@ -1066,11 +1122,12 @@ def cmd_delete(args) -> int:
     if args.dry_run:
         return report.finish(
             EXIT_OK,
-            "dry-run：将从仓库删除 %d 个 skill（%s）并%s，未做任何写入。"
+            "dry-run：将从仓库删除 %d 个 skill（%s）并%s%s，未做任何写入。"
             % (
                 len(names),
                 "、".join(names),
                 "刷新 README.md" if not args.no_readme else "不刷新 README",
+                "" if args.no_ignore else "、写入 .skillignore",
             ),
         )
 
@@ -1094,11 +1151,26 @@ def cmd_delete(args) -> int:
             else:
                 kept_local.append(name)
 
+    # 写入忽略名单：否则本机残留的副本会在下次 push 时把它重新带回仓库
+    ignore_changed = False
+    ignore_all = set()
+    if not args.no_ignore:
+        ignore_all = skill_readme.load_ignore(repo) | set(names)
+        ignore_changed = skill_readme.save_ignore(repo, ignore_all)
+        if ignore_changed:
+            report.say("  已写入 .skillignore（共 %d 个）" % len(ignore_all))
+    report.data["ignore_changed"] = ignore_changed
+    report.data["ignored"] = sorted(ignore_all)
+
     if kept_local:
         report.say("")
         report.say("注意：本机实体目录仍保留：%s" % "、".join(kept_local))
-        report.say("      它们仍会出现在本机 skill 列表里，且下次 /push_skills 会把它们重新带回仓库；")
-        report.say("      要一起删干净，请加 --also-local 重跑，或手动删除本机目录。")
+        if args.no_ignore:
+            report.say("      按 --no-ignore 未写入忽略名单，下次 /push_skills 会把它们重新带回仓库；")
+            report.say("      要一起删干净，请加 --also-local 重跑，或手动删除本机目录。")
+        else:
+            report.say("      它们仍会出现在本机 skill 列表里，但已加入 .skillignore，不会再被 push 带回仓库。")
+            report.say("      想彻底删掉本机副本请加 --also-local 重跑。")
     report.data["actions"].extend({"action": "unlink-local", "name": n} for n in cleaned_links)
     report.data["actions"].extend({"action": "delete-local", "name": n} for n in removed_local)
     report.data["kept_local"] = kept_local
@@ -1112,6 +1184,8 @@ def cmd_delete(args) -> int:
     staged_paths = [str(repo / n) for n in names]
     if readme_changed:
         staged_paths.append(str(repo / "README.md"))
+    if ignore_changed:
+        staged_paths.append(str(skill_readme.ignore_file(repo)))
     git_ok(repo, "add", "-A", "--", *staged_paths)
     staged = [ln for ln in git_ok(repo, "diff", "--cached", "--name-only").splitlines() if ln.strip()]
     if not staged:
@@ -1127,6 +1201,8 @@ def cmd_delete(args) -> int:
     body_lines = ["删除：%s" % "、".join(names)]
     if readme_changed:
         body_lines.append("文档：刷新 README.md 技能列表")
+    if ignore_changed:
+        body_lines.append("忽略：加入 .skillignore（%s）" % "、".join(names))
     commit = _commit(repo, subject, body_lines)
     report.say("")
     report.say("已提交：%s（%s）" % (subject, commit))
@@ -1149,14 +1225,22 @@ def cmd_delete(args) -> int:
     report.data["actions"].append({"action": "push", "remote": remote, "branch": branch})
     extra = ""
     if kept_local:
-        extra = "（本机实体目录 %s 未删除，下次 push 会重新带回仓库）" % "、".join(kept_local)
+        if args.no_ignore:
+            extra = "（本机实体目录 %s 未删除且未拉黑，下次 push 会重新带回仓库）" % "、".join(kept_local)
+        else:
+            extra = "（本机实体目录 %s 未删除，已加入 .skillignore，不会被 push 带回）" % "、".join(kept_local)
+    steps = []
+    if readme_changed:
+        steps.append("刷新 README.md")
+    if ignore_changed:
+        steps.append("写入 .skillignore")
     return report.finish(
         EXIT_OK,
         "完成：仓库删除 %d 个 skill（%s）%s并已推送到 %s/%s，提交 %s。%s"
         % (
             len(names),
             "、".join(names),
-            "、刷新 README.md " if readme_changed else " ",
+            ("、" + "、".join(steps) + " ") if steps else " ",
             remote,
             branch,
             commit,
@@ -1252,14 +1336,16 @@ def cmd_status(args) -> int:
     rows = [(c["group"], "存在" if c["exists"] else "-", c["skills"], c["path"]) for c in candidates]
     report.say(table(rows, ["组", "状态", "skill 数", "路径"]))
 
-    repo_skills = scan_skills(repo)
+    repo_skill_map = repo_skills(repo)
+    raw_repo = scan_skills(repo)
+    blacklist = skill_readme.load_ignore(repo)
     local_skills = scan_skills(local_dir)
     report.say("")
-    report.say("仓库 skill：%d 个" % len(repo_skills))
+    report.say("仓库 skill：%d 个" % len(repo_skill_map))
     report.say("本机 skill：%d 个" % len(local_skills))
 
     missing, same, drift, linked = [], [], [], []
-    for name in sorted(repo_skills):
+    for name in sorted(repo_skill_map):
         local_path = local_dir / name
         if not local_path.exists() and not is_link_like(local_path):
             missing.append(name)
@@ -1272,19 +1358,33 @@ def cmd_status(args) -> int:
         else:
             drift.append(name)
 
-    local_only = sorted(set(local_skills) - set(repo_skills))
+    blacklisted_local = sorted(set(local_skills) & blacklist)
+    local_only = sorted(set(local_skills) - set(repo_skill_map) - blacklist)
+    ignored_in_repo = sorted(set(raw_repo) & blacklist)
     report.say("已有链接：%s" % ("、".join(linked) if linked else "无"))
     report.say("实体目录但一致：%s" % ("、".join(same) if same else "无"))
     report.say("未安装：%s" % ("、".join(missing) if missing else "无"))
     report.say("与仓库不一致：%s" % ("、".join(drift) if drift else "无"))
     report.say("本机独有（不处理）：%s" % ("、".join(local_only) if local_only else "无"))
+    report.say(
+        "已忽略（.skillignore，本机有 %d 个）：%s"
+        % (len(blacklisted_local), "、".join(blacklisted_local) if blacklisted_local else "无")
+    )
+    if ignored_in_repo:
+        report.say(
+            "警告：忽略名单里这些 skill 仍存在于仓库中（矛盾状态）：%s" % "、".join(ignored_in_repo)
+        )
+        report.data["attention"].append("忽略名单与仓库内容矛盾：%s" % "、".join(ignored_in_repo))
 
+    report.data["ignored_skipped"] = blacklisted_local
+    report.data["ignored_in_repo"] = ignored_in_repo
     report.data["items"] = (
         [{"name": n, "state": "linked"} for n in linked]
         + [{"name": n, "state": "same"} for n in same]
         + [{"name": n, "state": "missing"} for n in missing]
         + [{"name": n, "state": "drift"} for n in drift]
         + [{"name": n, "state": "local-only"} for n in local_only]
+        + [{"name": n, "state": "ignored"} for n in blacklisted_local]
     )
     return report.finish(EXIT_OK, "只读诊断完成，未做任何修改。")
 
@@ -1342,6 +1442,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_delete.add_argument("names", nargs="+", help="要删除的 skill 目录名（可多个）")
     p_delete.add_argument(
         "--also-local", action="store_true", help="同时删除本机 skills 目录里的对应内容（危险）"
+    )
+    p_delete.add_argument(
+        "--no-ignore",
+        action="store_true",
+        help="只删仓库、不写入 .skillignore（默认会写入，防止下次 push 又被带回来）",
     )
     p_delete.add_argument("--no-readme", action="store_true", help="不刷新 README.md")
     p_delete.add_argument("--allow-behind", action="store_true", help="远端领先时也继续（危险）")

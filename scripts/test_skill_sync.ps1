@@ -296,7 +296,8 @@ $r = Run-Engine @('delete', '--repo', $repoC, '--dir', $homeF, 'zeta')
 Check 'T18 删除本机为实体目录的 skill: exit=0' ($r.code -eq 0)
 Check 'T18 仓库 zeta 已删' (-not (Test-Path (Join-Path $repoC 'zeta')))
 Check 'T18 本机实体目录保留' (Test-Path (Join-Path $homeF 'zeta\SKILL.md'))
-Check 'T18 输出警告会被 push 带回' ($r.out -match '重新带回仓库')
+Check 'T18 已自动写入 .skillignore' ((Read-Utf8 (Join-Path $repoC '.skillignore')) -match '(?m)^zeta$')
+Check 'T18 提示已拉黑不会再被带回' ($r.out -match '不会再被 push 带回')
 Check 'T18 README 已移除 zeta' (-not ((Read-Utf8 $readmePath) -match '\[zeta\]'))
 
 $headBefore = (& git -C $repoC rev-parse HEAD).Trim()
@@ -325,6 +326,60 @@ Check 'T19 刷新 exit=0' ($r.code -eq 0)
 $after = Read-Utf8 $readmePath
 Check 'T19 表格已修复(alpha 回来)' ($after -match '\[alpha\]')
 Check 'T19 手写内容仍在' ($after -match 'hand-written note 12345')
+
+Write-Host "`n=== T20: .skillignore —— 删除后不再被 push 复活 ===" -ForegroundColor Cyan
+$repoE = Join-Path $W 'repoE'
+& git clone -q $bare $repoE | Out-Null
+& git -C $repoE config user.email 'test@example.com'
+& git -C $repoE config user.name 'test'
+$homeG = Join-Path $W 'homeG\.agents\skills'
+New-Skill (Join-Path $homeG 'iota') 'iota body'
+$r = Run-Engine @('push', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 先正常入库 iota' ($r.code -eq 0)
+Check 'T20 远端已有 iota' ((Bare-Files $bare) -match 'iota/SKILL.md')
+
+$r = Run-Engine @('delete', '--repo', $repoE, '--dir', $homeG, 'iota')
+$ignPath = Join-Path $repoE '.skillignore'
+Check 'T20 delete exit=0' ($r.code -eq 0)
+Check 'T20 仓库已无 iota' (-not (Test-Path (Join-Path $repoE 'iota')))
+Check 'T20 .skillignore 已写入 iota' ((Read-Utf8 $ignPath) -match '(?m)^iota$')
+Check 'T20 本机实体目录保留' (Test-Path (Join-Path $homeG 'iota\SKILL.md'))
+Check 'T20 README 已无 iota' (-not ((Read-Utf8 (Join-Path $repoE 'README.md')) -match '\[iota\]'))
+
+$r = Run-Engine @('push', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 push exit=0' ($r.code -eq 0)
+Check 'T20 push 报出按 .skillignore 跳过' ($r.out -match '按 .skillignore 跳过')
+Check 'T20 iota 未复活' ((Bare-Files $bare) -notmatch 'iota/SKILL.md')
+
+Add-Content (Join-Path $homeG 'iota\SKILL.md') "`niota v2"
+$r = Run-Engine @('push', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 本机改过也不会被同步' ((Bare-Files $bare) -notmatch 'iota/SKILL.md')
+
+$r = Run-Engine @('status', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 status 列出已忽略' ($r.out -match '已忽略')
+
+Write-Utf8 $ignPath ((Read-Utf8 $ignPath) -replace '(?m)^iota\r?\n', '')
+$r = Run-Engine @('push', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 取消忽略后 push exit=0' ($r.code -eq 0)
+Check 'T20 取消忽略后 iota 恢复入库' ((Bare-Files $bare) -match 'iota/SKILL.md')
+
+$r = Run-Engine @('delete', '--repo', $repoE, '--dir', $homeG, 'iota', '--no-ignore')
+Check 'T20 --no-ignore: exit=0' ($r.code -eq 0)
+Check 'T20 --no-ignore 不写名单' (-not ((Read-Utf8 $ignPath) -match '(?m)^iota$'))
+Check 'T20 --no-ignore 提示会被带回' ($r.out -match '重新带回仓库')
+$r = Run-Engine @('push', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 --no-ignore 后 push 确实复活' ((Bare-Files $bare) -match 'iota/SKILL.md')
+
+Add-Content -Path $ignPath -Value 'iota' -Encoding utf8
+$r = Run-Engine @('push', '--repo', $repoE, '--dir', $homeG)
+Check 'T20 矛盾状态被报告' ($r.out -match '仍存在于仓库中')
+Check 'T20 矛盾状态不自动删仓库' (Test-Path (Join-Path $repoE 'iota'))
+Check 'T20 矛盾状态不阻塞(exit=0)' ($r.code -eq 0)
+$homeH = Join-Path $W 'homeH\.agents\skills'
+$r = Run-Engine @('pull', '--repo', $repoE, '--dir', $homeH)
+Check 'T20 pull exit=0' ($r.code -eq 0)
+Check 'T20 pull 不安装被忽略的 skill' (-not (Test-Path (Join-Path $homeH 'iota')))
+Check 'T20 pull 报出矛盾状态' ($r.out -match '仍存在于仓库中')
 
 Write-Host ""
 Write-Host ("RESULT: pass={0} fail={1}" -f $script:pass, $script:fail) -ForegroundColor Yellow

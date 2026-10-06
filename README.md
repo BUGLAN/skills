@@ -38,7 +38,7 @@ python3 scripts/skill_sync.py readme    # 按仓库当前内容重新生成技�
 | [commit_and_push](commit_and_push/) | 按 Conventional Commits 规范分析当前 git 变更、智能暂存文件、生成中文提交信息、执行提交并推送当前分支。用于用户要求“用中文提交并 push”、提到 `/commit_and_push`、或要求沿用 git-commit 逻辑但最终自动推送时。支持：(1) 根据 diff 自动判断 type 和 scope，(2) 按逻辑分组暂存文件，(3) 生成中文提交信息，(4) 安全推送当前分支，(5) 在提交失败时根据 hook 或报错修正后重新创建新提交。 |
 | [commit_with_chinese](commit_with_chinese/) | 按 Conventional Commits 规范分析当前 git 变更、智能暂存文件、生成中文提交信息并执行提交。用于用户要求“用中文提交”、提到 `/commit_with_chinese`、要求沿用 git-commit 逻辑但把提交信息改成中文时。支持：(1) 根据 diff 自动判断 type 和 scope，(2) 按逻辑分组暂存文件，(3) 生成中文标题、正文和 footer，(4) 在提交失败时根据 hook 或报错修正后重新创建新提交。 |
 | [create-readme](create-readme/) | 为当前项目创建 README.md 文件。 |
-| [delete_skills](delete_skills/) | 按自然语言指令从 skills 仓库中删除一个或多个 skill，提交并推送到远端（默认 origin master），同时刷新 README.md 技能列表。用于用户要求「删除/移除某个 skill」「把 X 从 skills 仓库删掉」「skills 里不要 X 了」或提到 `/delete_skills`（skill 名为 `delete-skills`）时。 |
+| [delete_skills](delete_skills/) | 按自然语言指令从 skills 仓库中删除一个或多个 skill，自动写入 .skillignore 忽略名单（防止下次 push 又把它带回来），刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「删除/移除某个 skill」「把 X 从 skills 仓库删掉」「skills 里不要 X 了」或提到 `/delete_skills`（skill 名为 `delete-skills`）时。 |
 | [design-an-interface](design-an-interface/) | 用并行子 agent 为同一个模块产出多个截然不同的接口设计。适用于用户想设计 API、探索接口方案、比较模块形态，或提到「设计两次」时。 |
 | [design-md](design-md/) | 分析 Stitch 项目，并把语义化设计系统沉淀成 DESIGN.md 文件。 |
 | [design-system](design-system/) | 设计令牌架构、组件规范与幻灯片生成。三层令牌（原始→语义→组件）、CSS 变量、间距与字号比例、组件规范、策略型幻灯片制作。适用于设计令牌、系统化设计、符合品牌规范的演示文稿。 |
@@ -68,7 +68,7 @@ python3 scripts/skill_sync.py readme    # 按仓库当前内容重新生成技�
 | [product-brainstorming](product-brainstorming/) | 作为思考搭档一起头脑风暴产品想法、探索问题空间并挑战既有假设。适用于探索新机会、为产品问题生成方案、压力测试某个想法，或产品经理需要在收敛方向前把想法说出口时。 |
 | [prototype](prototype/) | 做一个用完即弃的原型来回答设计问题。适用于用户想验证某个状态模型或逻辑是否顺手，或想看看界面应该长什么样时。 |
 | [pull_skills](pull_skills/) | 从远端拉取 skills 仓库最新内容，并把本机缺失的 skill 安装到本机 skills 目录（优先软链接，用户要求或系统不支持时才复制）。用于用户要求「拉取/同步 skills 到本机」「在新设备上装好 skills」或提到 `/pull_skills`（skill 名为 `pull-skills`）时。默认 origin master；仓库工作区有未提交改动时立即停止并告知用户，不做任何覆盖；本机有、仓库没有的 skill 一律不动。 |
-| [push_skills](push_skills/) | 把本机 skills 目录中的 skill 同步进 skills 仓库（新增与更新都自动纳入），自动刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「把本机 skills 同步/推送上去」「推送到 GitHub」或提到 `/push_skills`（skill 名为 `push-skills`）时。支持：(1) 只处理含 SKILL.md 的 skill 目录，本机其它内容不关心；(2) 本机独有 skill 默认作为「新增」同步，本机更新过的 skill 默认先用 fetch 校验远端没有领先，然后自动覆盖仓库版本；(3) 远端领先或 fetch 失败时停下提示，不冒进；(4) 中文 Conventional Commits 提交；(5) 推送失败时保留本地提交并如实汇报；(6) README 简介保持全中文——缺中文时由 agent 译好写进 scripts/readme-i18n.json，绝不修改 skill 自己的 description。 |
+| [push_skills](push_skills/) | 把本机 skills 目录中的 skill 同步进 skills 仓库（新增与更新都自动纳入），自动刷新 README.md 技能列表，提交并推送到远端（默认 origin master）。用于用户要求「把本机 skills 同步/推送上去」「推送到 GitHub」或提到 `/push_skills`（skill 名为 `push-skills`）时。支持：(1) 只处理含 SKILL.md 的 skill 目录，本机其它内容不关心；(2) 本机独有 skill 默认作为「新增」同步，本机更新过的 skill 默认先用 fetch 校验远端没有领先，然后自动覆盖仓库版本；(3) 远端领先或 fetch 失败时停下提示，不冒进；(4) 中文 Conventional Commits 提交；(5) 推送失败时保留本地提交并如实汇报；(6) README 简介保持全中文——缺中文时由 agent 译好写进 scripts/readme-i18n.json，绝不修改 skill 自己的 description；(7) 遵守 .skillignore 黑名单：名单内的 skill 不新增、不更新、不安装、不进 README，删除过的 skill 因此不会被重新上传。 |
 | [redesign-existing-projects](redesign-existing-projects/) | 把现有网站与应用升级到高级品质：审计当前设计、识别常见的 AI 套路，并在不破坏功能的前提下套用高端设计标准。适用于任何 CSS 框架或原生 CSS。 |
 | [research](research/) | 针对一个问题，以高可信度的第一手来源做调研，并把结论整理成 Markdown 文件存进仓库。适用于用户想调研某个主题、收集文档或 API 事实，或把查资料的体力活交给后台 agent 时。 |
 | [review-animations](review-animations/) | 以源自 Emil Kowalski 设计工程理念的高标准评审动画与动效代码。默认倾向指出问题，通过评审才算合格。 |
