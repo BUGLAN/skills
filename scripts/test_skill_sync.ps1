@@ -184,6 +184,20 @@ $r = Run-Engine @('push', '--repo', $repoA, '--dir', $homeA)
 Check 'T13 分支不符 exit=2' ($r.code -eq 2)
 & git -C $repoA checkout -q master
 
+Write-Host "`n=== T14: pull --dry-run 不触碰仓库/远端 ===" -ForegroundColor Cyan
+Add-Content (Join-Path $homeA 'gamma\SKILL.md') "`ngamma v2"
+$r = Run-Engine @('push', '--repo', $repoA, '--dir', $homeA, '--on-conflict=overwrite')
+Check 'T14 先在 repoA 产生一个新提交并推送' ($r.code -eq 0)
+$headBefore = (& git -C $repoB rev-parse HEAD).Trim()
+$originBefore = (& git -C $repoB rev-parse origin/master).Trim()
+Check 'T14 前提：远端领先于 repoB' ($headBefore -ne (& git -C $bare rev-parse master).Trim())
+$r = Run-Engine @('pull', '--repo', $repoB, '--dir', $skillsB, '--dry-run')
+Check 'T14 exit=0' ($r.code -eq 0)
+Check 'T14 未改动 repoB HEAD' ((& git -C $repoB rev-parse HEAD).Trim() -eq $headBefore)
+Check 'T14 未 fetch 远端 (origin/master 未前移)' ((& git -C $repoB rev-parse origin/master).Trim() -eq $originBefore)
+Check 'T14 输出说明不访问远端' ($r.out -match '不访问远端')
+Check 'T14 未安装/未改动本机链接' ((Get-Item (Join-Path $skillsB 'gamma')).Target -notmatch 'v2')
+
 Write-Host ""
 Write-Host ("RESULT: pass={0} fail={1}" -f $script:pass, $script:fail) -ForegroundColor Yellow
 if ($script:fail -gt 0) { exit 1 } else { exit 0 }

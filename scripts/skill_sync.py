@@ -672,8 +672,11 @@ def cmd_pull(args) -> int:
             "请先用 /push_skills 提交推送，或先 git stash / 手动处理，然后重试。" % len(dirty),
         )
 
-    if args.no_pull:
-        report.say("按 --no-pull：跳过 fetch/pull，只用当前仓库内容同步本机。")
+    if args.no_pull or args.dry_run:
+        if args.dry_run:
+            report.say("dry-run：不访问远端、不执行 pull、不写入，仅按当前仓库内容给出安装计划。")
+        else:
+            report.say("按 --no-pull：跳过 fetch/pull，只用当前仓库内容同步本机。")
     else:
         code, out, err = git(repo, "fetch", remote)
         if code != 0:
