@@ -229,8 +229,8 @@ Check 'T15 收录 zeta 与 eta' (($readme -match '\[zeta\]') -and ($readme -matc
 Check 'T15 表格里的竖线被转义' ($readme -match 'a\\\|b')
 Check 'T15 长简介不截断(尾部标记可见)' ($readme -match '结尾专属标记XYZ')
 Check 'T15 长简介完整保留' ($readme -match [regex]::Escape($longDesc))
-Check 'T15 提示非中文简介' ($r.out -match 'description 不含中文')
-Check 'T15 非中文简介点名为 zeta' ($r.out -match '显示：.*zeta')
+Check 'T15 提示英文简介' ($r.out -match '显示的还是英文简介')
+Check 'T15 点名哪些 skill 需要补中文简介' ($r.out -match '补中文：.*zeta')
 Check 'T15 提交里包含 README.md' ((& git -C $repoC show --name-only --pretty=format: HEAD) -match 'README.md')
 Check 'T15 远端已有 README' ((& git -C $bare show 'master:README.md') -match '\[zeta\]')
 
@@ -238,6 +238,22 @@ Write-Host "`n=== T15b: README 幂等(无变更时不提交) ===" -ForegroundCol
 $r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
 Check 'T15b exit=0' ($r.code -eq 0)
 Check 'T15b 报告无变更' ($r.out -match '没有需要同步的变更')
+
+Write-Host "`n=== T15c: readme-i18n.json 提供中文简介(不动 SKILL.md) ===" -ForegroundColor Cyan
+$i18nDir = Join-Path $repoC 'scripts'
+New-Item -ItemType Directory -Force -Path $i18nDir | Out-Null
+Set-Content -Path (Join-Path $i18nDir 'readme-i18n.json') -Value '{"zeta": {"zh": "泽塔：映射表里的中文简介", "src": "deadbeef0000"}}' -Encoding utf8
+$r = Run-Engine @('readme', '--repo', $repoC)
+Check 'T15c readme 刷新成功' ($r.code -eq 0)
+$readme = Read-Utf8 $readmePath
+Check 'T15c README 用映射表的中文简介' ($readme -match '泽塔：映射表里的中文简介')
+Check 'T15c 原文变过则提示中文简介可能过期' ($r.out -match '可能过期')
+Check 'T15c zeta 不再出现在待补中文列表' (-not ($r.out -match '补进映射表：.*zeta'))
+Check 'T15c SKILL.md 原文未被动过' ((Read-Utf8 (Join-Path $homeF 'zeta\SKILL.md')) -match 'description: test skill')
+& git -C $repoC add -A | Out-Null
+& git -C $repoC commit -q -m 'chore: 添加中文简介映射表(测试)' | Out-Null
+& git -C $repoC push -q origin master | Out-Null
+Check 'T15c 测试仓库回到干净且与远端同步' ((& git -C $repoC status --porcelain).Length -eq 0)
 
 Write-Host "`n=== T16: 本机更新过的 skill 自动覆盖并上传(auto) ===" -ForegroundColor Cyan
 Add-Content (Join-Path $homeF 'zeta\SKILL.md') "`nzeta v2"

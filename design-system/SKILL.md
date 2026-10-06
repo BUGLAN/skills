@@ -1,6 +1,6 @@
 ---
 name: design-system
-description: 设计令牌架构、组件规范与幻灯片生成。三层令牌（原始→语义→组件）、CSS 变量、间距与字号比例、组件规范、策略型幻灯片制作。适用于设计令牌、系统化设计、符合品牌规范的演示文稿。
+description: Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.
 argument-hint: "[component or token]"
 license: MIT
 metadata:

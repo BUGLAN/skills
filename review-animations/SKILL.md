@@ -1,6 +1,6 @@
 ---
 name: review-animations
-description: 以源自 Emil Kowalski 设计工程理念的高标准评审动画与动效代码。默认倾向指出问题，通过评审才算合格。
+description: Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.
 disable-model-invocation: true
 ---
 

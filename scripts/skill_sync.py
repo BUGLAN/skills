@@ -643,13 +643,21 @@ def cmd_push(args) -> int:
             report.data["actions"].append({"action": "readme", "state": "updated"})
     report.data["readme_changed"] = readme_changed
 
-    bad_desc = skill_readme.non_chinese(repo)
-    report.data["non_chinese"] = bad_desc
-    if bad_desc:
+    need_zh = skill_readme.needs_translation(repo)
+    stale_zh = skill_readme.stale_translations(repo)
+    report.data["needs_translation"] = need_zh
+    report.data["stale_translations"] = stale_zh
+    if need_zh:
         report.say("")
         report.say(
-            "注意：以下 skill 的 description 不含中文，README 会照原样显示：%s（建议改成中文简介）"
-            % "、".join(bad_desc)
+            "注意：以下 skill 在 README 里显示的还是英文简介，可在 scripts/readme-i18n.json 补中文：%s"
+            % "、".join(need_zh)
+        )
+    if stale_zh:
+        report.say("")
+        report.say(
+            "注意：以下 skill 的 SKILL.md 原文 description 已变化，中文简介可能过期，请核对 "
+            "scripts/readme-i18n.json：%s" % "、".join(stale_zh)
         )
 
     if args.no_commit:
@@ -1167,15 +1175,30 @@ def cmd_readme(args) -> int:
 
     skills = skill_readme.collect(repo)
     changed, text = skill_readme.compose(repo)
-    bad = skill_readme.non_chinese(repo)
+    need_zh = skill_readme.needs_translation(repo)
+    stale_zh = skill_readme.stale_translations(repo)
     report.data["items"] = [
-        {"name": n, "description": skill_readme.flatten(d)} for n, d, _ in skills
+        {
+            "name": n,
+            "description": skill_readme.shown_desc(repo, n, d),
+            "source_description": skill_readme.flatten(d),
+        }
+        for n, d, _ in skills
     ]
-    report.data["non_chinese"] = bad
+    report.data["needs_translation"] = need_zh
+    report.data["stale_translations"] = stale_zh
+    report.data["i18n_file"] = str(skill_readme.i18n_file(repo))
     report.say("仓库：%s" % repo)
     report.say("技能数：%d" % len(skills))
-    if bad:
-        report.say("注意：以下 skill 的 description 不含中文，建议补成中文简介：%s" % "、".join(bad))
+    report.say("中文简介映射表：%s" % skill_readme.i18n_file(repo))
+    if need_zh:
+        report.say(
+            "注意：以下 skill 在 README 里显示的还是英文简介，可补进映射表：%s" % "、".join(need_zh)
+        )
+    if stale_zh:
+        report.say(
+            "注意：以下 skill 的原文 description 已变化，中文简介可能过期：%s" % "、".join(stale_zh)
+        )
 
     if args.check:
         if changed:

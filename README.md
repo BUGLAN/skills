@@ -25,7 +25,7 @@ python3 scripts/skill_sync.py readme    # 按仓库当前内容重新生成技�
 
 <!-- SKILLS:START -->
 
-共 47 个 skill，按名称排序。
+共 47 个 skill，按名称排序。简介优先取 `scripts/readme-i18n.json` 的中文简介，未收录时用 `SKILL.md` 原文。
 
 | skill | 简介 |
 | --- | --- |

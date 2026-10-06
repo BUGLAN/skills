@@ -1,6 +1,6 @@
 ---
 name: design-md
-description: 分析 Stitch 项目，并把语义化设计系统沉淀成 DESIGN.md 文件。
+description: Analyze Stitch projects and synthesize a semantic design system into DESIGN.md files
 allowed-tools:
   - "stitch*:*"
   - "Read"

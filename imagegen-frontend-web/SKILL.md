@@ -1,6 +1,6 @@
 ---
 name: imagegen-frontend-web
-description: 顶级的前端图像方向 skill：生成高级、面向转化的网站设计参考图。关键输出规则——每一个分区生成一张独立的横向图；8 个分区的落地页就产出 8 张图；绝不把多个分区压缩进一张图。强制构图多样（不总是左文右图）、背景图自由、CTA 有变化、首屏尺度有变化（巨型、中型、极简小型）、有叙事概念主线、有值得再看一眼的细节，并且所有图片共用一套一致配色。针对落地页、营销站与产品稿优化，便于开发者或编码模型准确还原。
+description: Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.
 ---
 
 # HARD OUTPUT RULE — READ FIRST

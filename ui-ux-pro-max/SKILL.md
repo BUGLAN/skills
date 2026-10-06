@@ -1,6 +1,6 @@
 ---
 name: ui-ux-pro-max
-description: 面向 Web、移动端与桌面端的 UI/UX 设计智能。适用于设计、构建、评审或修复界面，涵盖页面、组件、设计系统、无障碍、交互、响应式布局、排印、配色、图表，以及具体技术栈的 UI 实现。可检索的本地数据：79 套风格（50 套启用）、192 个产品配色与推理画像、74 组字体搭配、119 条 UX 规范、105 个图标、17 个 GSAP 预设、25 种图表类型、22 个技术栈。
+description: "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks."
 ---
 
 # UI/UX Pro Max - Design Intelligence

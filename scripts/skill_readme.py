@@ -4,13 +4,16 @@
 
 规则：
   * 技能表放在 `<!-- SKILLS:START -->` 与 `<!-- SKILLS:END -->` 之间，标记之外的手写内容永远保留。
-  * 简介取自每个 `<skill>/SKILL.md` frontmatter 的 `description`，**完整展示、不做截断**。
+  * 简介优先取 `scripts/readme-i18n.json` 里的中文简介（不影响 SKILL.md 原文），未收录时回落到
+    SKILL.md frontmatter 的 `description`；**完整展示、不做截断**。
   * 输出按 skill 名称排序，保证幂等（内容没变就不算变更）。
-  * `non_chinese()` 列出简介不含中文的 skill，便于保持全中文简介。
+  * `needs_translation()` / `stale_translations()` 提示哪些 skill 还缺中文简介或中文简介已过期。
 """
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -18,6 +21,8 @@ from pathlib import Path
 START_MARK = "<!-- SKILLS:START -->"
 END_MARK = "<!-- SKILLS:END -->"
 DEFAULT_URL = "https://github.com/BUGLAN/skills.git"
+I18N_REL = ("scripts", "readme-i18n.json")
+DESC_NOTE = "简介优先取 `scripts/readme-i18n.json` 的中文简介，未收录时用 `SKILL.md` 原文。"
 CJK_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
 
 SKIP_DIRS = {".git", ".github", "scripts", "node_modules", "__pycache__", ".idea", ".vscode"}
@@ -115,9 +120,62 @@ def has_chinese(text: str) -> bool:
     return bool(CJK_RE.search(text))
 
 
-def non_chinese(repo: Path):
-    """返回简介不含中文的 skill 名列表（用于提醒补中文简介）。"""
-    return [name for name, desc, _ in collect(repo) if not has_chinese(desc)]
+def desc_hash(text: str) -> str:
+    return hashlib.sha1(flatten(text).encode("utf-8")).hexdigest()[:12]
+
+
+def i18n_file(repo: Path) -> Path:
+    return repo.joinpath(*I18N_REL)
+
+
+def load_i18n(repo: Path) -> dict:
+    """读取中文简介映射表：{skill 名: {"zh": "...", "src": "<原文 description 的 sha1 前 12 位>"}}。"""
+    path = i18n_file(repo)
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return {
+        key: value
+        for key, value in data.items()
+        if not key.startswith("_") and isinstance(value, dict) and isinstance(value.get("zh"), str)
+    }
+
+
+def shown_desc(repo: Path, name: str, raw: str, table: dict | None = None) -> str:
+    """README 里实际展示的简介：优先映射表的中文，其次 SKILL.md 原文。"""
+    if table is None:
+        table = load_i18n(repo)
+    entry = table.get(name)
+    if entry and entry.get("zh"):
+        return flatten(entry["zh"])
+    return flatten(raw)
+
+
+def needs_translation(repo: Path) -> list:
+    """README 里显示出来仍不是中文的 skill。"""
+    table = load_i18n(repo)
+    return [
+        name for name, raw, _ in collect(repo) if not has_chinese(shown_desc(repo, name, raw, table))
+    ]
+
+
+def stale_translations(repo: Path) -> list:
+    """映射表里的 src 与 SKILL.md 原文不一致 —— 原文变了，中文简介可能已过期。"""
+    table = load_i18n(repo)
+    stale = []
+    for name, raw, _ in collect(repo):
+        entry = table.get(name)
+        if not entry:
+            continue
+        src = entry.get("src")
+        if src and src != desc_hash(raw):
+            stale.append(name)
+    return stale
 
 
 def _escape_cell(text: str) -> str:
@@ -153,16 +211,18 @@ def collect(repo: Path):
 
 def render_section(repo: Path) -> str:
     skills = collect(repo)
+    table = load_i18n(repo)
     lines = [START_MARK, ""]
     if not skills:
         lines.append("（仓库里还没有 skill）")
     else:
-        lines.append("共 %d 个 skill，按名称排序。" % len(skills))
+        lines.append("共 %d 个 skill，按名称排序。%s" % (len(skills), DESC_NOTE))
         lines.append("")
         lines.append("| skill | 简介 |")
         lines.append("| --- | --- |")
-        for name, desc, _ in skills:
-            cell = _escape_cell(flatten(desc)) if desc else "（SKILL.md 未写 description）"
+        for name, raw, _ in skills:
+            text = shown_desc(repo, name, raw, table)
+            cell = _escape_cell(text) if text else "（SKILL.md 未写 description）"
             lines.append("| [%s](%s/) | %s |" % (name, name, cell))
     lines.append("")
     lines.append(END_MARK)
