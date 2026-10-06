@@ -11,7 +11,7 @@ description: 从远端拉取 skills 仓库最新内容，并把本机缺失的 s
 - 用户输入 `/pull_skills`。
 - 需要补齐本机缺失的 skill。
 
-反方向（本机 → 仓库 → 远端）用 `/push_skills`。
+反方向（本机 → 仓库 → 远端）用 `/push_skills`；要从仓库里删 skill 用 `/delete_skills`。
 
 ## 前置条件
 
@@ -135,5 +135,7 @@ ln -s "<仓库>/<skill>" "<本机目录>/<skill>"        # macOS / Linux
 ## 注意事项
 
 - 永远不要为了「对齐仓库」而删除本机独有 skill，也不要删除本机未被仓库跟踪的内容。
+- README.md 由 `/push_skills` 与 `/delete_skills` 自动维护；`git pull` 之后它已是最新，需要校验时用
+  `python3 <仓库根>/scripts/skill_sync.py readme --check`。
 - 软链接失败是**预期内的跨平台差异**，处理方式是明确报错 + 询问用户是否改用 `--copy`，不是静默复制。
 - 本机目录若原本是指向别处（例如 `~/.claude/skills` 里的 junction 指向 `~/.agents/skills`）且内容与仓库一致，引擎视为「已就位」，不会改写链接。

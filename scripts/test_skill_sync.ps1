@@ -34,6 +34,14 @@ function Bare-Files([string]$bare) {
   return (& git -C $bare ls-tree -r --name-only master) -join "`n"
 }
 
+function Read-Utf8([string]$path) {
+  return [System.IO.File]::ReadAllText($path, (New-Object System.Text.UTF8Encoding($false)))
+}
+
+function Write-Utf8([string]$path, [string]$text) {
+  [System.IO.File]::WriteAllText($path, $text, (New-Object System.Text.UTF8Encoding($false)))
+}
+
 # ---------------------------------------------------------------- setup
 if (Test-Path $W) { Remove-Item -Recurse -Force $W }
 New-Item -ItemType Directory -Force -Path $W | Out-Null
@@ -61,8 +69,8 @@ New-Item -ItemType Directory -Force -Path (Join-Path $homeA 'notaskill') | Out-N
 Set-Content (Join-Path $homeA 'notaskill\readme.txt') 'not a skill' -Encoding utf8
 Set-Content (Join-Path $homeA 'loose.txt') 'loose file' -Encoding utf8
 
-Write-Host "`n=== T1: push 遇到同名不同 -> 停止提示 (dry-run) ===" -ForegroundColor Cyan
-$r = Run-Engine @('push', '--repo', $repoA, '--dir', $homeA, '--dry-run')
+Write-Host "`n=== T1: push --on-conflict=ask 遇到同名不同 -> 停止提示 (dry-run) ===" -ForegroundColor Cyan
+$r = Run-Engine @('push', '--repo', $repoA, '--dir', $homeA, '--on-conflict=ask', '--dry-run')
 Check 'T1 exit=2 (blocked)' ($r.code -eq 2)
 Check 'T1 列出 alpha 变化' ($r.out -match 'alpha')
 Check 'T1 列出 beta 新增' ($r.out -match 'beta')
@@ -197,6 +205,103 @@ Check 'T14 未改动 repoB HEAD' ((& git -C $repoB rev-parse HEAD).Trim() -eq $h
 Check 'T14 未 fetch 远端 (origin/master 未前移)' ((& git -C $repoB rev-parse origin/master).Trim() -eq $originBefore)
 Check 'T14 输出说明不访问远端' ($r.out -match '不访问远端')
 Check 'T14 未安装/未改动本机链接' ((Get-Item (Join-Path $skillsB 'gamma')).Target -notmatch 'v2')
+
+Write-Host "`n=== T15: push 自动生成/刷新 README ===" -ForegroundColor Cyan
+$repoC = Join-Path $W 'repoC'
+& git clone -q $bare $repoC | Out-Null
+& git -C $repoC config user.email 'test@example.com'
+& git -C $repoC config user.name 'test'
+$homeF = Join-Path $W 'homeF\.agents\skills'
+New-Skill (Join-Path $homeF 'zeta') 'zeta body'
+New-Item -ItemType Directory -Force -Path (Join-Path $homeF 'eta') | Out-Null
+Set-Content -Path (Join-Path $homeF 'eta\SKILL.md') -Value "---`nname: eta`ndescription: 带竖线 a|b 的简介`n---`n`nbody`n" -Encoding utf8
+$r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
+Check 'T15 exit=0' ($r.code -eq 0)
+$readmePath = Join-Path $repoC 'README.md'
+Check 'T15 README 已生成' (Test-Path $readmePath)
+$readme = Read-Utf8 $readmePath
+Check 'T15 顶部含 push/pull/delete 三个命令' (($readme -match '/push_skills') -and ($readme -match '/pull_skills') -and ($readme -match '/delete_skills'))
+Check 'T15 含标记区' (($readme -match '<!-- SKILLS:START -->') -and ($readme -match '<!-- SKILLS:END -->'))
+Check 'T15 收录 zeta 与 eta' (($readme -match '\[zeta\]') -and ($readme -match '\[eta\]'))
+Check 'T15 表格里的竖线被转义' ($readme -match 'a\\\|b')
+Check 'T15 提交里包含 README.md' ((& git -C $repoC show --name-only --pretty=format: HEAD) -match 'README.md')
+Check 'T15 远端已有 README' ((& git -C $bare show 'master:README.md') -match '\[zeta\]')
+
+Write-Host "`n=== T15b: README 幂等(无变更时不提交) ===" -ForegroundColor Cyan
+$r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
+Check 'T15b exit=0' ($r.code -eq 0)
+Check 'T15b 报告无变更' ($r.out -match '没有需要同步的变更')
+
+Write-Host "`n=== T16: 本机更新过的 skill 自动覆盖并上传(auto) ===" -ForegroundColor Cyan
+Add-Content (Join-Path $homeF 'zeta\SKILL.md') "`nzeta v2"
+$r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
+Check 'T16 exit=0(不再因内容不同而停下)' ($r.code -eq 0)
+Check 'T16 远端已是更新后的内容' ((& git -C $bare show 'master:zeta/SKILL.md') -match 'zeta v2')
+Check 'T16 提交信息为中文更新类型' ((& git -C $repoC log -1 --pretty=%s) -match 'chore\(skills\): 同步本机 skills 更新')
+Check 'T16 输出说明了自动纳入' ($r.out -match '本机更新过的 skill 将覆盖仓库版本')
+
+Write-Host "`n=== T17: 远端领先时停下, 拉平后可 push ===" -ForegroundColor Cyan
+& git -C $repoB pull -q --ff-only origin master | Out-Null
+Set-Content (Join-Path $repoB 'ahead.txt') 'from another device' -Encoding utf8
+& git -C $repoB add -A | Out-Null
+& git -C $repoB commit -q -m 'chore: 模拟另一台设备的提交' | Out-Null
+& git -C $repoB push -q origin master | Out-Null
+$headC = (& git -C $repoC rev-parse HEAD).Trim()
+Add-Content (Join-Path $homeF 'zeta\SKILL.md') "`nzeta v3"
+$r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
+Check 'T17 exit=2(远端领先)' ($r.code -eq 2)
+Check 'T17 未产生提交' ((& git -C $repoC rev-parse HEAD).Trim() -eq $headC)
+Check 'T17 提示先 pull' ($r.out -match 'pull_skills')
+$r = Run-Engine @('pull', '--repo', $repoC, '--dir', $homeF)
+Check 'T17 pull 已拉平远端' ((& git -C $repoC rev-parse HEAD).Trim() -eq (& git -C $bare rev-parse master).Trim())
+Check 'T17 pull 不覆盖本机已更新的 zeta, 故返回 2' ($r.code -eq 2)
+Check 'T17 本机 zeta 仍是 v3' ((Read-Utf8 (Join-Path $homeF 'zeta\SKILL.md')) -match 'zeta v3')
+$r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
+Check 'T17 拉平后 auto push 成功' ($r.code -eq 0)
+Check 'T17 远端已含 zeta v3' ((& git -C $bare show 'master:zeta/SKILL.md') -match 'zeta v3')
+
+Write-Host "`n=== T18: delete 删除仓库 skill 并推送 ===" -ForegroundColor Cyan
+$r = Run-Engine @('delete', '--repo', $repoC, '--dir', $homeF, 'gamma')
+Check 'T18 删除已安装为链接的 skill: exit=0' ($r.code -eq 0)
+Check 'T18 仓库目录已删' (-not (Test-Path (Join-Path $repoC 'gamma')))
+Check 'T18 远端已无 gamma' ((Bare-Files $bare) -notmatch 'gamma/SKILL.md')
+Check 'T18 本机悬空链接已清理' (-not (Test-Path (Join-Path $homeF 'gamma')))
+Check 'T18 README 已移除 gamma' (-not ((Read-Utf8 $readmePath) -match '\[gamma\]'))
+Check 'T18 提交信息为删除类型' ((& git -C $repoC log -1 --pretty=%s) -match 'chore\(skills\): 删除 skills')
+
+$r = Run-Engine @('delete', '--repo', $repoC, '--dir', $homeF, 'zeta')
+Check 'T18 删除本机为实体目录的 skill: exit=0' ($r.code -eq 0)
+Check 'T18 仓库 zeta 已删' (-not (Test-Path (Join-Path $repoC 'zeta')))
+Check 'T18 本机实体目录保留' (Test-Path (Join-Path $homeF 'zeta\SKILL.md'))
+Check 'T18 输出警告会被 push 带回' ($r.out -match '重新带回仓库')
+Check 'T18 README 已移除 zeta' (-not ((Read-Utf8 $readmePath) -match '\[zeta\]'))
+
+$headBefore = (& git -C $repoC rev-parse HEAD).Trim()
+$r = Run-Engine @('delete', '--repo', $repoC, '--dir', $homeF, 'nonexistent-skill')
+Check 'T18 不存在的名字 exit=1' ($r.code -eq 1)
+Check 'T18 未删除任何东西' ((& git -C $repoC rev-parse HEAD).Trim() -eq $headBefore)
+Check 'T18 列出仓库现有 skill' ($r.out -match '仓库现有 skill')
+
+$r = Run-Engine @('delete', '--repo', $repoC, '--dir', $homeF, 'eta', '--also-local')
+Check 'T18 --also-local: exit=0' ($r.code -eq 0)
+Check 'T18 --also-local 仓库已删' (-not (Test-Path (Join-Path $repoC 'eta')))
+Check 'T18 --also-local 本机已删' (-not (Test-Path (Join-Path $homeF 'eta')))
+
+Write-Host "`n=== T19: readme 子命令(校验/保留手写内容) ===" -ForegroundColor Cyan
+$r = Run-Engine @('readme', '--repo', $repoC, '--check')
+Check 'T19 一致时 exit=0' ($r.code -eq 0)
+Add-Content -Path $readmePath -Value "`n<!-- hand-written note 12345 -->" -Encoding utf8
+$r = Run-Engine @('readme', '--repo', $repoC, '--check')
+Check 'T19 标记之外的手写内容不影响' ($r.code -eq 0)
+$tampered = (Read-Utf8 $readmePath) -replace '\| \[alpha\]\(', '| [ghost]('
+Write-Utf8 $readmePath $tampered
+$r = Run-Engine @('readme', '--repo', $repoC, '--check')
+Check 'T19 标记之内被篡改时 exit=2' ($r.code -eq 2)
+$r = Run-Engine @('readme', '--repo', $repoC)
+Check 'T19 刷新 exit=0' ($r.code -eq 0)
+$after = Read-Utf8 $readmePath
+Check 'T19 表格已修复(alpha 回来)' ($after -match '\[alpha\]')
+Check 'T19 手写内容仍在' ($after -match 'hand-written note 12345')
 
 Write-Host ""
 Write-Host ("RESULT: pass={0} fail={1}" -f $script:pass, $script:fail) -ForegroundColor Yellow

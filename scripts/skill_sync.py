@@ -34,6 +34,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import skill_readme  # noqa: E402  —— 同目录的 README 生成模块
+
 EXIT_OK = 0
 EXIT_ERROR = 1
 EXIT_BLOCKED = 2
@@ -78,6 +81,21 @@ def git_ok(repo: Path, *args: str) -> str:
     if code != 0:
         raise RuntimeError("git %s 失败：%s" % (" ".join(args), (err or out).strip()))
     return out
+
+
+def fetch_state(repo: Path, remote: str, branch: str):
+    """返回 (fetch 是否成功, 远端领先的提交数或 None 表示未知)。"""
+    code, out, err = git(repo, "fetch", remote)
+    if code != 0:
+        return False, None
+    ref = "%s/%s" % (remote, branch)
+    code, out, _ = git(repo, "rev-list", "--count", "HEAD..%s" % ref)
+    if code != 0:
+        return True, None
+    try:
+        return True, int(out.strip())
+    except ValueError:
+        return True, None
 
 
 def is_link_like(path: Path) -> bool:
@@ -446,6 +464,19 @@ def cmd_push(args) -> int:
         report.data["attention"].append("远端 %s 不存在" % remote)
         return report.finish(EXIT_BLOCKED, "已停止：仓库没有远端 %s，请先配置。" % remote)
 
+    fetch_ok, behind = fetch_state(repo, remote, branch)
+    report.data["fetch_ok"] = fetch_ok
+    report.data["remote_ahead"] = behind
+    if fetch_ok:
+        if behind:
+            report.say("远端 %s/%s 领先本地 %d 个提交。" % (remote, branch, behind))
+        else:
+            report.say("已 fetch：远端没有本地缺少的提交。")
+    else:
+        report.say("提示：git fetch %s 失败（可能离线），无法确认远端是否领先。" % remote)
+    # 「远端不领先且 fetch 成功」才算已验证；--allow-behind 表示用户显式承担风险
+    verified = bool(args.allow_behind or (fetch_ok and not behind))
+
     dirty = [line for line in git_ok(repo, "status", "--porcelain").splitlines() if line.strip()]
     if dirty:
         report.say("")
@@ -548,17 +579,49 @@ def cmd_push(args) -> int:
             )
         if args.on_conflict == "skip":
             report.say("按 --on-conflict=skip：这些 skill 保持仓库版本，不覆盖。")
+        if args.on_conflict == "auto" and not verified:
+            reason = (
+                "远端 %s/%s 领先本地 %d 个提交" % (remote, branch, behind)
+                if behind
+                else "git fetch %s 失败，无法确认远端状态" % remote
+            )
+            report.data["attention"].append("本机有更新，但%s" % reason)
+            return report.finish(
+                EXIT_BLOCKED,
+                "已停止：本机有 %d 个 skill 内容更新，但%s。先执行 /pull_skills 拉平远端再 push，"
+                "避免把别的设备的改动顶掉；确实要用本机版本覆盖仓库时改用 --on-conflict=overwrite。"
+                % (len(changed_items), reason),
+            )
 
     plan = list(new_items)
-    if changed_items and args.on_conflict == "overwrite":
+    if changed_items and (args.on_conflict == "overwrite" or (args.on_conflict == "auto" and verified)):
         plan += [c[0] for c in changed_items]
+        report.say(
+            "本机更新过的 skill 将覆盖仓库版本：%s" % "、".join(c[0] for c in changed_items)
+        )
 
-    if not plan:
-        return report.finish(EXIT_OK, "没有需要同步的变更（新增 0，覆盖 0）。")
+    readme_stale = (not args.no_readme) and skill_readme.is_stale(repo)
+
+    if not plan and not readme_stale:
+        return report.finish(EXIT_OK, "没有需要同步的变更（新增 0、更新 0、README 已最新）。")
 
     if args.dry_run:
         report.data["actions"] = [{"action": "copy", "name": n, "dry_run": True} for n in plan]
-        return report.finish(EXIT_OK, "dry-run：将同步 %d 个 skill（%s），未做任何写入。" % (len(plan), "、".join(plan)))
+        if not args.no_readme:
+            report.data["actions"].append({"action": "readme", "dry_run": True})
+        return report.finish(
+            EXIT_OK,
+            "dry-run：将同步 %d 个 skill%s，并刷新 README.md；未做任何写入。"
+            % (len(plan), ("（%s）" % "、".join(plan)) if plan else ""),
+        )
+
+    if behind and not args.allow_behind:
+        report.data["attention"].append("远端领先本地 %d 个提交" % behind)
+        return report.finish(
+            EXIT_BLOCKED,
+            "已停止：远端 %s/%s 领先本地 %d 个提交，此时提交会造成分叉或顶掉别的设备的改动。"
+            "请先执行 /pull_skills 拉平远端，再重新 push。" % (remote, branch, behind),
+        )
 
     report.section("同步到仓库")
     staged_paths = []
@@ -571,8 +634,21 @@ def cmd_push(args) -> int:
         report.say("  %s %s" % (state, name))
         report.data["actions"].append({"action": "copy", "name": name, "state": state})
 
+    readme_changed = False
+    if not args.no_readme:
+        readme_changed = skill_readme.write(repo)
+        if readme_changed:
+            report.say("  刷新 README.md 技能列表")
+            staged_paths.append(str(repo / "README.md"))
+            report.data["actions"].append({"action": "readme", "state": "updated"})
+    report.data["readme_changed"] = readme_changed
+
     if args.no_commit:
-        return report.finish(EXIT_OK, "已同步 %d 个 skill 到仓库工作区，按 --no-commit 未提交。" % len(plan))
+        return report.finish(
+            EXIT_OK,
+            "已同步 %d 个 skill%s到仓库工作区，按 --no-commit 未提交。"
+            % (len(plan), "与 README.md " if readme_changed else " "),
+        )
 
     git_ok(repo, "add", "--", *staged_paths)
     staged = [ln for ln in git_ok(repo, "diff", "--cached", "--name-only").splitlines() if ln.strip()]
@@ -585,14 +661,20 @@ def cmd_push(args) -> int:
         subject = "feat(skills): 同步本机 skills（新增 %s）" % "、".join(added)
         if len(subject) > 72:
             subject = "feat(skills): 同步本机 skills（新增 %d 个）" % len(added)
+    elif updated:
+        subject = "chore(skills): 同步本机 skills 更新（%s）" % "、".join(updated)
+        if len(subject) > 72:
+            subject = "chore(skills): 同步本机 skills 更新（%d 个）" % len(updated)
     else:
-        subject = "chore(skills): 同步本机 skills 更新"
+        subject = "docs(readme): 更新 skills 列表"
     body_lines = []
     if added:
         body_lines.append("新增：%s" % "、".join(added))
     if updated:
         body_lines.append("更新：%s" % "、".join(updated))
-    message = subject + "\n\n" + "\n".join(body_lines) + "\n"
+    if readme_changed:
+        body_lines.append("文档：刷新 README.md 技能列表")
+    message = subject + "\n\n" + "\n".join(body_lines) + "\n" if body_lines else subject + "\n"
 
     import tempfile
 
@@ -629,8 +711,16 @@ def cmd_push(args) -> int:
     report.data["actions"].append({"action": "push", "remote": remote, "branch": branch})
     return report.finish(
         EXIT_OK,
-        "完成：同步 %d 个 skill（新增 %d、覆盖 %d）并已推送到 %s/%s，提交 %s。"
-        % (len(plan), len(added), len(updated), remote, branch, commit),
+        "完成：同步 %d 个 skill（新增 %d、更新 %d）%s并已推送到 %s/%s，提交 %s。"
+        % (
+            len(plan),
+            len(added),
+            len(updated),
+            "、刷新 README.md " if readme_changed else " ",
+            remote,
+            branch,
+            commit,
+        ),
     )
 
 
@@ -867,6 +957,237 @@ def cmd_pull(args) -> int:
 
 
 # --------------------------------------------------------------------------- #
+# delete：从仓库删除 skill 并推送
+# --------------------------------------------------------------------------- #
+def _commit(repo: Path, subject: str, body_lines) -> str:
+    """按中文 Conventional Commits 提交，返回短 SHA。"""
+    import tempfile
+
+    message = subject + "\n"
+    if body_lines:
+        message += "\n" + "\n".join(body_lines) + "\n"
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".txt", delete=False) as fh:
+        fh.write(message)
+        msg_file = fh.name
+    try:
+        git_ok(repo, "commit", "-F", msg_file)
+    finally:
+        try:
+            os.unlink(msg_file)
+        except OSError:
+            pass
+    return git_ok(repo, "rev-parse", "--short", "HEAD").strip()
+
+
+def cmd_delete(args) -> int:
+    report = new_report(args, "delete")
+    repo = resolve_repo(args)
+    branch = args.branch
+    remote = args.remote
+
+    report.data["repo"] = str(repo)
+    report.data["branch"] = branch
+    report.data["remote"] = remote
+    report.say("仓库：%s" % repo)
+
+    cur = git_ok(repo, "rev-parse", "--abbrev-ref", "HEAD").strip()
+    report.say("当前分支：%s（目标分支：%s）" % (cur, branch))
+    if cur != branch:
+        report.data["attention"].append("当前分支 %s 与目标分支 %s 不一致" % (cur, branch))
+        return report.finish(
+            EXIT_BLOCKED, "已停止：当前分支是 %s，但要求提交到 %s。" % (cur, branch)
+        )
+
+    code, out, _ = git(repo, "remote")
+    if remote not in out.split():
+        return report.finish(EXIT_BLOCKED, "已停止：仓库没有远端 %s。" % remote)
+
+    fetch_ok, behind = fetch_state(repo, remote, branch)
+    report.data["fetch_ok"] = fetch_ok
+    report.data["remote_ahead"] = behind
+    if fetch_ok:
+        report.say("已 fetch：远端 %s/%s 领先本地 %d 个提交。" % (remote, branch, behind or 0))
+    else:
+        report.say("提示：git fetch %s 失败，无法确认远端是否领先。" % remote)
+    if behind and not args.allow_behind:
+        report.data["attention"].append("远端领先本地 %d 个提交" % behind)
+        return report.finish(
+            EXIT_BLOCKED,
+            "已停止：远端 %s/%s 领先本地 %d 个提交。请先 /pull_skills 拉平远端再删除，避免造成分叉。"
+            % (remote, branch, behind),
+        )
+
+    names, seen = [], set()
+    for raw in args.names:
+        name = raw.strip().strip("/\\")
+        if name and name not in seen:
+            seen.add(name)
+            names.append(name)
+    if not names:
+        return report.finish(EXIT_ERROR, "错误：没有指定要删除的 skill。")
+
+    invalid = [n for n in names if not skill_readme.is_skill_dir(repo / n)]
+    if invalid:
+        existing = "、".join(n for n, _, _ in skill_readme.collect(repo)) or "（仓库里没有 skill）"
+        report.data["attention"].append("这些名字不是仓库里的 skill：%s" % "、".join(invalid))
+        return report.finish(
+            EXIT_ERROR,
+            "错误：未删除任何东西——以下名字不是仓库里的 skill：%s。仓库现有 skill：%s"
+            % ("、".join(invalid), existing),
+        )
+
+    local_dir, group, note, _ = resolve_local_dir(args)
+    report.data["local_dir"] = str(local_dir)
+    report.data["local_group"] = group
+    report.say("")
+    report.say("本机 skills 目录：%s（%s：%s）" % (local_dir, group, note))
+
+    report.section("将删除")
+    report.say(table([(n,) for n in names], ["skill"]))
+    report.data["items"] = [{"name": n, "state": "delete"} for n in names]
+
+    if args.dry_run:
+        return report.finish(
+            EXIT_OK,
+            "dry-run：将从仓库删除 %d 个 skill（%s）并%s，未做任何写入。"
+            % (
+                len(names),
+                "、".join(names),
+                "刷新 README.md" if not args.no_readme else "不刷新 README",
+            ),
+        )
+
+    for name in names:
+        remove_path(repo / name)
+        report.say("  已从仓库删除 %s" % name)
+        report.data["actions"].append({"action": "delete-repo", "name": name})
+
+    kept_local, cleaned_links, removed_local = [], [], []
+    for name in names:
+        local_path = local_dir / name
+        if is_link_like(local_path):
+            remove_path(local_path)
+            cleaned_links.append(name)
+            report.say("  已清理本机链接 %s" % name)
+        elif local_path.exists():
+            if args.also_local:
+                remove_path(local_path)
+                removed_local.append(name)
+                report.say("  已删除本机目录 %s" % name)
+            else:
+                kept_local.append(name)
+
+    if kept_local:
+        report.say("")
+        report.say("注意：本机实体目录仍保留：%s" % "、".join(kept_local))
+        report.say("      它们仍会出现在本机 skill 列表里，且下次 /push_skills 会把它们重新带回仓库；")
+        report.say("      要一起删干净，请加 --also-local 重跑，或手动删除本机目录。")
+    report.data["actions"].extend({"action": "unlink-local", "name": n} for n in cleaned_links)
+    report.data["actions"].extend({"action": "delete-local", "name": n} for n in removed_local)
+    report.data["kept_local"] = kept_local
+
+    readme_changed = False
+    if not args.no_readme:
+        readme_changed = skill_readme.write(repo)
+        if readme_changed:
+            report.say("  刷新 README.md 技能列表")
+
+    staged_paths = [str(repo / n) for n in names]
+    if readme_changed:
+        staged_paths.append(str(repo / "README.md"))
+    git_ok(repo, "add", "-A", "--", *staged_paths)
+    staged = [ln for ln in git_ok(repo, "diff", "--cached", "--name-only").splitlines() if ln.strip()]
+    if not staged:
+        return report.finish(EXIT_OK, "仓库里没有产生可提交的变更。")
+    if args.no_commit:
+        return report.finish(
+            EXIT_OK, "已在仓库工作区删除 %d 个 skill，按 --no-commit 未提交。" % len(names)
+        )
+
+    subject = "chore(skills): 删除 skills（%s）" % "、".join(names)
+    if len(subject) > 72:
+        subject = "chore(skills): 删除 %d 个 skills" % len(names)
+    body_lines = ["删除：%s" % "、".join(names)]
+    if readme_changed:
+        body_lines.append("文档：刷新 README.md 技能列表")
+    commit = _commit(repo, subject, body_lines)
+    report.say("")
+    report.say("已提交：%s（%s）" % (subject, commit))
+    report.data["actions"].append({"action": "commit", "subject": subject, "commit": commit})
+
+    if args.no_push:
+        return report.finish(EXIT_OK, "已提交 %s；按 --no-push 未推送。" % commit)
+
+    code, out, err = git(repo, "push", remote, branch)
+    if code != 0:
+        report.say("")
+        report.say((err or out).strip())
+        report.data["attention"].append("推送失败")
+        return report.finish(
+            EXIT_ERROR,
+            "删除已在本地提交（%s），但推送到 %s/%s 失败。可排除故障后重新执行 git push %s %s。"
+            % (commit, remote, branch, remote, branch),
+        )
+
+    report.data["actions"].append({"action": "push", "remote": remote, "branch": branch})
+    extra = ""
+    if kept_local:
+        extra = "（本机实体目录 %s 未删除，下次 push 会重新带回仓库）" % "、".join(kept_local)
+    return report.finish(
+        EXIT_OK,
+        "完成：仓库删除 %d 个 skill（%s）%s并已推送到 %s/%s，提交 %s。%s"
+        % (
+            len(names),
+            "、".join(names),
+            "、刷新 README.md " if readme_changed else " ",
+            remote,
+            branch,
+            commit,
+            extra,
+        ),
+    )
+
+
+# --------------------------------------------------------------------------- #
+# readme：生成 / 校验 README.md 技能列表
+# --------------------------------------------------------------------------- #
+def cmd_readme(args) -> int:
+    report = new_report(args, "readme")
+    repo = resolve_repo(args)
+    report.data["repo"] = str(repo)
+
+    skills = skill_readme.collect(repo)
+    changed, text = skill_readme.compose(repo)
+    report.data["items"] = [
+        {"name": n, "description": skill_readme.shorten(d)} for n, d, _ in skills
+    ]
+    report.say("仓库：%s" % repo)
+    report.say("技能数：%d" % len(skills))
+
+    if args.check:
+        if changed:
+            report.data["attention"].append("README.md 与仓库内容不一致")
+            return report.finish(
+                EXIT_BLOCKED,
+                "README.md 需要更新（或尚未生成）。运行 `skill_sync.py readme` 即可刷新。",
+            )
+        return report.finish(EXIT_OK, "README.md 已是最新。")
+
+    if args.dry_run:
+        report.say("")
+        report.say(text)
+        return report.finish(
+            EXIT_OK, "dry-run：README.md %s，未做任何写入。" % ("需要更新" if changed else "已是最新")
+        )
+
+    if not changed:
+        return report.finish(EXIT_OK, "README.md 已是最新，无需改动。")
+    (repo / "README.md").write_text(text, encoding="utf-8", newline="\n")
+    report.data["actions"].append({"action": "readme", "state": "updated"})
+    return report.finish(EXIT_OK, "已刷新 README.md（收录 %d 个 skill）。" % len(skills))
+
+
+# --------------------------------------------------------------------------- #
 # status：只读诊断
 # --------------------------------------------------------------------------- #
 def cmd_status(args) -> int:
@@ -956,11 +1277,14 @@ def build_parser() -> argparse.ArgumentParser:
     common(p_push)
     p_push.add_argument(
         "--on-conflict",
-        choices=["ask", "skip", "overwrite"],
-        default="ask",
-        help="同名内容不同时：ask=停下提示（默认），skip=保留仓库版本，overwrite=用本机覆盖仓库",
+        choices=["auto", "ask", "skip", "overwrite"],
+        default="auto",
+        help="同名内容不同时：auto=先 fetch 确认远端没领先就自动用本机更新覆盖仓库（默认），"
+        "ask=停下提示，skip=保留仓库版本，overwrite=无条件用本机覆盖仓库",
     )
     p_push.add_argument("--only-tracked", action="store_true", help="只更新仓库已有的 skill，忽略本机独有")
+    p_push.add_argument("--no-readme", action="store_true", help="不刷新 README.md")
+    p_push.add_argument("--allow-behind", action="store_true", help="远端领先时也继续提交（危险）")
     p_push.add_argument("--no-commit", action="store_true", help="只同步到仓库工作区，不提交")
     p_push.add_argument("--no-push", action="store_true", help="提交但不推送")
     p_push.set_defaults(func=cmd_push)
@@ -976,6 +1300,23 @@ def build_parser() -> argparse.ArgumentParser:
     p_status = subs.add_parser("status", help="只读诊断")
     common(p_status)
     p_status.set_defaults(func=cmd_status)
+
+    p_delete = subs.add_parser("delete", help="按名称从仓库删除 skill，刷新 README 并推送")
+    common(p_delete)
+    p_delete.add_argument("names", nargs="+", help="要删除的 skill 目录名（可多个）")
+    p_delete.add_argument(
+        "--also-local", action="store_true", help="同时删除本机 skills 目录里的对应内容（危险）"
+    )
+    p_delete.add_argument("--no-readme", action="store_true", help="不刷新 README.md")
+    p_delete.add_argument("--allow-behind", action="store_true", help="远端领先时也继续（危险）")
+    p_delete.add_argument("--no-commit", action="store_true", help="只从工作区删除，不提交")
+    p_delete.add_argument("--no-push", action="store_true", help="提交但不推送")
+    p_delete.set_defaults(func=cmd_delete)
+
+    p_readme = subs.add_parser("readme", help="按仓库当前内容生成或校验 README.md 技能列表")
+    common(p_readme)
+    p_readme.add_argument("--check", action="store_true", help="只检查是否需要更新（需更新时退出码 2）")
+    p_readme.set_defaults(func=cmd_readme)
 
     return parser
 
