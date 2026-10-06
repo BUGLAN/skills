@@ -25,7 +25,7 @@ python3 scripts/skill_sync.py readme    # 按仓库当前内容重新生成技�
 
 <!-- SKILLS:START -->
 
-共 47 个 skill，按名称排序。简介优先取 `scripts/readme-i18n.json` 的中文简介，未收录时用 `SKILL.md` 原文。
+共 46 个 skill，按名称排序。简介优先取 `scripts/readme-i18n.json` 的中文简介，未收录时用 `SKILL.md` 原文。
 
 | skill | 简介 |
 | --- | --- |
@@ -75,6 +75,5 @@ python3 scripts/skill_sync.py readme    # 按仓库当前内容重新生成技�
 | [stitch-design-taste](stitch-design-taste/) | 面向 Google Stitch 的语义化设计系统 skill：生成对 agent 友好的 DESIGN.md，强制高端、反大众化的 UI 标准——严格排印、校准过的配色、非对称布局、持续微动效，以及硬件加速的性能表现。 |
 | [stitch-extract-design-md](stitch-extract-design-md/) | 直接从前端源码中提取完整的设计系统（DESIGN.md）——React、Vue、Svelte、Angular、原生 HTML/CSS 或任意 Web 框架。分析组件文件、样式表、Tailwind 配置、主题定义与设计令牌，产出内容丰富、兼容 Stitch 的设计系统文档。只要用户想从现有代码库反向推导设计系统、审计视觉语言、从源码提取设计令牌，或理解某个前端仓库的样式套路（哪怕只是说「这个应用长什么样」或「把这份代码里的设计抽出来」），都应当使用本 skill。 |
 | [ui-ux-pro-max](ui-ux-pro-max/) | 面向 Web、移动端与桌面端的 UI/UX 设计智能。适用于设计、构建、评审或修复界面，涵盖页面、组件、设计系统、无障碍、交互、响应式布局、排印、配色、图表，以及具体技术栈的 UI 实现。可检索的本地数据：79 套风格（50 套启用）、192 个产品配色与推理画像、74 组字体搭配、119 条 UX 规范、105 个图标、17 个 GSAP 预设、25 种图表类型、22 个技术栈。 |
-| [watchdog](watchdog/) | 使用于用户明确输入 "/watchdog" 或明确要求在代码修改完成后执行 watchdog 记录、验证、录屏、提审流程时。 |
 
 <!-- SKILLS:END -->
