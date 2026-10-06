@@ -1,6 +1,6 @@
 ---
 name: find-animation-opportunities
-description: Search a codebase or UI for places that don't animate but should, and reject everything that shouldn't. Read-only; it proposes motion with exact values, it does not implement it. Use when the user asks "what could be animated here?" or wants to "make this feel more alive". For fixing existing animations, use improve-animations or review-animations instead.
+description: 在代码库或界面中寻找「该动却没动」的地方，并否决所有不该动的。只读；它会给出带有确切数值的动效建议，但不负责实现。适用于用户问「这里可以加点动效吗」或想「让界面更有生命力」时。要修已有动效，请改用 improve-animations 或 review-animations。
 ---
 
 # Finding Animation Opportunities

@@ -1,6 +1,6 @@
 ---
 name: high-end-visual-design
-description: Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+description: 教 AI 像高端设计机构那样做设计：给出确切的字体、间距、阴影、卡片结构与动效，让网站看起来「很贵」。同时屏蔽掉那些让 AI 设计显得廉价或大众化的默认套路。
 ---
 
 # Agent Skill: Principal UI/UX Architect & Motion Choreographer (Awwwards-Tier)

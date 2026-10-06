@@ -1,6 +1,6 @@
 ---
 name: bug-fix
-description: "Systematic workflow for verifying bug fixes to ensure quality and prevent regres..."
+description: 系统化验证缺陷修复的工作流，确保修复质量并防止回归（regression）。
 version: 1.0.0
 tags: []
 progressive_disclosure:

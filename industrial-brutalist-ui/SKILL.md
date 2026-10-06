@@ -1,6 +1,6 @@
 ---
 name: industrial-brutalist-ui
-description: Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+description: 粗粝的机械感界面：把瑞士平面排印与军用终端美学熔在一起。刚性网格、极端的字号对比、功利主义配色、模拟信号劣化效果。适合需要「解密蓝图」气质的数据密集型仪表盘、作品集或编辑型站点。
 ---
 
 # SKILL: Industrial Brutalism & Tactical Telemetry UI

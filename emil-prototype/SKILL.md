@@ -1,6 +1,6 @@
 ---
 name: emil-prototype
-description: Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.
+description: 按你的描述做出多个真正不同的 UI 版本，配一个可视化选择器让你现场逐个翻看，并选定最合适的那一版。仅在显式调用时运行，不会自动触发。
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: improve-animations
-description: Survey a codebase's animation and motion code as a senior motion advisor, then produce a prioritized audit and self-contained implementation plans for other agents (or cheaper models) to execute. Read-only on source code — it plans improvements, it does not apply them. Use when the user asks to "improve the animations", "audit the motion", "make this app feel better", or wants a roadmap of animation fixes rather than a review of a single diff.
+description: 以资深动效顾问的视角审视代码库中的动画与动效代码，产出按优先级排序的审计报告，以及供其他 agent（或更便宜的模型）执行的自包含实现方案。对源码只读——它只规划改进，不落地实施。适用于用户说「改进动效」「审计动效」「让这个应用手感更好」，或想要一份动效改造路线图而不是单个 diff 的评审时。
 ---
 
 # Improving Animations

@@ -1,6 +1,6 @@
 ---
 name: design-taste-frontend-v1
-description: The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
+description: 最初的 v1 版本 taste-skill，为依赖其确切行为的项目保留。当前默认是 design-taste-frontend（v2 实验版），是一次大改写。仅在你需要完全向后兼容时使用这个 v1 安装名。
 ---
 
 # High-Agency Frontend Skill
