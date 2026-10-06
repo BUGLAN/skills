@@ -4,8 +4,9 @@
 
 规则：
   * 技能表放在 `<!-- SKILLS:START -->` 与 `<!-- SKILLS:END -->` 之间，标记之外的手写内容永远保留。
-  * 简介取自每个 `<skill>/SKILL.md` frontmatter 的 `description`，超长时按句号截断。
+  * 简介取自每个 `<skill>/SKILL.md` frontmatter 的 `description`，**完整展示、不做截断**。
   * 输出按 skill 名称排序，保证幂等（内容没变就不算变更）。
+  * `non_chinese()` 列出简介不含中文的 skill，便于保持全中文简介。
 """
 
 from __future__ import annotations
@@ -16,8 +17,8 @@ from pathlib import Path
 
 START_MARK = "<!-- SKILLS:START -->"
 END_MARK = "<!-- SKILLS:END -->"
-DESC_LIMIT = 150
 DEFAULT_URL = "https://github.com/BUGLAN/skills.git"
+CJK_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
 
 SKIP_DIRS = {".git", ".github", "scripts", "node_modules", "__pycache__", ".idea", ".vscode"}
 
@@ -105,16 +106,18 @@ def read_description(skill_dir: Path) -> str:
     return ""
 
 
-def shorten(text: str, limit: int = DESC_LIMIT) -> str:
-    flat = " ".join(text.split())
-    if len(flat) <= limit:
-        return flat
-    cut = flat[:limit]
-    for sep in ("。", "；", "！", "？", ". ", "; ", "! ", "? "):
-        idx = cut.rfind(sep)
-        if idx >= limit // 2:
-            return cut[: idx + len(sep)].rstrip() + " …"
-    return cut.rstrip() + "…"
+def flatten(text: str) -> str:
+    """把 description 压成单行（保留全部内容，不截断）。"""
+    return " ".join(text.split())
+
+
+def has_chinese(text: str) -> bool:
+    return bool(CJK_RE.search(text))
+
+
+def non_chinese(repo: Path):
+    """返回简介不含中文的 skill 名列表（用于提醒补中文简介）。"""
+    return [name for name, desc, _ in collect(repo) if not has_chinese(desc)]
 
 
 def _escape_cell(text: str) -> str:
@@ -159,7 +162,7 @@ def render_section(repo: Path) -> str:
         lines.append("| skill | 简介 |")
         lines.append("| --- | --- |")
         for name, desc, _ in skills:
-            cell = _escape_cell(shorten(desc)) if desc else "（SKILL.md 未写 description）"
+            cell = _escape_cell(flatten(desc)) if desc else "（SKILL.md 未写 description）"
             lines.append("| [%s](%s/) | %s |" % (name, name, cell))
     lines.append("")
     lines.append(END_MARK)

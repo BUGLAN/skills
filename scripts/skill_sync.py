@@ -643,6 +643,15 @@ def cmd_push(args) -> int:
             report.data["actions"].append({"action": "readme", "state": "updated"})
     report.data["readme_changed"] = readme_changed
 
+    bad_desc = skill_readme.non_chinese(repo)
+    report.data["non_chinese"] = bad_desc
+    if bad_desc:
+        report.say("")
+        report.say(
+            "注意：以下 skill 的 description 不含中文，README 会照原样显示：%s（建议改成中文简介）"
+            % "、".join(bad_desc)
+        )
+
     if args.no_commit:
         return report.finish(
             EXIT_OK,
@@ -1158,11 +1167,15 @@ def cmd_readme(args) -> int:
 
     skills = skill_readme.collect(repo)
     changed, text = skill_readme.compose(repo)
+    bad = skill_readme.non_chinese(repo)
     report.data["items"] = [
-        {"name": n, "description": skill_readme.shorten(d)} for n, d, _ in skills
+        {"name": n, "description": skill_readme.flatten(d)} for n, d, _ in skills
     ]
+    report.data["non_chinese"] = bad
     report.say("仓库：%s" % repo)
     report.say("技能数：%d" % len(skills))
+    if bad:
+        report.say("注意：以下 skill 的 description 不含中文，建议补成中文简介：%s" % "、".join(bad))
 
     if args.check:
         if changed:

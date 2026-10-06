@@ -215,6 +215,9 @@ $homeF = Join-Path $W 'homeF\.agents\skills'
 New-Skill (Join-Path $homeF 'zeta') 'zeta body'
 New-Item -ItemType Directory -Force -Path (Join-Path $homeF 'eta') | Out-Null
 Set-Content -Path (Join-Path $homeF 'eta\SKILL.md') -Value "---`nname: eta`ndescription: 带竖线 a|b 的简介`n---`n`nbody`n" -Encoding utf8
+$longDesc = ('这是一段很长的中文简介，用于验证 README 不做截断。' * 8) + '结尾专属标记XYZ'
+New-Item -ItemType Directory -Force -Path (Join-Path $homeF 'theta') | Out-Null
+Set-Content -Path (Join-Path $homeF 'theta\SKILL.md') -Value "---`nname: theta`ndescription: $longDesc`n---`n`nbody`n" -Encoding utf8
 $r = Run-Engine @('push', '--repo', $repoC, '--dir', $homeF)
 Check 'T15 exit=0' ($r.code -eq 0)
 $readmePath = Join-Path $repoC 'README.md'
@@ -224,6 +227,10 @@ Check 'T15 顶部含 push/pull/delete 三个命令' (($readme -match '/push_skil
 Check 'T15 含标记区' (($readme -match '<!-- SKILLS:START -->') -and ($readme -match '<!-- SKILLS:END -->'))
 Check 'T15 收录 zeta 与 eta' (($readme -match '\[zeta\]') -and ($readme -match '\[eta\]'))
 Check 'T15 表格里的竖线被转义' ($readme -match 'a\\\|b')
+Check 'T15 长简介不截断(尾部标记可见)' ($readme -match '结尾专属标记XYZ')
+Check 'T15 长简介完整保留' ($readme -match [regex]::Escape($longDesc))
+Check 'T15 提示非中文简介' ($r.out -match 'description 不含中文')
+Check 'T15 非中文简介点名为 zeta' ($r.out -match '显示：.*zeta')
 Check 'T15 提交里包含 README.md' ((& git -C $repoC show --name-only --pretty=format: HEAD) -match 'README.md')
 Check 'T15 远端已有 README' ((& git -C $bare show 'master:README.md') -match '\[zeta\]')
 
