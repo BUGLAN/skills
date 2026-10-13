@@ -1,37 +1,37 @@
 ---
 name: apple-design
-description: Apple's approach to interface design and fluid, physical motion, translated for the web. Use when building or reviewing gesture-driven UI, spring animations, drag/swipe/sheet interactions, momentum and interruptible transitions, translucent materials and depth, typography (optical sizing, tracking, leading), reduced-motion, or the design foundations (feedback, spatial consistency, restraint) behind Apple-style interfaces.
+description: Apple 的界面设计方法与流畅、物理感的动效，为 Web 平台转译。适用于构建或评审手势驱动的 UI、spring 动画、拖拽/轻扫/sheet 交互、动量与可中断过渡、半透明材质与景深、排版（光学尺寸、字距、行距）、减弱动态效果，以及 Apple 风格界面背后的设计基石（反馈、空间一致性、克制）。
 ---
 
 # Apple Design
 
-## Initial Response
+## 初始回应
 
-When this skill is first invoked without a specific question, respond only with:
+当本 skill 首次被调用、而用户尚未提出具体问题时，只回复下面这句话：
 
-> I'm ready to help you build fluid, Apple-style interfaces on the web, my knowledge comes from Apple's WWDC design talks, translated for the web.
+> 我已就绪，帮你在 Web 上构建流畅的 Apple 风格界面；我的知识源自 Apple 的 WWDC 设计讲座，已为 Web 平台转译。
 
-Do not provide any other information until the user asks a question.
+在用户提问之前，不要提供任何其他信息。
 
-How Apple builds interfaces that stop feeling like a computer and start feeling like an extension of you. This knowledge comes from Apple's WWDC design talks — chiefly *Designing Fluid Interfaces* (WWDC 2018) — distilled and translated into the web platform (CSS, Pointer Events, `requestAnimationFrame`, spring libraries like Motion/Framer Motion).
+Apple 如何打造不再像电脑、而开始像你自身延伸的界面。这些知识来自 Apple 的 WWDC 设计讲座——主要是 *Designing Fluid Interfaces*（WWDC 2018）——经提炼后转译到 Web 平台（CSS、Pointer Events、`requestAnimationFrame`，以及 Motion/Framer Motion 等 spring 库）。
 
-The through-line: **an interface feels alive when motion starts from the current on-screen value, inherits the user's velocity, projects momentum forward, and can be grabbed and reversed at any instant.** Springs are the tool that makes all of this natural, because they are inherently interruptible and velocity-aware.
+贯穿其中的主线：**当动效从屏幕上的当前值出发、继承用户的手指速度、把动量向前投射，并且随时能被抓住、被反向时，界面才显得有生命。** 弹簧（spring）正是让这一切自然而然的工具，因为它天生可中断、且天生感知速度。
 
-## The Core Idea
+## 核心理念
 
-> "When we align the interface to the way we think and move, something magical happens — it stops feeling like a computer and starts feeling like a seamless extension of us."
+> "当我们让界面贴合我们的思考与行动方式时，奇妙的事情发生了——它不再像一台电脑，而开始像我们自身无缝的延伸。"
 
-An interface is fluid when it behaves like the physical world: things respond instantly, move continuously, carry momentum, resist at boundaries, and can be redirected mid-motion. Everything below is a way to get closer to that.
+当界面的行为像物理世界一样，它就是流畅的：事物即时响应、连续运动、携带动量、在边界处形成阻抗、并能在运动中途改道。下面的一切，都是逼近这一境界的方法。
 
-Apple frames design as serving four human needs: **safety/predictability, understanding, achievement, and joy.** Every rule here serves one of them.
+Apple 把设计视为对四种人类需求的回应：**安全感/可预期性、理解、成就感，以及愉悦。** 这里的每条规则都服务于其中之一。
 
-## 1. Response — kill latency
+## 1. 响应——消灭延迟
 
-The moment lag appears, the feeling of directness "falls off a cliff." Response is the foundation everything else is built on.
+延迟一出现，直接操控感便会"断崖式"跌落。响应是其余一切赖以建立的地基。
 
-- **Respond on pointer-down, not on release.** Highlight a button the instant it's pressed. Waiting for `click`/touch-up to show feedback feels dead.
-- **Be vigilant about every latency.** Audit debounces, artificial timers, transition waits, and the ~300ms tap delay. Anything on the input path that isn't essential is a regression.
-- **Feedback must be continuous *during* the interaction, not just at the end.** For a drag, slider, or drawer, update the UI 1:1 with the pointer the whole way through — never animate only when the gesture completes.
+- **在 pointer-down 时响应，而非松开时。** 按钮被按下的瞬间就要高亮。等 `click`/touch-up 才给出反馈，感觉是死的。
+- **对每一处延迟保持警惕。** 逐项排查防抖（debounce）、人为定时器、过渡等待，以及约 300ms 的点按延迟。输入链路上任何非必需的环节都是倒退。
+- **反馈必须在交互*进行中*持续，而非只出现在结束时。** 拖拽、滑块、抽屉，都要让 UI 与指针全程 1:1 同步——绝不能等手势完成才动。
 
 ```css
 /* Feedback lives on the press, and it's instant */
@@ -41,14 +41,14 @@ The moment lag appears, the feeling of directness "falls off a cliff." Response 
 }
 ```
 
-## 2. Direct manipulation — 1:1 tracking
+## 2. 直接操纵——1:1 跟随
 
-> "Touch and content should move together."
+> "指尖与内容应当一起移动。"
 
-When the user drags something, it must stay glued to the finger — and respect the offset from *where they grabbed it*. Snapping to the element's center on grab breaks the illusion immediately.
+用户拖动某物时，它必须牢牢粘在指尖上——并且尊重*抓取点*的偏移量。一抓住就吸附到元素中心，错觉立刻破碎。
 
-- Use Pointer Events with `setPointerCapture` so tracking continues even when the pointer leaves the element's bounds.
-- Track a short **velocity/position history** (last few `pointermove` events), not just the current point — you'll need velocity at release.
+- 使用 Pointer Events 配合 `setPointerCapture`，即使指针移出元素边界，跟随也不中断。
+- 记录一段简短的**速度/位置历史**（最近几次 `pointermove` 事件），而不只是当前点——松开时你会用到速度。
 
 ```js
 el.addEventListener('pointerdown', (e) => {
@@ -58,42 +58,42 @@ el.addEventListener('pointerdown', (e) => {
 });
 ```
 
-## 3. Interruptibility — the single most important principle
+## 3. 可中断性——最重要的原则
 
-> "The thought and the gesture happen in parallel."
+> "想法与手势并行发生。"
 
-Every animation must be interruptible and redirectable at any moment. A user must be able to grab a moving element mid-flight and reverse it without waiting for the animation to finish. A closing modal the user grabs again should follow the finger — not finish closing first, then reopen.
+任何动画都必须能随时被中断、被改向。用户要能在元素运动途中一把抓住并反向拖动，而不必等动画播完。正在关闭、又被用户再次抓住的弹窗，应该跟着手指走——而不是先把关闭播完，再重新打开。
 
-- **Never lock out input during a transition.**
-- **Always animate from the *presentation* (current) value, never the target value.** On interrupt, read the element's live on-screen transform and start the new animation from there. Starting from the logical/target value causes a visible jump.
-- **Avoid CSS transitions and `@keyframes` for anything gesture-driven** — they can't be smoothly grabbed and reversed mid-flight. Springs animate from the current value by default, which is exactly what interruption needs.
-- **When a gesture reverses, blend velocity — don't hard-cut it.** Replacing one animation with another at a reversal creates a velocity discontinuity, a "brick wall." Spring libraries that carry velocity through a re-target avoid it. (This is what iOS's *additive animations* do natively; on the web, choose a spring library that re-targets from the current velocity.)
-- **Decompose 2D motion into independent X and Y springs.** A single spring on a 2D distance desyncs when X and Y have different velocities.
+- **过渡期间绝不锁死输入。**
+- **永远从*呈现*（当前）值开始动画，绝不要从目标值开始。** 被打断时，读取元素在屏幕上的实时 transform，从那里启动新动画。从逻辑值/目标值出发，会造成肉眼可见的跳变。
+- **凡手势驱动之物，避免 CSS transition 与 `@keyframes`**——它们无法在半途被顺滑抓住并反向。弹簧默认从当前值开始动画，这恰是中断所需要的。
+- **手势反向时，混合速度——不要硬切。** 在反向瞬间直接替换动画，会造成速度不连续，即一堵"砖墙"。能在重定目标时继承速度的弹簧库可避免这一点。（iOS 的 *additive animations*（叠加动画）原生正是如此；在 Web 上，请选择能从当前速度重新定向的弹簧库。）
+- **把 2D 运动分解为相互独立的 X、Y 两个弹簧。** 用单个弹簧驱动 2D 距离，一旦 X 与 Y 速度不同就会失步。
 
-## 4. Behavior over animation — use springs
+## 4. 行为重于动画——用弹簧
 
-> "Think of animation as a conversation between you and the object, not something prescribed by the interface."
+> "把动画想成你与物体之间的对话，而不是界面预先规定的剧本。"
 
-A pre-scripted, fixed-duration animation can't respond to new input. A spring can — new input just changes the target, and the motion stays continuous. Reach for springs for anything a user can touch.
+预先编排、固定时长的动画无法响应新输入。弹簧可以——新输入只是改变目标，运动保持连续。凡是用户能触到的东西，都用弹簧。
 
-Apple deliberately replaced the physics triplet (mass/stiffness/damping) with two designer-friendly parameters. Think in these:
+Apple 刻意用两个对设计者友好的参数，取代了物理学的三元组（质量/刚度/阻尼）。请用这两个参数思考：
 
-- **Damping ratio** — controls overshoot. `1.0` = critically damped, no bounce, smooth settle. `< 1.0` = overshoots and oscillates. Lower = bouncier.
-- **Response** — how quickly the value reaches the target, in seconds. Lower = snappier. **This is not "duration"** — a spring has no fixed duration; its settle time emerges from the parameters.
+- **阻尼比（damping ratio）**——控制过冲。`1.0` = 临界阻尼，无回弹，平滑落定。`< 1.0` = 过冲并振荡。越低越弹。
+- **响应时间（response）**——数值多快抵达目标，以秒计。越低越干脆。**这不是"时长"**——弹簧没有固定时长；落定时间由参数自然涌现。
 
-**Defaults:**
-- Start most UI at **damping `1.0`** (critically damped) — graceful and non-distracting.
-- Add bounce (**damping ~`0.8`**) **only when the gesture itself carried momentum** (a flick, a throw, a drag release). Overshoot on a menu that just faded in feels wrong; overshoot on a card you flicked feels right.
+**默认值：**
+- 大多数 UI 从**阻尼 `1.0`**（临界阻尼）起步——优雅而不抢眼。
+- 只有**手势本身带有动量时**（轻扫、一甩、拖拽释放），才加入回弹（**阻尼约 `0.8`**）。刚淡入的菜单出现过冲是错的；被你甩出的卡片出现过冲就对了。
 
-**Concrete values Apple ships:**
+**Apple 实际采用的数值：**
 
-| Interaction | Damping | Response |
+| 交互 | 阻尼 | 响应 |
 | --- | --- | --- |
-| Move / reposition (e.g. PiP) | `1.0` | `0.4` |
-| Rotation | `0.8` | `0.4` |
-| Drawer / sheet | `0.8` | `0.3` |
+| 移动/重定位（如 PiP） | `1.0` | `0.4` |
+| 旋转 | `0.8` | `0.4` |
+| 抽屉/sheet | `0.8` | `0.3` |
 
-**Web mapping (Motion / Framer Motion):** the `bounce` + `duration` spring API maps closely to Apple's damping + response. A safe house style is `damping: 1.0` springs everywhere by default; reserve bounce for momentum-driven, physical interactions.
+**Web 对应实现（Motion / Framer Motion）：** `bounce` + `duration` 的 spring API 与 Apple 的阻尼 + 响应高度对应。稳妥的团队风格是：默认全线使用 `damping: 1.0` 的弹簧；把 bounce 留给动量驱动、有物理感的交互。
 
 ```js
 import { animate } from 'motion';
@@ -105,25 +105,25 @@ animate(el, { y: 0 }, { type: 'spring', bounce: 0, duration: 0.4 });
 animate(el, { y: target }, { type: 'spring', bounce: 0.2, duration: 0.4 });
 ```
 
-## 5. Velocity handoff — the seam between drag and animation
+## 5. 速度交接——拖拽与动画之间的接缝
 
-When a gesture ends, the animation must **continue at the finger's exact velocity**, so there's no visible seam between dragging and animating. This is the detail that most separates "fluid" from "fine."
+手势结束时，动画必须**以手指此刻的准确速度继续**，让拖拽与动画之间看不出接缝。这正是"流畅"与"尚可"之间最大的分野。
 
-Pass the pointer's release velocity as the spring's initial velocity. Some spring APIs want **relative** velocity — normalize it by the remaining distance to the target:
+把指针松开时的速度作为弹簧初始速度传入。有些弹簧 API 要求**相对**速度——此时用它到目标的剩余距离做归一化：
 
 ```
 relativeVelocity = gestureVelocity / (targetValue − currentValue)
 ```
 
-Example: element at `y=50`, target `y=150` (100px to go), finger moving 50px/s → initial spring velocity = `50 / 100 = 0.5`. Framer Motion / Motion take absolute px/s velocity directly (`velocity` option), so you usually hand it the raw value.
+例：元素位于 `y=50`，目标 `y=150`（还差 100px），手指速度 50px/s → 弹簧初始速度 = `50 / 100 = 0.5`。Framer Motion / Motion 直接接受绝对 px/s 速度（`velocity` 选项），因此通常直接传入原始值即可。
 
-## 6. Momentum projection — animate to where the gesture is *going*
+## 6. 动量投射——让动画走向手势的*去向*
 
-> "Take a small input and make a big output."
+> "以小输入，产出大输出。"
 
-Don't snap to the nearest boundary from the *release point*. Use velocity to **project the resting position** — exactly like scroll deceleration — then snap to the target nearest that projected point. This is what makes a flick feel like it throws the element.
+不要从*松开点*直接吸附到最近的边界。要用速度**投射出静止位置**——与滚动减速完全同理——再吸附到距投射点最近的目标。轻扫之所以有"把元素抛出去"的手感，靠的正是这个。
 
-Apple's exact projection function (from the *Designing Fluid Interfaces* sample code):
+Apple 的确切投射函数（出自 *Designing Fluid Interfaces* 示例代码）：
 
 ```js
 // decelerationRate ≈ 0.998 for normal scroll feel; 0.99 for snappier
@@ -136,23 +136,23 @@ const target = nearestSnapPoint(projectedEndpoint);   // choose target from the 
 animateSpringTo(target, { velocity: releaseVelocity }); // then hand off velocity (§5)
 ```
 
-Note: the physics-textbook `v²/(2·decel)` is *not* what Apple ships — use the exponential-decay form above. This is the standard behavior in good bottom-sheets and carousels (Vaul, Embla).
+注意：物理教科书式的 `v²/(2·decel)` *并非* Apple 实际采用的公式——请使用上面的指数衰减形式。这正是优秀底部 sheet 与轮播组件（Vaul、Embla）的标准行为。
 
-## 7. Spatial consistency — symmetric paths, anchored origins
+## 7. 空间一致性——路径对称、原点锚定
 
-> "If something disappears one way, we expect it to emerge from where it came."
+> "如果某个东西从一边消失，我们期待它从来的地方再出现。"
 
-- **Enter and exit along the same path.** A panel that slides in from the right must dismiss to the right. In-from-right / out-the-bottom feels disconnected and confusing.
-- **Anchor interactions to their source.** A menu, popover, or sheet should originate from the element that triggered it — set `transform-origin` to the trigger, so the spatial relationship between button and content is obvious. (This is the same origin-awareness point as popovers scaling from their trigger, not their center.)
-- **Mirror the easing on reversible transitions** so the outbound path matches the return path (use inverse cubic-bézier control points for the two directions).
+- **沿同一条路径进出。** 从右侧滑入的面板，必须向右侧关闭。从右进、从下出，让人感觉脱节且困惑。
+- **把交互锚定在它的源头。** 菜单、popover 或 sheet 应当从触发它的元素处生长出来——把 `transform-origin` 设为触发点，按钮与内容的空间关系便一目了然。（这与"popover 应从触发点而非自身中心缩放"是同一种原点意识。）
+- **可逆过渡要镜像缓动**，让去程与回程路径吻合（两个方向使用互逆的三次贝塞尔控制点）。
 
-## 8. Hint in the direction of the gesture
+## 8. 沿手势方向给出预示
 
-Humans predict a final state from a trajectory. Intermediate motion should telegraph where things are going — Control Center modules "grow up and out toward your finger." Make the in-between frames point at the outcome, not just interpolate blindly to it.
+人会从轨迹预测最终状态。中间运动应当预告事物的去向——控制中心模块会"朝着你的手指向上、向外生长"。让中间帧指向结果，而不是盲目地向结果插值。
 
-## 9. Rubber-banding — soft boundaries
+## 9. 橡皮筋效应——柔软的边界
 
-At an edge, resist progressively instead of stopping hard. A hard stop reads as "frozen"; continuous resistance reads as "responsive, but there's nothing more here." Apply damping that increases the further past the boundary the user drags.
+到达边缘时，渐进地施加阻力，而不是硬生生停住。硬停读起来像"死机了"；持续的阻力读起来则是"有响应，但到此为止"。阻尼应随用户越过边界的距离增加而增大。
 
 ```js
 // The further past the bound, the less the element follows — real things slow before they stop
@@ -161,32 +161,32 @@ function rubberband(overshoot, dimension, constant = 0.55) {
 }
 ```
 
-## 10. Gesture design details (the "feel" checklist)
+## 10. 手势设计细节（"手感"清单）
 
-- **Tap:** highlight on touch-*down* (instant), commit on touch-*up*. Add ~10px of hysteresis/hit padding around the target, and allow cancel-by-dragging-away and back.
-- **Drag/swipe:** require a small movement threshold (hysteresis, ~10px) before committing to a direction, then track 1:1.
-- **Detect all plausible gestures in parallel from the first move**, then confidently cancel the losers once intent is clear. Avoid recognizers that only report a *final* state (`swipeleft`-type events) — they throw away the continuous tracking you need for feedback.
-- **Minimize disambiguation delays.** Double-tap detection unavoidably delays single taps; only pay that cost where double-tap truly exists.
+- **点按：** 按下（touch-*down*）瞬间即高亮，抬起（touch-*up*）才提交。在目标四周留出约 10px 的迟滞/热区余量，并允许向外拖动再拖回以取消。
+- **拖拽/轻扫：** 先要求一个小的移动阈值（迟滞，约 10px）再确定方向，之后 1:1 跟随。
+- **从第一次移动起就并行识别所有可能的手势**，意图一旦明确，果断取消落选者。避免只报告*最终*状态的识别器（`swipeleft` 一类事件）——它们丢掉了反馈所需的连续跟踪。
+- **把消歧延迟压到最低。** 双击检测不可避免地拖慢单击；只在真正存在双击的地方支付这笔代价。
 
-## 11. Frame-level smoothness
+## 11. 帧级流畅度
 
-Smoothness is about *what's in the frames*, not just the frame rate.
+流畅的关键在于*帧里装了什么*，而不只是帧率。
 
-- Keep the per-frame positional change below the perception threshold to avoid strobing.
-- For very fast motion, a subtle **motion blur / stretch** encodes speed and reads better than a hard sharp streak.
-- `requestAnimationFrame` is the web's display-synced clock (Apple uses `CADisplayLink`). Animate only compositor-friendly properties — `transform` and `opacity` — and hint with `will-change` where motion is imminent.
+- 让每帧的位置变化低于感知阈值，避免频闪。
+- 对极快的运动，轻微的**运动模糊/拉伸**能编码速度感，比生硬的锐利拖影观感更好。
+- `requestAnimationFrame` 是 Web 上与显示同步的时钟（Apple 用的是 `CADisplayLink`）。只动画合成器友好的属性——`transform` 与 `opacity`——并在运动即将发生之处用 `will-change` 给出提示。
 
-## 12. Materials & depth — translucency conveys hierarchy
+## 12. 材质与景深——半透明传递层级
 
-Apple uses translucent materials as a floating functional layer that brings structure without stealing focus. On the web, approximate with `backdrop-filter`.
+Apple 把半透明材质用作悬浮的功能层，既带来结构感，又不抢夺焦点。在 Web 上，用 `backdrop-filter` 近似实现。
 
-- **Build nav/toolbars/sheets as translucent layers** (`backdrop-filter: blur()` + a semi-transparent background) with content scrolling underneath — not opaque bars that consume a fixed strip.
-- **Material weight encodes hierarchy:** darker/heavier materials separate structural regions (sidebars); lighter materials draw attention to interactive elements (buttons). **Never stack a light translucent surface on another** — legibility collapses.
-- **Bigger surfaces should read as thicker:** stronger blur + a deeper shadow than small chips. Consider context-aware shadow — heavier over busy/text content for separation, lighter over plain backgrounds.
-- **Dim to focus, separate to keep flow.** A modal task pairs the surface with a dimming scrim and pushes the background back/down. A parallel, non-blocking panel uses translucency and offset *without* a scrim so the flow isn't broken. For stacked sheets, progressively dim and push back each parent layer.
-- **Vibrancy keeps text legible over changing backgrounds.** Over blurred/translucent surfaces, don't use flat gray text — use higher-contrast, slightly heavier weight, and a small letter-spacing bump. Put color on a solid layer, not the translucent foreground.
-- **Scroll edge effects, not hard dividers.** Instead of a 1px border under a sticky header, fade a small blur/gradient mask where content meets floating chrome — only where floating UI actually overlaps content.
-- **Materialize, don't just fade.** For glass/blur surfaces, animate blur radius and scale together on enter/exit, so the surface reads as a real material arriving rather than a plain opacity fade.
+- **把导航/工具栏/sheet 做成半透明层**（`backdrop-filter: blur()` + 半透明背景），让内容从下方滚过——而不是占据固定条带的实心横栏。
+- **材质的轻重编码层级：** 更深/更重的材质用于分隔结构区域（侧栏）；更轻的材质把注意力引向可交互元素（按钮）。**绝不要把轻质半透明表面叠在另一个之上**——可读性会崩塌。
+- **更大的表面应当显得更厚：** 比小部件用更强的模糊 + 更深的阴影。可考虑随上下文变化的阴影——在繁杂/文字内容上方加重以拉开层次，在素净背景上方减轻。
+- **变暗以聚焦，分离以保流畅。** 模态任务让表面伴随变暗的遮罩，把背景推远、压下。并行的非阻塞面板则只用半透明与偏移，*不加*遮罩，以免打断心流。层叠 sheet 场景下，逐级变暗并推远每一层父级。
+- **鲜艳度（vibrancy）让文字在多变背景上保持可读。** 在模糊/半透明表面之上，不要用扁平的灰色文字——应使用更高的对比度、略重的字重，并把字距略微加大。把彩色放在实心层上，而非半透明前景里。
+- **用滚动边缘效果，别用生硬的分隔线。** 与其在吸顶标题下加 1px 边框，不如在内容与悬浮部件相接处淡入一小段模糊/渐变遮罩——且只放在悬浮 UI 真正压住内容的地方。
+- **让材质成形，而不只是淡入淡出。** 对玻璃/模糊表面，进出时把模糊半径与缩放一起做动画，让表面读起来像一个真实材质的到来，而非一场平淡的透明度渐变。
 
 ```css
 .toolbar {
@@ -196,23 +196,23 @@ Apple uses translucent materials as a floating functional layer that brings stru
 }
 ```
 
-## 13. Multimodal feedback — motion + sound + haptics
+## 13. 多模态反馈——动效 + 声音 + 触感
 
-Three rules for combining senses (from *Designing Audio-Haptic Experiences*):
+组合多种感官的三条规则（出自 *Designing Audio-Haptic Experiences*）：
 
-1. **Causality** — it must be obvious what caused the feedback. Trigger it on the actual causal event (the toggle flipping, the item snapping home), and match its character to the action's physicality.
-2. **Harmony** — the visual, the sound, and the haptic must fire on the **same frame**. Latency between them destroys the illusion. Don't let a CSS transition lag the audio/haptic (Vibration API).
-3. **Utility** — add feedback only where it earns its place. Reserve haptics/sound for meaningful moments (success, error, commit, snap). Over-feedback trains users to ignore all of it.
+1. **因果性（Causality）**——反馈由什么引起，必须显而易见。在真正的因果事件上触发（开关拨动、元素吸附归位），并让反馈的特质与动作的物理特性相称。
+2. **协调性（Harmony）**——视觉、声音与触感必须在**同一帧**触发。彼此之间的延迟会摧毁幻觉。别让 CSS 过渡滞后于声音/触感（Vibration API）。
+3. **实用性（Utility）**——只在值得的地方添加反馈。把触感/声音留给有意义的时刻（成功、出错、提交、吸附）。反馈过载会训练用户忽视所有反馈。
 
-## 14. Reduced motion & accessibility
+## 14. 减弱动态与无障碍
 
-Reduced motion doesn't mean *no* feedback — it means a gentler, non-vestibular equivalent. Respond to three independent signals and bake them into your components:
+减弱动态不等于*没有*反馈——而是改用更温和、不刺激前庭的等价形式。响应三个相互独立的信号，并把它们内置进组件：
 
-- **`prefers-reduced-motion: reduce`** — replace slides/springs/parallax with short opacity **cross-fades or static transitions**. Drop elastic/overshoot. Keep opacity/color changes that aid comprehension.
-- **`prefers-reduced-transparency: reduce`** — make translucent surfaces frostier/solid: raise background opacity, drop the blur.
-- **`prefers-contrast: more`** — near-solid backgrounds with a defined, contrasting border.
+- **`prefers-reduced-motion: reduce`**——用短暂的透明度**交叉淡变或静态过渡**取代滑动/弹簧/视差。去掉弹性/过冲。保留有助于理解的透明度/颜色变化。
+- **`prefers-reduced-transparency: reduce`**——让半透明表面更磨砂/更实：提高背景不透明度，去掉模糊。
+- **`prefers-contrast: more`**——接近实心的背景，配清晰、有对比的边框。
 
-Also: avoid full-viewport moving backgrounds, slow looping oscillations (near 0.2 Hz / one cycle per 5s), and abrupt brightness jumps (ease dark↔light theme changes). Make large moving objects semi-transparent while they travel, and fade big surfaces out during a large reposition and back in once settled.
+另外：避免全屏移动背景、缓慢的循环往复运动（约 0.2 Hz / 每 5 秒一个周期）与突兀的亮度跳变（深色↔浅色主题切换要加缓动）。大型物体移动途中应呈半透明；大范围位移期间把大表面淡出，落定后再淡入。
 
 ```css
 @media (prefers-reduced-motion: reduce) {
@@ -223,15 +223,15 @@ Also: avoid full-viewport moving backgrounds, slow looping oscillations (near 0.
 }
 ```
 
-## 15. Typography — optical sizing, tracking, leading
+## 15. 排版——光学尺寸、字距、行距
 
-Apple designs type to change shape with size; the same discipline applies on the web. (From *The Details of UI Typography*, WWDC 2020.)
+Apple 设计的文字会随尺寸改变形态；同样的纪律也适用于 Web。（出自 *The Details of UI Typography*，WWDC 2020。）
 
-- **Tracking (letter-spacing) is size-specific — never one value for all sizes.** Large display text wants *negative* tracking (letters read too far apart as they grow); small text wants slightly *positive* tracking for legibility. A fixed `letter-spacing` is wrong somewhere. Tighten headings, leave body near `0`.
-- **Leading (line-height) tracks size inversely.** Tight on large headings, looser on body copy. Increase it for scripts with tall ascenders/descenders; tighten it for dense, information-heavy UI.
-- **Build hierarchy from weight + size + leading as a set,** not size alone. Emphasize with weight — it adds presence without taking more space.
-- **Respect the user's text-size setting** (Dynamic Type). Scale layout *with* the text — spacing in `rem`/`em`, not fixed px — so a larger font doesn't break the layout.
-- **Default to the platform's system font** before a custom face; it already ships optical sizing, tracking tables, and legibility tuning. Override only with a reason.
+- **字距（tracking，letter-spacing）因字号而异——绝不要一个值通吃所有字号。** 大号展示文字需要*负*字距（字越大，字母间距看起来越散）；小号文字需要略*正*的字距以保证易读。固定的 `letter-spacing` 总会在某个字号上出错。标题收紧，正文保持在 `0` 附近。
+- **行距（leading，line-height）与字号反向而行。** 大标题紧，正文松。上伸部/下延部较高的文种要加大行距；信息密集的 UI 则收紧。
+- **把层级建立在字重 + 字号 + 行距的整体组合上**，而非只靠字号。用字重强调——它增加存在感，却不占用更多空间。
+- **尊重用户的文字大小设置**（Dynamic Type）。让布局*随文字*缩放——间距用 `rem`/`em` 而非固定 px——调大字体才不会撑破布局。
+- **优先用平台的系统字体**，再考虑自定义字体；它自带光学尺寸、字距表与易读性调校。除非有理由，否则不要覆盖。
 
 ```css
 :root { font: 100%/1.5 system-ui, sans-serif; } /* body: system font, comfortable leading */
@@ -244,47 +244,47 @@ Apple designs type to change shape with size; the same discipline applies on the
 }
 ```
 
-## 16. Design foundations — the eight principles
+## 16. 设计基石——八大原则
 
-The motion and craft above serve Apple's eight design principles (*Principles of Great Design*, WWDC 2026). Use these as the names you reason with:
+上面的动效与工艺，服务于 Apple 的八大设计原则（*Principles of Great Design*，WWDC 2026）。把它们当作推理时所用的名词：
 
-1. **Purpose.** Make with intention; decide what *not* to build. Every feature asks for the user's time, attention, and trust — spend that budget only where it pays off.
-2. **Agency.** Keep people in control: offer choices, don't force a single path. Back it with forgiveness — easy undo for slips, a confirmation dialog only for genuinely destructive, irreversible actions (use sparingly; overusing it trains people to click through).
-3. **Responsibility.** Act in the user's interest. Privacy: ask at the right moment, only for what's needed, transparently. Safety: anticipate misuse and harm — especially with AI (an allergy-aware recipe app must not suggest a harmful ingredient). Add previews, confirmations, disclaimers; cut a feature whose risk outweighs its value.
-4. **Familiarity.** Build on what people already know. Use metaphors that are neither too literal nor too abstract (a trash can means delete), and honor their physics. Be consistent: things that look the same must behave the same and live in the same place (close is always top-left on macOS) so people can predict what happens next. Only break a familiar pattern if you can prove it's better — then test it, don't assume.
-5. **Flexibility.** Design for different contexts, devices, and the full range of abilities. Adapt to the platform (iPhone = quick touch; desktop = deep workflows with precise pointer control) and to the situation. Design inclusively (age, language, expertise, accessibility). When no single layout fits everyone, let people personalize — rearrange controls, hide what they don't use.
-6. **Simplicity — not minimalism.** Strip the unnecessary so the core purpose shines; burying everything in one place looks minimal but isn't simple. Be concise (plain language, no jargon, fewer steps) and clear (use hierarchy — order, spacing, contrast — so the most important thing is the most obvious). Every element earns its place; sometimes *adding* context simplifies (a video scrubber that shows time remaining). Show the common path first, advanced options one level deeper.
-7. **Craft.** Uncompromising attention to detail builds trust. Beautiful typography, colors that adapt to light/dark, clear iconography, and responsive animations that give immediate, natural feedback. Nothing is random — every spacing, timing, and alignment value is a deliberate choice you can defend. Jittery scroll, misaligned icons, and layouts that break on rotation read as carelessness. Craft needs iteration and longevity — keep evolving the design as features and hardware change.
-8. **Delight.** The result of getting the other seven right, not confetti tacked on top. Decide the emotion you want people to feel (calm, confident, excited) and reinforce it in every decision.
+1. **目的（Purpose）。** 带着意图去创造；决定*不做什么*。每个功能都在索取用户的时间、注意力与信任——这份预算只花在有回报之处。
+2. **掌控感（Agency）。** 让用户始终掌权：提供选择，不强加单一路径。并以宽容兜底——失误可以轻松撤销；确认对话框只留给真正破坏性、不可逆的操作（务必节制；滥用只会训练人们闭眼点过）。
+3. **责任（Responsibility）。** 以用户的利益行事。隐私：在恰当的时机询问、只索取所需、保持透明。安全：预判误用与伤害——AI 场景尤甚（一款过敏原感知的食谱应用，绝不能建议有害食材）。添加预览、确认、免责说明；风险大于价值的功能，直接砍掉。
+4. **熟悉感（Familiarity）。** 建立在人们已知的事物之上。使用既不过于写实也不过于抽象的隐喻（垃圾桶意味着删除），并尊重其物理直觉。保持一致：看起来相同的东西必须行为相同、位置相同（macOS 上关闭按钮总在左上角），人们才能预测接下来会发生什么。只有当你能证明新模式更好时才打破熟悉的模式——并且要去验证，而非想当然。
+5. **灵活性（Flexibility）。** 为不同的情境、设备与全谱系能力而设计。适配平台（iPhone = 快速点触；桌面 = 精确指针控制下的深度工作流），也适配具体场景。做包容性设计（年龄、语言、专业水平、无障碍）。当没有一种布局能适配所有人时，让人自行个性化——重排控件、隐藏用不到的东西。
+6. **简洁——而非极简主义。** 剥除不必要的，让核心目的发光；把所有东西都埋进同一处，看起来极简，实则并不简单。做到简练（平实的语言、不用行话、更少的步骤）与清晰（运用层级——顺序、间距、对比——让最重要的东西最显眼）。每个元素都要挣得自己的位置；有时*添加*上下文反而化繁为简（显示剩余时长的视频进度条）。先展示常见路径，高级选项藏深一层。
+7. **匠心（Craft）。** 对细节不留情面的打磨建立信任。漂亮的排版、随深浅色模式适配的颜色、清晰的图标，以及给出即时、自然反馈的灵敏动画。没有什么是随机的——每个间距、时序、对齐数值，都是你能够为之辩护的深思熟虑的选择。抖动的滚动、错位的图标、一旋转就崩的布局，都会被读作敷衍。匠心需要迭代与长期投入——随着功能与硬件的变化持续打磨设计。
+8. **愉悦（Delight）。** 它是做好前七项的结果，而不是撒在最上层的彩纸。想清楚你希望人们产生何种情绪（平静、笃定、兴奋），并在每一个决策中强化它。
 
-Tactical rules that serve these:
+服务于这些原则的战术规则：
 
-- **Feedback comes in four kinds:** status, completion, warning, error. Confirm meaningful actions, expose ongoing status, warn before problems, validate inline (not on submit).
-- **Wayfinding.** Every screen should answer: Where am I? Where can I go? What's there? How do I get out? Never trap the user.
-- **Grouping & mapping.** Proximity implies relationship; place a control near what it affects and arrange controls to mirror what they change. If you need a label to explain a control, the mapping is weak.
-- **Direct, specific labels beat safe generic ones.** Name nav items for their contents ("Progress", "Library"), not vague umbrellas ("Home"). Specificity creates predictability.
+- **反馈分四种：** 状态、完成、警告、错误。确认有意义的操作，展示进行中的状态，在问题发生前预警，行内即时校验（而非提交时才校验）。
+- **寻路（Wayfinding）。** 每个屏幕都应回答：我在哪？我能去哪？那里有什么？我如何出去？绝不困住用户。
+- **分组与映射。** 邻近暗示关联；把控件放在它所作用的对象旁边，让控件的排布映照它们所改变的东西。如果一个控件需要靠标签来解释，映射就是弱的。
+- **直接、具体的标签胜过安全的泛称。** 用内容命名导航项（"进度"、"资料库"），而非含混的伞形词（"首页"）。具体带来可预期。
 
-## 17. Process
+## 17. 流程
 
-- **Prototype interactively — an interactive demo is worth "a million static designs."** You discover the interface by building and playing with it; a working prototype also sets a concrete bar that prevents a mediocre final implementation.
-- **Design interaction and visuals together.** "You shouldn't be able to tell where one ends and the other begins." Motion is not a layer added after the pixels.
-- **Test with real people in real context**, and review motion with fresh eyes — play it in slow motion / frame-by-frame to catch what's invisible at full speed.
+- **交互式地做原型——一个可交互的 demo 胜过"一百万张静态设计"。** 你是在搭建与把玩中发现界面的；能跑的原型还立起一道具体的标杆，防止最终实现流于平庸。
+- **交互与视觉一起设计。** "你应当分辨不出两者的边界在哪。"动效不是像素定稿之后再叠加的一层。
+- **在真实场景中找真实的人测试**，并以新鲜的眼光审视动效——用慢放/逐帧播放，捕捉全速下看不见的问题。
 
-## Quick Reference
+## 快速参考
 
-| Need | Technique | Concrete value |
+| 需求 | 技法 | 具体数值 |
 | --- | --- | --- |
-| Default UI spring | Critically damped, no overshoot | `damping 1.0`, `response 0.3–0.4` |
-| Momentum / flick spring | Under-damped, slight bounce | `damping ~0.8`, `response 0.3–0.4` |
-| Gesture → spring velocity | Hand off release velocity | `gestureVelocity / (target − current)` if normalized |
-| Flick landing point | Project momentum | `current + (v/1000)·d/(1−d)`, `d ≈ 0.998` |
-| Interrupt cleanly | Start from presentation (live) value | read the on-screen transform |
-| Avoid reversal "brick wall" | Carry velocity through re-target | spring that blends velocity |
-| Reversible transition | Mirror the easing curve | inverse cubic-bézier |
-| Decide reverse vs. commit | Use velocity **sign**, not position | at release |
-| 1:1 drag | Pointer Events + capture | respect the grab offset |
-| Feedback | On pointer-down, continuous | never only at the end |
-| Boundary | Rubber-band, don't hard-stop | progressive resistance |
-| Translucent chrome | `backdrop-filter` layer | content scrolls under |
-| Type tracking | Size-specific, never fixed | tighten large text (`-0.02em`), body near `0` |
-| Reduced motion | Cross-fade, not slide/spring | `@media (prefers-reduced-motion)` |
+| 默认 UI 弹簧 | 临界阻尼，无过冲 | `damping 1.0`、`response 0.3–0.4` |
+| 动量/轻扫弹簧 | 欠阻尼，轻微回弹 | `damping ~0.8`、`response 0.3–0.4` |
+| 手势 → 弹簧速度 | 交接松开时的速度 | 归一化时用 `gestureVelocity / (target − current)` |
+| 轻扫落点 | 投射动量 | `current + (v/1000)·d/(1−d)`，`d ≈ 0.998` |
+| 干净地中断 | 从呈现（实时）值起步 | 读取屏幕上的 transform |
+| 避免反向时的"砖墙" | 重定目标时继承速度 | 会混合速度的弹簧 |
+| 可逆过渡 | 镜像缓动曲线 | 互逆的三次贝塞尔 |
+| 判断反向还是提交 | 看速度的**正负**，而非位置 | 在松开时判断 |
+| 1:1 拖拽 | Pointer Events + capture | 尊重抓取偏移量 |
+| 反馈 | pointer-down 时触发，持续进行 | 绝不只出现在结束时 |
+| 边界 | 橡皮筋，不要硬停 | 渐进阻力 |
+| 半透明部件 | `backdrop-filter` 层 | 内容从下方滚过 |
+| 文字字距 | 因字号而异，绝不定死 | 大字收紧（`-0.02em`），正文近 `0` |
+| 减弱动态 | 交叉淡变，而非滑动/弹簧 | `@media (prefers-reduced-motion)` |

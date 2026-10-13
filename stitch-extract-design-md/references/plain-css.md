@@ -1,26 +1,22 @@
-# Plain CSS / SASS / Less Extraction Patterns
+# 纯 CSS / SASS / Less 提取模式
 
-For projects without a JavaScript framework — static sites, WordPress
-themes, vanilla HTML/CSS, or CSS preprocessor-heavy projects.
+适用于没有 JavaScript 框架的项目——静态站点、WordPress 主题、原生 HTML/CSS，或重度依赖 CSS 预处理器的项目。
 
-## File Discovery Order
+## 文件查找顺序
 
-1. **`index.html` / `*.html`** — Check `<link>` tags and `<style>` blocks
-   for stylesheet references, inline styles, and font loading.
+1. **`index.html` / `*.html`** —— 检查 `<link>` 标签和 `<style>` 块，找出样式表引用、内联样式与字体加载。
 
-2. **Main stylesheet** (`style.css`, `main.css`, `app.css`) — The primary
-   CSS file. Look for custom properties, base styles, and typography.
+2. **主样式表**（`style.css`、`main.css`、`app.css`）—— 最核心的 CSS 文件。关注自定义属性、基础样式与字体排印。
 
-3. **`_variables.scss` / `_tokens.scss` / `variables.less`** — Preprocessor
-   variable files containing design tokens.
+3. **`_variables.scss` / `_tokens.scss` / `variables.less`** —— 承载设计令牌的预处理器变量文件。
 
-4. **`_mixins.scss`** — Reusable style patterns reveal design conventions.
+4. **`_mixins.scss`** —— 可复用的样式模式，能揭示设计惯例。
 
-5. **Component/module stylesheets** — Individual CSS files for UI components.
+5. **组件/模块样式表** —— 各 UI 组件独立的 CSS 文件。
 
-## CSS Custom Properties (Modern CSS)
+## CSS 自定义属性（现代 CSS）
 
-Modern vanilla CSS projects often define a design system via custom properties:
+现代原生 CSS 项目常用自定义属性定义设计系统：
 
 ```css
 :root {
@@ -56,9 +52,9 @@ Modern vanilla CSS projects often define a design system via custom properties:
 }
 ```
 
-This is the cleanest source of truth. Extract directly and name each token.
+这是最干净的事实来源。直接提取，并为每个令牌命名。
 
-## SASS/SCSS Token Patterns
+## SASS/SCSS 令牌模式
 
 ```scss
 // _variables.scss
@@ -86,9 +82,9 @@ $spacers: (
 );
 ```
 
-SASS maps are essentially design token dictionaries. Extract all values.
+SASS map 本质上就是设计令牌字典，把所有值都提取出来。
 
-## Less Variable Patterns
+## Less 变量模式
 
 ```less
 @primary-color: #294056;
@@ -98,24 +94,21 @@ SASS maps are essentially design token dictionaries. Extract all values.
 @border-radius-base: 8px;
 ```
 
-Same extraction approach — map each variable to a descriptive name and role.
+提取方法相同——把每个变量映射到描述性名称和角色。
 
-## Static Sites and WordPress
+## 静态站点与 WordPress
 
-For static sites or WordPress themes:
+针对静态站点或 WordPress 主题：
 
-- **WordPress**: Check `style.css` header comment for theme metadata.
-  Look for `wp-content/themes/<name>/assets/css/` for stylesheets.
-  `functions.php` may enqueue Google Fonts.
-- **Jekyll/Hugo**: Check `_sass/` or `assets/css/` directories.
-- **Static HTML**: Everything is in the CSS files and `<style>` blocks.
+- **WordPress**：检查 `style.css` 头部注释中的主题元数据；样式表在 `wp-content/themes/<name>/assets/css/` 下；`functions.php` 可能以 enqueue 方式引入 Google Fonts。
+- **Jekyll/Hugo**：检查 `_sass/` 或 `assets/css/` 目录。
+- **静态 HTML**：一切都在 CSS 文件和 `<style>` 块里。
 
-## Inline Style Scanning
+## 内联样式扫描
 
-For projects heavy on inline styles (legacy codebases, email templates):
+对内联样式繁多的项目（遗留代码库、邮件模板）：
 
-Search HTML files for `style="..."` attributes. Group unique values by
-property type:
+在 HTML 文件中搜索 `style="..."` 属性，把不重复的取值按属性类型分组：
 
 ```
 background-color: #FCFAFA, #F5F5F5, #294056
@@ -124,12 +117,11 @@ border-radius: 8px, 12px
 font-family: 'Manrope', 'Inter'
 ```
 
-Then deduplicate and assign roles.
+随后去重并指派角色。
 
-## Color Extraction Strategy
+## 颜色提取策略
 
-When there's no explicit token system, you need to discover colors across
-all stylesheets. Search for:
+没有显式令牌体系时，就得在所有样式表里搜寻颜色。搜索这些属性：
 
 ```
 background-color:
@@ -143,13 +135,11 @@ fill:
 stroke:
 ```
 
-Collect all unique hex values, `rgb()`, `rgba()`, and `hsl()` values.
-Group by proximity (similar colors within a few shades) and assign roles
-based on context (which selectors use them).
+收集所有不重复的 hex、`rgb()`、`rgba()` 与 `hsl()` 值。按相近程度分组（色阶接近的归为一组），再依据上下文（哪些选择器在用它们）指派角色。
 
-## Responsive Patterns
+## 响应式模式
 
-Look for `@media` queries in all stylesheets. Common patterns:
+在所有样式表里找 `@media` 查询。常见模式：
 
 ```css
 @media (max-width: 768px) { ... }   /* Mobile-first breakpoint */
@@ -157,5 +147,4 @@ Look for `@media` queries in all stylesheets. Common patterns:
 @media (prefers-color-scheme: dark) { ... } /* Dark mode support */
 ```
 
-Document all breakpoints and the content strategy at each (column
-changes, padding adjustments, navigation transformations).
+记录所有断点，以及各断点下的内容策略（栏数变化、padding 调整、导航形态转换）。

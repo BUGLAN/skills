@@ -1,121 +1,121 @@
-# Design System: Taste Standard
-**Skill:** stitch-design-taste
+# 设计系统：品味标准
+**技能：** stitch-design-taste
 
 ---
 
-## Configuration — Set Your Style
-Adjust these dials before using this design system. They control how creative, dense, and animated the output should be. Pick the level that fits your project.
+## 配置——设定风格
+使用这套设计系统前，先调好下面几个旋钮。它们决定输出的创意程度、信息密度与动效强度。请选择与项目匹配的档位。
 
-| Dial | Level | Description |
-|------|-------|-------------|
-| **Creativity** | `8` | `1` = Ultra-minimal, Swiss, silent, monochrome. `5` = Balanced, clean but with personality. `10` = Expressive, editorial, bold typography experiments, inline images in headlines, strong asymmetry. Default: `8` |
-| **Density** | `4` | `1` = Gallery-airy, massive whitespace. `5` = Balanced sections. `10` = Cockpit-dense, data-heavy. Default: `4` |
-| **Variance** | `8` | `1` = Predictable, symmetric grids. `5` = Subtle offsets. `10` = Artsy chaotic, no two sections alike. Default: `8` |
-| **Motion Intent** | `6` | `1` = Static, no animation noted. `5` = Subtle hover/entrance cues. `10` = Cinematic orchestration noted in every component. Default: `6` |
+| 旋钮 | 档位 | 说明 |
+|------|------|------|
+| **创意度** | `8` | `1` = 极简、瑞士风、安静、单色。`5` = 均衡，干净但不失个性。`10` = 张扬、编辑风、大胆的字体实验、标题内嵌图片、强烈的非对称。默认：`8` |
+| **密度** | `4` | `1` = 美术馆般疏朗、大面积留白。`5` = 区块均衡。`10` = 驾驶舱级紧凑、数据密集。默认：`4` |
+| **变化度** | `8` | `1` = 可预测的对称网格。`5` = 轻微错落。`10` = 艺术化的纷繁，没有两个区块雷同。默认：`8` |
+| **动效意向** | `6` | `1` = 静态，不标注动画。`5` = 轻微的悬停/入场提示。`10` = 每个组件都标注电影级编排。默认：`6` |
 
-> **How to use:** Change the numbers above to match your project's vibe. At **Creativity 1–3**, the system produces clean, quiet, Notion-like interfaces. At **Creativity 7–10**, expect inline image typography, dramatic scale contrast, and strong editorial layouts. The rest of the rules below adapt to your chosen levels.
+> **用法：**把上面的数字改成符合项目气质的档位。**创意度 1–3** 时，系统产出干净、安静、类 Notion 的界面；**创意度 7–10** 时，则会出现行内图片排版、戏剧性的字号对比与强烈的编辑式版面。下文其余规则会随所选档位自动适配。
 
 ---
 
-## 1. Visual Theme & Atmosphere
-A restrained, gallery-airy interface with confident asymmetric layouts and fluid spring-physics motion. The atmosphere is clinical yet warm — like a well-lit architecture studio where every element earns its place through function. Density is balanced (Level 4), variance runs high (Level 8) to prevent symmetrical boredom, and motion is fluid but never theatrical (Level 6). The overall impression: expensive, intentional, alive.
+## 1. 视觉主题与氛围
+克制而疏朗如美术馆的界面：非对称布局从容笃定，弹簧物理动效流畅自然。氛围理性中透着温度——像一间采光良好的建筑事务所，每个元素都凭功能赢得自己的位置。密度均衡（档位 4），变化度走高（档位 8）以避免对称带来的乏味，动效流畅而不做作（档位 6）。整体观感：高级、笃定、有生命力。
 
-## 2. Color Palette & Roles
-- **Canvas White** (#F9FAFB) — Primary background surface. Warm-neutral, never clinical blue-white
-- **Pure Surface** (#FFFFFF) — Card and container fill. Used with whisper shadow for elevation
-- **Charcoal Ink** (#18181B) — Primary text. Zinc-950 depth — never pure black
-- **Steel Secondary** (#71717A) — Body text, descriptions, metadata. Zinc-500 warmth
-- **Muted Slate** (#94A3B8) — Tertiary text, timestamps, disabled states
-- **Whisper Border** (rgba(226,232,240,0.5)) — Card borders, structural 1px lines. Semi-transparent for depth
-- **Diffused Shadow** (rgba(0,0,0,0.05)) — Card elevation. Wide-spreading, 40px blur, -15px offset. Never harsh
+## 2. 配色与角色
+- **画布白 Canvas White**（#F9FAFB）——主背景表面。暖调中性，绝非冷得发蓝的白
+- **纯白面 Pure Surface**（#FFFFFF）——卡片与容器填充。配合轻语阴影营造悬浮层级
+- **炭墨黑 Charcoal Ink**（#18181B）——主文字。Zinc-950 级深度——绝不用纯黑
+- **钢灰 Steel Secondary**（#71717A）——正文、描述、元数据。带着 Zinc-500 的温度
+- **雾板岩 Muted Slate**（#94A3B8）——三级文字、时间戳、禁用状态
+- **轻语边框 Whisper Border**（rgba(226,232,240,0.5)）——卡片边框、1px 结构线。半透明以营造纵深
+- **漫射阴影 Diffused Shadow**（rgba(0,0,0,0.05)）——卡片投影。扩散面宽、模糊 40px、偏移 -15px。绝不生硬
 
-### Accent Selection (Pick ONE per project)
-- **Emerald Signal** (#10B981) — For growth, success, positive data dashboards
-- **Electric Blue** (#3B82F6) — For productivity, SaaS, developer tools
-- **Deep Rose** (#E11D48) — For creative, editorial, fashion-adjacent projects
-- **Amber Warmth** (#F59E0B) — For community, social, warm-toned products
+### 强调色选择（每个项目只选一种）
+- **祖母绿信号 Emerald Signal**（#10B981）——适合增长、成功、正向数据仪表盘
+- **电光蓝 Electric Blue**（#3B82F6）——适合效率工具、SaaS、开发者工具
+- **深玫红 Deep Rose**（#E11D48）——适合创意、编辑风、时尚类项目
+- **琥珀暖 Amber Warmth**（#F59E0B）——适合社区、社交、暖调产品
 
-### Banned Colors
-- Purple/Violet neon gradients — the "AI Purple" aesthetic
-- Pure Black (#000000) — always Off-Black or Zinc-950
-- Oversaturated accents above 80% saturation
-- Mixed warm/cool gray systems within one project
+### 禁用色
+- 紫/罗兰色霓虹渐变——即「AI 紫」审美
+- 纯黑（#000000）——一律改用 Off-Black 或 Zinc-950
+- 饱和度超过 80% 的过饱和强调色
+- 同一项目内混用暖灰与冷灰体系
 
-## 3. Typography Rules
-- **Display:** `Geist`, `Satoshi`, `Cabinet Grotesk`, or `Outfit` — Track-tight (`-0.025em`), controlled fluid scale, weight-driven hierarchy (700–900). Not screaming. Leading compressed (`1.1`). Alternatives forced — `Inter` is BANNED for premium contexts
-- **Body:** Same family at weight 400 — Relaxed leading (`1.65`), 65ch max-width, Steel Secondary color (#71717A)
-- **Mono:** `Geist Mono` or `JetBrains Mono` — For code blocks, metadata, timestamps. When density exceeds Level 7, all numbers switch to monospace
-- **Scale:** Display at `clamp(2.25rem, 5vw, 3.75rem)`. Body at `1rem/1.125rem`. Mono metadata at `0.8125rem`
+## 3. 排版规则
+- **展示标题：**`Geist`、`Satoshi`、`Cabinet Grotesk` 或 `Outfit`——字距收紧（`-0.025em`）、克制的流式字号、以字重定层级（700–900）。不靠喊。行高压紧（`1.1`）。只能从备选中选——高端场景禁用 `Inter`
+- **正文：**同族字体、字重 400——行距舒展（`1.65`）、最大宽度 65ch、颜色用钢灰（#71717A）
+- **等宽：**`Geist Mono` 或 `JetBrains Mono`——用于代码块、元数据、时间戳。密度超过档位 7 时，所有数字一律换用等宽字体
+- **字号：**展示标题 `clamp(2.25rem, 5vw, 3.75rem)`；正文 `1rem/1.125rem`；等宽元数据 `0.8125rem`
 
-### Banned Fonts
-- `Inter` — banned everywhere in premium/creative contexts
-- Generic serif fonts (`Times New Roman`, `Georgia`, `Garamond`, `Palatino`) — BANNED. If serif is needed for editorial/creative, use only distinctive modern serifs like `Fraunces`, `Gambarino`, `Editorial New`, or `Instrument Serif`. Never use default browser serif stacks. Serif is always BANNED in dashboards or software UIs regardless
+### 禁用字体
+- `Inter`——高端/创意场景一律禁用
+- 通用衬线体（`Times New Roman`、`Georgia`、`Garamond`、`Palatino`）——禁用。编辑/创意场景确需衬线时，只可选用辨识度高的现代衬线体，如 `Fraunces`、`Gambarino`、`Editorial New` 或 `Instrument Serif`。绝不使用浏览器默认衬线字体栈。无论何种情况，仪表盘与软件 UI 一律禁用衬线体
 
-## 4. Component Stylings
-* **Buttons:** Flat surface, no outer glow. Primary: accent fill with white text. Secondary: ghost/outline. Active state: `-1px translateY` or `scale(0.98)` for tactile push. Hover: subtle background shift, never glow
-* **Cards/Containers:** Generously rounded corners (`2.5rem`). Pure white fill. Whisper border (`1px`, semi-transparent). Diffused shadow (`0 20px 40px -15px rgba(0,0,0,0.05)`). Internal padding `2rem–2.5rem`. Used ONLY when elevation communicates hierarchy — high-density layouts replace cards with `border-top` dividers or negative space
-* **Inputs/Forms:** Label positioned above input. Helper text optional. Error text below in Deep Rose. Focus ring in accent color, `2px` offset. No floating labels. Standard `0.5rem` gap between label-input-error stack
-* **Navigation:** Sleek, sticky. Icons scale on hover (Dock Magnification optional). No hamburger on desktop. Clean horizontal with generous spacing
-* **Loaders:** Skeletal shimmer matching exact layout dimensions and rounded corners. Shifting light reflection across placeholder shapes. Never circular spinners
-* **Empty States:** Composed illustration or icon composition with guidance text. Never just "No data found"
-* **Error States:** Inline, contextual. Red accent underline or border. Clear recovery action
+## 4. 组件样式
+* **按钮：**扁平表面，无外发光。主按钮：强调色填充配白字。次按钮：幽灵/描边样式。按下态：`-1px translateY` 或 `scale(0.98)`，带来触感回压。悬停：背景细微变化，绝不发光
+* **卡片/容器：**圆角宽裕（`2.5rem`）。纯白填充。轻语边框（`1px`，半透明）。漫射阴影（`0 20px 40px -15px rgba(0,0,0,0.05)`）。内边距 `2rem–2.5rem`。仅当投影承载层级信息时才用——高密度布局改用 `border-top` 分隔线或留白
+* **输入框/表单：**标签置于输入框上方。辅助文本可选。错误文本在下方，用深玫红。焦点环用强调色，偏移 `2px`。不用浮动标签。标签-输入框-错误提示之间保持标准的 `0.5rem` 间距
+* **导航：**利落、吸顶。悬停时图标放大（可选 Dock Magnification 放大效果）。桌面端不用汉堡菜单。横向排布、间距宽裕、干净利落
+* **加载器：**骨架微光，与布局尺寸和圆角精确一致。光带在占位形状间流动。绝不用圆形 spinner
+* **空状态：**精心构图的插画或图标组合，配引导文字。绝不是一句「No data found」了事
+* **错误状态：**行内、贴合上下文。红色强调下划线或边框。提供清晰的恢复操作
 
-## 5. Hero Section
-The Hero is the first impression — it must be striking, creative, and never generic.
-- **Inline Image Typography:** Embed small, contextual photos or visuals directly between words or letters in the headline. Example: "We build [photo of hands typing] digital [photo of screen] products" — images sit inline at type-height, rounded, acting as visual punctuation between words. This is the signature creative technique
-- **No Overlapping Elements:** Text must never overlap images or other text. Every element has its own clear spatial zone. No z-index stacking of content layers, no absolute-positioned headlines over images. Clean separation always
-- **No Filler Text:** "Scroll to explore", "Swipe down", scroll arrow icons, bouncing chevrons, and any instructional UI chrome are BANNED. The user knows how to scroll. Let the content pull them in naturally
-- **Asymmetric Structure:** Centered Hero layouts are BANNED at this variance level. Use Split Screen (50/50), Left-Aligned text / Right visual, or Asymmetric Whitespace with large empty zones
-- **CTA Restraint:** Maximum one primary CTA button. No secondary "Learn more" links. No redundant micro-copy below the headline
+## 5. Hero 区
+Hero 区是第一印象——必须抓人、有创意，绝不平庸。
+- **行内图片排版：**在标题的词句或字母之间直接嵌入契合语境的小图或视觉素材。示例：「We build [打字双手的照片] digital [屏幕照片] products」——图片以文字高度行内排布、带圆角，充当词句之间的视觉标点。这是标志性创意手法
+- **元素不重叠：**文字绝不压在图片或其他文字上。每个元素各占清晰的独立空间。不用 z-index 堆叠内容层，不用绝对定位把标题压在图片上。始终保持整洁分隔
+- **不用填充文案：**「Scroll to explore」「Swipe down」、滚动箭头图标、弹跳 chevron，以及任何教学式 UI 装饰一律禁用。用户知道怎么滚动，让内容自然把他们拉进来
+- **非对称结构：**在此变化度档位下，居中式 Hero 布局一律禁用。采用分屏（50/50）、左侧文字/右侧视觉，或带大面积留白的非对称构图
+- **克制 CTA：**主 CTA 按钮至多一个。不放「Learn more」次级链接。标题下方不堆冗余微文案
 
-## 6. Layout Principles
-- **Grid-First:** CSS Grid for all structural layouts. Never flexbox percentage math (`calc(33% - 1rem)` is BANNED)
-- **No Overlapping:** Elements must never overlap each other. No absolute-positioned layers stacking content on content. Every element occupies its own grid cell or flow position. Clean, separated spatial zones
-- **Feature Sections:** The "3 equal cards in a row" pattern is BANNED. Use 2-column Zig-Zag, asymmetric Bento grids (2fr 1fr 1fr), or horizontal scroll galleries
-- **Containment:** All content within `max-width: 1400px`, centered. Generous horizontal padding (`1rem` mobile, `2rem` tablet, `4rem` desktop)
-- **Full-Height:** Use `min-height: 100dvh` — never `height: 100vh` (iOS Safari address bar jump)
-- **Bento Architecture:** For feature grids, use Row 1: 3 columns | Row 2: 2 columns (70/30 split). Each tile contains a perpetual micro-animation
+## 6. 布局原则
+- **网格优先：**结构性布局全部用 CSS Grid。绝不搞 Flexbox 百分比数学（`calc(33% - 1rem)` 一类一律禁用）
+- **互不重叠：**元素之间绝不相互覆盖。不用绝对定位图层把内容叠在内容上。每个元素各占自己的网格单元或文档流位置。空间分区干净、彼此分离
+- **功能区块：**「一行三张等宽卡片」模式禁用。改用双列 Z 字形（Zig-Zag）、非对称 Bento 网格（2fr 1fr 1fr）或横向滚动画廊
+- **版心约束：**所有内容限制在 `max-width: 1400px` 内并居中。水平内边距宽裕（移动端 `1rem`、平板 `2rem`、桌面 `4rem`）
+- **全屏高度：**用 `min-height: 100dvh`——绝不用 `height: 100vh`（iOS Safari 地址栏伸缩会导致跳动）
+- **Bento 结构：**功能网格采用第 1 行 3 列｜第 2 行 2 列（70/30 分割）。每块瓦片内含一个永续微动画
 
-## 7. Responsive Rules
-Every screen must work flawlessly across all viewports. **Responsive is not optional — it is a hard requirement. Every single element must be tested at 375px, 768px, and 1440px.**
-- **Mobile-First Collapse (< 768px):** All multi-column layouts collapse to a strict single column. `width: 100%`, `padding: 1rem`, `gap: 1.5rem`. No exceptions
-- **No Horizontal Scroll:** Horizontal overflow on mobile is a critical failure. All elements must fit within viewport width. If any element causes horizontal scroll, the design is broken
-- **Typography Scaling:** Headlines scale down gracefully via `clamp()`. Body text stays `1rem` minimum. Never shrink body below `14px`. Headlines must remain readable on 375px screens
-- **Touch Targets:** All interactive elements minimum `44px` tap target. Generous spacing between clickable items. Buttons must be full-width on mobile
-- **Image Behavior:** Hero and inline images scale proportionally. Inline typography images (photos between words) stack below the headline on mobile instead of inline
-- **Navigation:** Desktop horizontal nav collapses to a clean mobile menu (slide-in or full-screen overlay). No tiny hamburger icons without labels
-- **Cards & Grids:** Bento grids and asymmetric layouts revert to stacked single-column cards with full-width. Maintain internal padding (`1rem`)
-- **Spacing Consistency:** Vertical section gaps reduce proportionally on mobile (`clamp(3rem, 8vw, 6rem)`). Never cramped, never excessively airy
-- **Testing Viewports:** Designs must be verified at: `375px` (iPhone SE), `390px` (iPhone 14), `768px` (iPad), `1024px` (small laptop), `1440px` (desktop)
+## 7. 响应式规则
+每块屏幕都必须在所有视口下完美工作。**响应式不是可选项——它是硬性要求。每一个元素都必须在 375px、768px、1440px 下测试。**
+- **移动优先折叠（< 768px）：**所有多栏布局严格折叠为单栏。`width: 100%`、`padding: 1rem`、`gap: 1.5rem`。无一例外
+- **禁止横向滚动：**移动端横向溢出即致命失败。所有元素必须收敛在视口宽度内。只要有元素引发横向滚动，这个设计就是失败的
+- **字号缩放：**标题通过 `clamp()` 优雅缩小。正文保持 `1rem` 起步，绝不缩到 `14px` 以下。标题在 375px 屏幕上仍须可读
+- **触控目标：**所有可交互元素最小点击区域 `44px`。可点击项之间间距宽裕。移动端按钮必须通栏
+- **图片行为：**Hero 图与行内图片等比缩放。行内图片排版（词句间的照片）在移动端改为堆叠到标题下方，不再行内嵌入
+- **导航：**桌面端横向导航折叠为整洁的移动端菜单（滑入式或全屏遮罩）。不用没有文字标签的迷你汉堡图标
+- **卡片与网格：**Bento 网格与非对称布局回退为通栏堆叠的单栏卡片。保持内边距（`1rem`）
+- **间距一致性：**移动端区块纵向间距按比例缩减（`clamp(3rem, 8vw, 6rem)`）。既不局促，也不过分疏空
+- **测试视口：**设计必须在以下视口验证：`375px`（iPhone SE）、`390px`（iPhone 14）、`768px`（iPad）、`1024px`（小屏笔记本）、`1440px`（桌面端）
 
-## 8. Motion & Interaction (Code-Phase Intent)
-> **Note:** Stitch generates static screens — it does not animate. This section documents the **intended motion behavior** so that the coding agent (Antigravity, Cursor, etc.) knows exactly how to implement animations when building the exported design into a live product.
+## 8. 动效与交互（编码阶段意向）
+> **注意：**Stitch 生成的是静态屏幕——它不做动画。本节记录的是**意向中的动效行为**，让编码 agent（Antigravity、Cursor 等）在把导出的设计落地为真实产品时，准确知道如何实现动画。
 
-- **Physics Engine:** Spring-based exclusively. `stiffness: 100, damping: 20`. No linear easing anywhere. Premium, weighty feel on all interactive elements
-- **Perpetual Micro-Loops:** Every active dashboard component has an infinite-loop state — Pulse on status dots, Typewriter on search bars, Float on feature icons, Shimmer on loading states
-- **Staggered Orchestration:** Lists and grids mount with cascaded delays (`animation-delay: calc(var(--index) * 100ms)`). Waterfall reveals, never instant mount
-- **Layout Transitions:** Smooth re-ordering via shared element IDs. Items swap positions with physics, simulating real-time intelligence
-- **Hardware Rules:** Animate ONLY `transform` and `opacity`. Never `top`, `left`, `width`, `height`. Grain/noise filters on fixed, pointer-events-none pseudo-elements only
-- **Performance:** CPU-heavy perpetual animations isolated in microscopic leaf components. Never trigger parent re-renders. Target 60fps minimum
+- **物理引擎：**一律基于弹簧。`stiffness: 100, damping: 20`。任何地方都不用线性缓动。所有可交互元素都要有高级、有分量的手感
+- **永续微循环：**每个活跃的仪表盘组件都有无限循环状态——状态点用 Pulse（脉冲）、搜索框用 Typewriter（打字机）、功能图标用 Float（漂浮）、加载状态用 Shimmer（微光）
+- **错峰编排：**列表与网格以级联延迟挂载（`animation-delay: calc(var(--index) * 100ms)`）。瀑布式呈现，绝不瞬时挂载
+- **布局过渡：**通过共享元素 ID 实现平滑重排。条目以物理动效换位，营造出实时智能的观感
+- **硬件规则：**只动画 `transform` 与 `opacity`。绝不动画 `top`、`left`、`width`、`height`。颗粒/噪点滤镜只放在固定定位、pointer-events-none 的伪元素上
+- **性能：**CPU 开销大的永续动画要隔离在极小的叶子组件中。绝不触发父组件重渲染。目标最低 60fps
 
-## 9. Anti-Patterns (Banned)
-- No emojis — anywhere in UI, code, or alt text
-- No `Inter` font — use `Geist`, `Outfit`, `Cabinet Grotesk`, `Satoshi`
-- No generic serif fonts (`Times New Roman`, `Georgia`, `Garamond`) — if serif is needed, use distinctive modern serifs only (`Fraunces`, `Instrument Serif`)
-- No pure black (`#000000`) — Off-Black or Zinc-950 only
-- No neon outer glows or default box-shadow glows
-- No oversaturated accent colors above 80%
-- No excessive gradient text on large headers
-- No custom mouse cursors
-- No overlapping elements — text never overlaps images or other content. Clean spatial separation always
-- No 3-column equal card layouts for features
-- No centered Hero sections (at this variance level)
-- No filler UI text: "Scroll to explore", "Swipe down", "Discover more below", scroll arrows, bouncing chevrons — all BANNED
-- No generic names: "John Doe", "Sarah Chan", "Acme", "Nexus", "SmartFlow"
-- No fake round numbers: `99.99%`, `50%`, `1234567` — use organic data: `47.2%`, `+1 (312) 847-1928`
-- No AI copywriting clichés: "Elevate", "Seamless", "Unleash", "Next-Gen", "Revolutionize"
-- No broken Unsplash links — use `picsum.photos/seed/{id}/800/600` or SVG UI Avatars
-- No generic `shadcn/ui` defaults — customize radii, colors, shadows to match this system
-- No `z-index` spam — use only for Navbar, Modal, Overlay layer contexts
-- No `h-screen` — always `min-h-[100dvh]`
-- No circular loading spinners — skeletal shimmer only
+## 9. 反面模式（禁用）
+- 不用 emoji——UI、代码、替代文本（alt text）中一律不用
+- 不用 `Inter` 字体——改用 `Geist`、`Outfit`、`Cabinet Grotesk`、`Satoshi`
+- 不用通用衬线体（`Times New Roman`、`Georgia`、`Garamond`）——确需衬线时只用辨识度高的现代衬线体（`Fraunces`、`Instrument Serif`）
+- 不用纯黑（`#000000`）——只用 Off-Black 或 Zinc-950
+- 不用霓虹外发光或默认 box-shadow 光晕
+- 不用饱和度超过 80% 的强调色
+- 大标题不滥用渐变文字
+- 不用自定义鼠标光标
+- 元素不重叠——文字绝不压在图片或其他内容上。始终保持整洁的空间分隔
+- 功能区不用三等分卡片布局
+- 不用居中 Hero 区（在此变化度档位下）
+- 不用填充型 UI 文案：「Scroll to explore」「Swipe down」「Discover more below」、滚动箭头、弹跳 chevron——全部禁用
+- 不用俗套的名字：「John Doe」「Sarah Chan」「Acme」「Nexus」「SmartFlow」
+- 不用虚假的整数化数据：`99.99%`、`50%`、`1234567`——改用真实自然的数据：`47.2%`、`+1 (312) 847-1928`
+- 不用 AI 文案套话：「Elevate」「Seamless」「Unleash」「Next-Gen」「Revolutionize」
+- 不用失效的 Unsplash 链接——改用 `picsum.photos/seed/{id}/800/600` 或 SVG UI Avatars
+- 不用 `shadcn/ui` 原始默认样式——圆角、颜色、阴影都要定制，以匹配本系统
+- 不滥用 `z-index`——只用于 Navbar、Modal、Overlay 等层级场景
+- 不用 `h-screen`——一律用 `min-h-[100dvh]`
+- 不用圆形加载 spinner——只用骨架微光

@@ -1,20 +1,20 @@
-# Stitch Design System Documentation Skill
+# Stitch 设计系统文档技能
 
-## Install
+## 安装
 
 ```bash
 npx skills add google-labs-code/stitch-skills --skill design-md --global
 ```
 
-## Example Prompt
+## 示例提示词
 
 ```text
 Analyze my Furniture Collection project's Home screen and generate a comprehensive DESIGN.md file documenting the design system.
 ```
 
-## Skill Structure
+## 技能结构
 
-This repository follows the **Agent Skills** open standard. Each skill is self-contained with its own logic, workflow, and reference materials.
+本仓库遵循 **Agent Skills** 开放标准。每个 skill 均自成一体，包含各自的逻辑、工作流与参考资料。
 
 ```text
 design-md/
@@ -23,12 +23,12 @@ design-md/
 └── README.md          — This file
 ```
 
-## How it Works
+## 工作原理
 
-When activated, the agent follows a structured design analysis pipeline:
+技能被激活后，agent 会按一套结构化的设计分析流水线工作：
 
-1. **Retrieval**: Uses the Stitch MCP Server to fetch project screens, HTML code, and design metadata.
-2. **Extraction**: Identifies design tokens including colors, typography, spacing, and component patterns.
-3. **Translation**: Converts technical CSS/Tailwind values into descriptive, natural design language.
-4. **Synthesis**: Generates a comprehensive DESIGN.md following the semantic design system format.
-5. **Alignment**: Ensures output follows Stitch Effective Prompting Guide principles for optimal screen generation.
+1. **检索**：通过 Stitch MCP Server 获取项目屏幕、HTML 代码与设计元数据。
+2. **提取**：识别设计令牌（design token），包括颜色、字体排印、间距与组件模式。
+3. **转译**：把技术性的 CSS/Tailwind 数值转换为描述性的自然设计语言。
+4. **综合**：按照语义设计系统格式生成完整的 DESIGN.md。
+5. **对齐**：确保产出遵循 Stitch Effective Prompting Guide 的原则，以获得最佳屏幕生成效果。

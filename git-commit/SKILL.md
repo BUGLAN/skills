@@ -1,17 +1,17 @@
 ---
 name: git-commit
-description: 'Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions "/commit". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping'
+description: '分析变更、智能暂存文件并生成 Conventional Commits 提交信息，执行 git commit。当用户要求提交变更、创建 git commit 或提到 "/commit" 时使用。支持：(1) 根据变更自动判断 type 与 scope，(2) 根据 diff 生成 Conventional Commits 提交信息，(3) 交互式提交，可选覆盖 type/scope/description，(4) 按逻辑分组智能暂存文件'
 license: MIT
 allowed-tools: Bash
 ---
 
-# Git Commit with Conventional Commits
+# 使用 Conventional Commits 规范执行 Git 提交
 
-## Overview
+## 概述
 
-Create standardized, semantic git commits using the Conventional Commits specification. Analyze the actual diff to determine appropriate type, scope, and message.
+依据 Conventional Commits 规范创建标准化、语义化的 git 提交：分析实际 diff，判定合适的 type、scope 与提交信息。
 
-## Conventional Commit Format
+## Conventional Commits 格式
 
 ```
 <type>[optional scope]: <description>
@@ -21,23 +21,23 @@ Create standardized, semantic git commits using the Conventional Commits specifi
 [optional footer(s)]
 ```
 
-## Commit Types
+## 提交类型
 
-| Type       | Purpose                        |
+| 类型       | 用途                           |
 | ---------- | ------------------------------ |
-| `feat`     | New feature                    |
-| `fix`      | Bug fix                        |
-| `docs`     | Documentation only             |
-| `style`    | Formatting/style (no logic)    |
-| `refactor` | Code refactor (no feature/fix) |
-| `perf`     | Performance improvement        |
-| `test`     | Add/update tests               |
-| `build`    | Build system/dependencies      |
-| `ci`       | CI/config changes              |
-| `chore`    | Maintenance/misc               |
-| `revert`   | Revert commit                  |
+| `feat`     | 新增功能                       |
+| `fix`      | 修复 bug                       |
+| `docs`     | 仅文档变更                     |
+| `style`    | 格式/样式调整（不涉及逻辑）    |
+| `refactor` | 代码重构（非新增功能或修复）   |
+| `perf`     | 性能优化                       |
+| `test`     | 新增/更新测试                  |
+| `build`    | 构建系统/依赖变更              |
+| `ci`       | CI/配置变更                    |
+| `chore`    | 日常维护/杂项                  |
+| `revert`   | 回滚提交                       |
 
-## Breaking Changes
+## 破坏性变更
 
 ```
 # Exclamation mark after type/scope
@@ -49,9 +49,9 @@ feat: allow config to extend other configs
 BREAKING CHANGE: `extends` key behavior changed
 ```
 
-## Workflow
+## 工作流程
 
-### 1. Analyze Diff
+### 1. 分析 diff
 
 ```bash
 # If files are staged, use staged diff
@@ -64,9 +64,9 @@ git diff
 git status --porcelain
 ```
 
-### 2. Stage Files (if needed)
+### 2. 暂存文件（如需要）
 
-If nothing is staged or you want to group changes differently:
+若暂存区为空，或希望按不同方式分组变更：
 
 ```bash
 # Stage specific files
@@ -80,17 +80,17 @@ git add src/components/*
 git add -p
 ```
 
-**Never commit secrets** (.env, credentials.json, private keys).
+**绝不提交机密信息**（.env、credentials.json、私钥）。
 
-### 3. Generate Commit Message
+### 3. 生成提交信息
 
-Analyze the diff to determine:
+分析 diff，确定以下要素：
 
-- **Type**: What kind of change is this?
-- **Scope**: What area/module is affected?
-- **Description**: One-line summary of what changed (present tense, imperative mood, <72 chars)
+- **类型（Type）**：这次变更属于哪一类？
+- **范围（Scope）**：影响哪个区域/模块？
+- **描述（Description）**：一行概括变更内容（现在时、祈使语气，少于 72 字符）
 
-### 4. Execute Commit
+### 4. 执行提交
 
 ```bash
 # Single line
@@ -107,18 +107,18 @@ EOF
 )"
 ```
 
-## Best Practices
+## 最佳实践
 
-- One logical change per commit
-- Present tense: "add" not "added"
-- Imperative mood: "fix bug" not "fixes bug"
-- Reference issues: `Closes #123`, `Refs #456`
-- Keep description under 72 characters
+- 每次提交只包含一个逻辑变更
+- 使用现在时：写 "add"，不写 "added"
+- 使用祈使语气：写 "fix bug"，不写 "fixes bug"
+- 关联 issue：`Closes #123`、`Refs #456`
+- 描述保持在 72 字符以内
 
-## Git Safety Protocol
+## Git 安全守则
 
-- NEVER update git config
-- NEVER run destructive commands (--force, hard reset) without explicit request
-- NEVER skip hooks (--no-verify) unless user asks
-- NEVER force push to main/master
-- If commit fails due to hooks, fix and create NEW commit (don't amend)
+- 绝不修改 git config
+- 未经用户明确要求，绝不运行破坏性命令（--force、hard reset）
+- 除非用户要求，绝不跳过 hooks（--no-verify）
+- 绝不向 main/master 强制推送
+- 若提交因 hooks 失败，修复问题后创建新提交（不要 amend）

@@ -1,92 +1,92 @@
 ---
 name: industrial-brutalist-ui
-description: Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+description: 融合瑞士版式印刷与军用终端美学的原始机械风界面。刚性网格、极端字号对比、功能主义配色、模拟劣化效果。适用于需要呈现解密蓝图质感的数据密集型仪表盘、作品集或编辑类网站。
 ---
 
-# SKILL: Industrial Brutalism & Tactical Telemetry UI
+# 技能：工业粗野主义与战术遥测 UI
 
-## 1. Skill Meta
-**Name:** Industrial Brutalism & Tactical Telemetry Interface Engineering
-**Description:** Advanced proficiency in architecting web interfaces that synthesize mid-century Swiss Typographic design, industrial manufacturing manuals, and retro-futuristic aerospace/military terminal interfaces. This discipline requires absolute mastery over rigid modular grids, extreme typographic scale contrast, purely utilitarian color palettes, and the programmatic simulation of analog degradation (halftones, CRT scanlines, bitmap dithering). The objective is to construct digital environments that project raw functionality, mechanical precision, and high data density, deliberately discarding conventional consumer UI patterns.
+## 1. 技能元信息
+**名称：** 工业粗野主义与战术遥测界面工程
+**描述：** 精通网页界面的体系化构建，将上世纪中叶的瑞士版式设计、工业制造手册与复古未来主义的航空航天/军用终端界面熔于一炉。这门学科要求对刚性模块化网格、极端的字号比例对比、纯粹功能主义的配色，以及以程序化手段还原模拟介质劣化质感（半调网点、CRT 扫描线、位图抖动）拥有绝对的掌控力。其目标是构建出散发原始功能性、机械精度与高数据密度的数字环境，并有意摒弃常规的消费级 UI 模式。
 
-## 2. Visual Archetypes
-The design system operates by merging two distinct but highly compatible visual paradigms. **Pick ONE per project and commit to it. Do not alternate or mix both modes within the same interface.**
+## 2. 视觉原型
+本设计体系的运作方式，是融合两种截然不同却高度兼容的视觉范式。**每个项目只选其一，并坚持到底。切勿在同一界面内来回切换，也不要将两种模式混用。**
 
-### 2.1 Swiss Industrial Print
-Derived from 1960s corporate identity systems and heavy machinery blueprints.
-*   **Characteristics:** High-contrast light modes (newsprint/off-white substrates). Reliance on monolithic, heavy sans-serif typography. Unforgiving structural grids outlined by visible dividing lines. Aggressive, asymmetric use of negative space punctuated by oversized, viewport-bleeding numerals or letterforms. Heavy use of primary red as an alert/accent color.
+### 2.1 瑞士工业印刷
+源自 20 世纪 60 年代的企业识别系统与重型机械图纸。
+*   **特征：** 高对比浅色模式（新闻纸/米白色基底）。依赖浑然一体的厚重无衬线字体。以清晰可见的分隔线勾勒出不容变通的网格结构。激进而不对称地运用负空间，间以超大号、溢出视口边缘的数字或字形。大量使用纯正红色作为警示/强调色。
 
-### 2.2 Tactical Telemetry & CRT Terminal
-Derived from classified military databases, legacy mainframes, and aerospace Heads-Up Displays (HUDs).
-*   **Characteristics:** Dark mode exclusivity. High-density tabular data presentation. Absolute dominance of monospaced typography. Integration of technical framing devices (ASCII brackets, crosshairs). Application of simulated hardware limitations (phosphor glow, scanlines, low bit-depth rendering).
+### 2.2 战术遥测与 CRT 终端
+源自涉密军用数据库、老式大型机与航空航天平视显示器（HUD）。
+*   **特征：** 深色模式专属。高密度表格化数据呈现。等宽字体绝对主导。融入技术感取景装置（ASCII 括号、十字准线）。施加仿硬件限制效果（荧光辉光、扫描线、低位深渲染）。
 
-## 3. Typographic Architecture
-Typography is the primary structural and decorative infrastructure. Imagery is secondary. The system demands extreme variance in scale, weight, and spacing.
+## 3. 排版架构
+字体排版是首要的结构与装饰基础设施，图像居次。该体系要求字号、字重与间距呈现极端差异。
 
-### 3.1 Macro-Typography (Structural Headers)
-*   **Classification:** Neo-Grotesque / Heavy Sans-Serif.
-*   **Optimal Web Fonts:** Neue Haas Grotesk (Black), Inter (Extra Bold/Black), Archivo Black, Roboto Flex (Heavy), Monument Extended.
-*   **Implementation Parameters:**
-    *   **Scale:** Deployed at massive scales using fluid typography (e.g., `clamp(4rem, 10vw, 15rem)`).
-    *   **Tracking (Letter-spacing):** Extremely tight, often negative (`-0.03em` to `-0.06em`), forcing glyphs to form solid architectural blocks.
-    *   **Leading (Line-height):** Highly compressed (`0.85` to `0.95`).
-    *   **Casing:** Exclusively uppercase for structural impact.
+### 3.1 宏观排版（结构性标题）
+*   **分类：** 新怪诞体（Neo-Grotesque）/ 重磅无衬线体。
+*   **优选网页字体：** Neue Haas Grotesk（Black）、Inter（Extra Bold/Black）、Archivo Black、Roboto Flex（Heavy）、Monument Extended。
+*   **实现参数：**
+    *   **字号：** 借助流式排版（fluid typography）部署到极大字号（如 `clamp(4rem, 10vw, 15rem)`）。
+    *   **字距（letter-spacing）：** 极紧，常为负值（`-0.03em` 至 `-0.06em`），迫使字形挤压成坚实的建筑体块。
+    *   **行距（line-height）：** 高度压缩（`0.85` 至 `0.95`）。
+    *   **大小写：** 一律全大写，以营造结构冲击力。
 
-### 3.2 Micro-Typography (Data & Telemetry)
-*   **Classification:** Monospace / Technical Sans.
-*   **Optimal Web Fonts:** JetBrains Mono, IBM Plex Mono, Space Mono, VT323, Courier Prime.
-*   **Implementation Parameters:**
-    *   **Scale:** Fixed and small (`10px` to `14px` / `0.7rem` to `0.875rem`).
-    *   **Tracking:** Generous (`0.05em` to `0.1em`) to simulate mechanical typewriter spacing or terminal matrices.
-    *   **Leading:** Standard to tight (`1.2` to `1.4`).
-    *   **Casing:** Exclusively uppercase. Used for all metadata, navigation, unit IDs, and coordinates.
+### 3.2 微观排版（数据与遥测）
+*   **分类：** 等宽体/技术无衬线体。
+*   **优选网页字体：** JetBrains Mono、IBM Plex Mono、Space Mono、VT323、Courier Prime。
+*   **实现参数：**
+    *   **字号：** 固定且偏小（`10px` 至 `14px` / `0.7rem` 至 `0.875rem`）。
+    *   **字距：** 宽松（`0.05em` 至 `0.1em`），模拟机械打字机的字距或终端字符矩阵。
+    *   **行距：** 标准至紧凑（`1.2` 至 `1.4`）。
+    *   **大小写：** 一律全大写。用于所有元数据、导航、单元编号与坐标。
 
-### 3.3 Textural Contrast (Artistic Disruption)
-*   **Classification:** High-Contrast Serif.
-*   **Optimal Web Fonts:** Playfair Display, EB Garamond, Times New Roman.
-*   **Implementation Parameters:** Used exceedingly sparingly. Must be subjected to heavy post-processing (halftone filters, 1-bit dithering) to degrade vector perfection and create textural juxtaposition against the clean sans-serifs.
+### 3.3 肌理对比（艺术性破坏）
+*   **分类：** 高对比衬线体。
+*   **优选网页字体：** Playfair Display、EB Garamond、Times New Roman。
+*   **实现参数：** 用量务须极省。必须施加重度后处理（半调网点滤镜、1 位抖动）以消解矢量的完美感，与干净的无衬线体形成肌理上的强烈反差。
 
-## 4. Color System
-The color architecture is uncompromising. Gradients, soft drop shadows, and modern translucency are strictly prohibited. Colors simulate physical media or primitive emissive displays.
+## 4. 色彩系统
+色彩架构不容妥协。渐变、柔和投影与现代半透明一律严格禁止。颜色只用于模拟实体媒介或原始的自发光显示器。
 
-**CRITICAL: Choose ONE substrate palette per project and use it consistently. Never mix light and dark substrates within the same interface.**
+**关键：每个项目只选一套基底配色，并全程一致。绝不在同一界面内混用浅色与深色基底。**
 
-### If Swiss Industrial Print (Light):
-*   **Background:** `#F4F4F0` or `#EAE8E3` (Matte, unbleached documentation paper).
-*   **Foreground:** `#050505` to `#111111` (Carbon Ink).
-*   **Accent:** `#E61919` or `#FF2A2A` (Aviation/Hazard Red). This is the ONLY accent color. Used for strike-throughs, thick structural dividing lines, or vital data highlights.
+### 若采用瑞士工业印刷（浅色）：
+*   **背景：** `#F4F4F0` 或 `#EAE8E3`（哑光、未经漂白的文件纸）。
+*   **前景：** `#050505` 至 `#111111`（碳素墨水）。
+*   **强调色：** `#E61919` 或 `#FF2A2A`（航空/警示红）。这是唯一的强调色。用于删除线、粗结构分隔线或关键数据的高亮。
 
-### If Tactical Telemetry (Dark):
-*   **Background:** `#0A0A0A` or `#121212` (Deactivated CRT. Avoid pure `#000000`).
-*   **Foreground:** `#EAEAEA` (White phosphor). This is the primary text color.
-*   **Accent:** `#E61919` or `#FF2A2A` (Aviation/Hazard Red). Same red, same rules.
-*   **Terminal Green (`#4AF626`):** Optional. Use ONLY for a single specific UI element (e.g., one status indicator or one data readout) — never as a general text color. If it doesn't serve a clear purpose, omit it entirely.
+### 若采用战术遥测（深色）：
+*   **背景：** `#0A0A0A` 或 `#121212`（已熄屏的 CRT。避免纯 `#000000`）。
+*   **前景：** `#EAEAEA`（白色荧光粉）。这是主文本色。
+*   **强调色：** `#E61919` 或 `#FF2A2A`（航空/警示红）。同一种红，同样的规则。
+*   **终端绿（`#4AF626`）：** 可选。仅允许用于某一个特定 UI 元素（例如一个状态指示灯或一处数据读数）——绝不可用作常规文本色。若没有明确用途，宁可完全不用。
 
-## 5. Layout and Spatial Engineering
-The layout must appear mathematically engineered. It rejects conventional web padding in favor of visible compartmentalization.
+## 5. 布局与空间工程
+布局必须呈现数学规划般的严谨。摒弃常规网页内边距，代之以清晰可见的分隔分区。
 
-*   **The Blueprint Grid:** Strict adherence to CSS Grid architectures. Elements do not float; they are anchored precisely to grid tracks and intersections.
-*   **Visible Compartmentalization:** Extensive utilization of solid borders (`1px` or `2px solid`) to delineate distinct zones of information. Horizontal rules (`<hr>`) frequently span the entire container width to segregate operational units.
-*   **Bimodal Density:** Layouts oscillate between extreme data density (tightly packed monospace metadata clustered together) and vast expanses of calculated negative space framing macro-typography.
-*   **Geometry:** Absolute rejection of `border-radius`. All corners must be exactly 90 degrees to enforce mechanical rigidity.
+*   **蓝图网格：** 严格遵循 CSS Grid 架构。元素不靠浮动定位，而是精确锚定在网格轨道与交叉点上。
+*   **显性分区：** 大量使用实线边框（`1px` 或 `2px solid`）划出边界分明的信息区。水平分隔线（`<hr>`）经常横贯整个容器宽度，用以隔开各个操作单元。
+*   **双态密度：** 版面在两种极端之间来回切换——一端是极高的数据密度（等宽元数据紧密成簇），另一端是经过精心计算的大片负空间，用于衬托宏观排版。
+*   **几何：** 绝对禁用 `border-radius`。所有转角必须是精确的 90 度，以贯彻机械刚性。
 
-## 6. UI Components and Symbology
-Standard web UI conventions are replaced with utilitarian, industrial graphic elements.
+## 6. UI 组件与符号系统
+标准的网页 UI 惯例被功能至上的工业图形元素所取代。
 
-*   **Syntax Decoration:** Utilization of ASCII characters to frame data points.
-    *   *Framing:* `[ DELIVERY SYSTEMS ]`, `< RE-IND >`
-    *   *Directional:* `>>>`, `///`, `\\\\`
-*   **Industrial Markers:** Prominent integration of registration (`®`), copyright (`©`), and trademark (`™`) symbols functioning as structural geometric elements rather than legal text.
-*   **Technical Assets:** Integration of crosshairs (`+`) at grid intersections, repeating vertical lines (barcodes), thick horizontal warning stripes, and randomized string data (e.g., `REV 2.6`, `UNIT / D-01`) to simulate active mechanical processes.
+*   **符号装饰：** 借助 ASCII 字符为数据点取框。
+    *   *取框：* `[ DELIVERY SYSTEMS ]`、`< RE-IND >`
+    *   *指向：* `>>>`、`///`、`\\\\`
+*   **工业标记：** 突出运用注册标（`®`）、版权标（`©`）与商标标（`™`）符号，令其充当结构性几何元素，而非法律文本。
+*   **技术素材：** 在网格交叉点布置十字准线（`+`）、重复出现的竖线（条码状）、粗横向警示条纹，以及随机字符串数据（如 `REV 2.6`、`UNIT / D-01`），以此模拟机械运转的痕迹。
 
-## 7. Textural and Post-Processing Effects
-To prevent the design from appearing purely digital, simulated analog degradation is engineered into the frontend via CSS and SVG filters.
+## 7. 肌理与后处理效果
+为了不让设计显得纯属数字产物，需通过 CSS 与 SVG 滤镜，把模拟介质式的劣化效果预先构筑进前端。
 
-*   **Halftone and 1-Bit Dithering:** Transforming continuous-tone images or large serif typography into dot-matrix patterns. Achieved via pre-processing or CSS `mix-blend-mode: multiply` overlays combined with SVG radial dot patterns.
-*   **CRT Scanlines:** For terminal interfaces, applying a `repeating-linear-gradient` to the background to simulate horizontal electron beam sweeps (e.g., `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)`).
-*   **Mechanical Noise:** A global, low-opacity SVG static/noise filter applied to the DOM root to introduce a unified physical grain across both dark and light modes.
+*   **半调网点与 1 位抖动：** 将连续调图像或大号衬线字体转化为点阵图案。可通过预处理实现，也可用 CSS `mix-blend-mode: multiply` 叠加层配合 SVG 径向点阵图案实现。
+*   **CRT 扫描线：** 终端类界面在背景上施加 `repeating-linear-gradient`，模拟水平方向的电子束扫描（例如 `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)`）。
+*   **机械噪点：** 在 DOM 根节点上施加全局低透明度的 SVG 静电/噪点滤镜，为深浅两种模式铺上一层统一的物理颗粒。
 
-## 8. Web Engineering Directives
-1.  **Grid Determinism:** Utilize `display: grid; gap: 1px;` with contrasting parent/child background colors to generate mathematically perfect, razor-thin dividing lines without complex border declarations.
-2.  **Semantic Rigidity:** Construct the DOM using precise semantic tags (`<data>`, `<samp>`, `<kbd>`, `<output>`, `<dl>`) to accurately reflect the technical nature of the telemetry.
-3.  **Typography Clamping:** Implement CSS `clamp()` functions exclusively for macro-typography to ensure massive text scales aggressively while maintaining structural integrity across viewports.
+## 8. Web 工程准则
+1.  **网格决定论：** 利用 `display: grid; gap: 1px;` 配合父/子层对比背景色，无需复杂的边框声明，即可生成数学上完美、细如刀锋的分隔线。
+2.  **语义刚性：** 使用精确的语义标签（`<data>`、`<samp>`、`<kbd>`、`<output>`、`<dl>`）构建 DOM，如实反映遥测数据的技术属性。
+3.  **字号钳制：** 仅对宏观排版使用 CSS `clamp()` 函数，确保超大文字在跨视口时既激进缩放又保持结构完整。

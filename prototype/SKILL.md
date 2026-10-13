@@ -1,26 +1,26 @@
 ---
 name: prototype
-description: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.
+description: 构建用完即弃的原型来回答设计问题。当用户想检验某个状态模型或逻辑是否靠谱，或想探索 UI 应该长什么样时使用。
 ---
 
 # Prototype
 
-A prototype is **throwaway code that answers a question**. The question decides the shape.
+原型（prototype）就是**为回答一个问题而写的用完即弃的代码**。问题决定形态。
 
-## Pick a branch
+## 选对分支
 
-Identify which question is being answered, using the user's prompt, the surrounding code, or by asking if the user is around:
+先判断要回答的是哪一类问题：可以从用户的提示词、周边代码入手推断，用户在线时也可以直接询问：
 
-- **"Does this logic / state model feel right?"** → [LOGIC.md](LOGIC.md). Build a single shareable HTML file (free-play buttons plus tabbed guided walkthroughs) that pushes the state machine through cases that are hard to reason about on paper, and that a non-developer can drive.
-- **"What should this look like?"** → [UI.md](UI.md). Generate several radically different UI variations on a single route, switchable via a URL search param and a floating bottom bar.
+- **「这套逻辑 / 状态模型感觉对不对？」** → [LOGIC.md](LOGIC.md)。构建单个可分享的 HTML 文件（自由操作按钮 + 标签页式引导演练），把状态机推过那些纸面上难以推演的场景，非开发者也能亲手驱动。
+- **「这个界面应该长什么样？」** → [UI.md](UI.md)。在同一路由上生成若干截然不同的 UI 变体，通过 URL 查询参数和悬浮底栏切换。
 
-The two branches produce very different artifacts, so getting this wrong wastes the whole prototype. If the question is genuinely ambiguous and the user isn't reachable, default to whichever branch better matches the surrounding code (a backend module → logic; a page or component → UI) and state the assumption at the top of the prototype.
+两条分支产出的东西截然不同，一旦选错，整个原型就白做了。如果问题确实含糊、又联系不上用户，就默认选择与周边代码更匹配的分支（后端模块 → logic；页面或组件 → UI），并在原型开头写明这一假设。
 
-## Rules that apply to both
+## 通用规则
 
-1. **Throwaway from day one, and clearly marked as such.** Locate the prototype code close to where it will actually be used (next to the module or page it's prototyping for) so context is obvious, but name it so a casual reader can see it's a prototype, not production. For throwaway UI routes, obey whatever routing convention the project already uses; don't invent a new top-level structure.
-2. **Trivial to run.** A UI prototype starts from one command in the project's task runner: `pnpm <name>`, `python <path>`, `bun <path>`, etc. A logic demo is a single HTML file the user double-clicks. Either way, no thinking required to start it.
-3. **No persistence by default.** State lives in memory. Persistence is the thing the prototype is _checking_, not something it should depend on. If the question explicitly involves a database, hit a scratch DB or a local file with a clear "PROTOTYPE, wipe me" name.
-4. **Skip the polish.** No tests, no error handling beyond what makes the prototype _runnable_, no abstractions. The point is to learn something fast.
-5. **Surface the state.** After every action (logic) or on every variant switch (UI), print or render the full relevant state so the user can see what changed.
-6. **Capture it when done.** Fold any validated decision into the real code, then capture the prototype itself as a **primary source**: commit it to a throwaway branch, out of main, and leave a context pointer to that branch on the implementation issue. Capture the answer too (the verdict and the question it settled) in the issue or a commit. The main branch keeps only the validated decision.
+1. **从第一天起就是一次性的，并且明确标示出来。** 把原型代码放在它实际会被使用的位置附近（即它所服务的模块或页面旁边），让上下文一目了然；但命名要让随意一瞥的读者也能看出这是原型，不是生产代码。对于一次性的 UI 路由，遵循项目既有的路由约定，不要发明新的顶层结构。
+2. **启动零门槛。** UI 原型用项目任务运行器里的一条命令启动：`pnpm <name>`、`python <path>`、`bun <path>` 等。逻辑演示则是一个双击即开的单个 HTML 文件。无论哪种，启动都不需要动脑。
+3. **默认不做持久化。** 状态只存在内存里。持久化恰恰是原型要去_检验_的对象，而不是它该依赖的东西。如果问题明确涉及数据库，就改用一个临时数据库，或一个名字直白的本地文件（比如叫 "PROTOTYPE, wipe me"）。
+4. **跳过打磨。** 不写测试，除了让原型能_跑起来_之外不做错误处理，不做抽象。要旨是尽快学到东西。
+5. **让状态可见。** 每次操作（logic）之后、每次切换变体（UI）之后，都打印或渲染出完整的相关状态，让用户看清变化。
+6. **做完就归档。** 把经过验证的决策合入正式代码，然后把原型本身作为**一手资料**保存：提交到一个一次性分支（不进 main），并在实施 issue 上留一个指向该分支的上下文指针。答案本身（结论，以及它敲定的那个问题）也要记录在 issue 或 commit 里。main 分支只保留经过验证的决策。

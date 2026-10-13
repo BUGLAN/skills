@@ -1,12 +1,12 @@
-# The Picker
+# 切换器（The Picker）
 
-The picker's appearance is **not a design decision** — it is this spec. Copy the markup, CSS, and wiring below verbatim; the only values that change per run are the variant names and count. It stays identical across every project so it always reads as harness chrome, never as part of the design being judged. Do not restyle it with the project's tokens, fonts, or colors.
+切换器的外观**不是一个设计决策**——它本身就是本规范。下面的标记、CSS 和接线逻辑逐字照抄；每次运行唯一会变的，只有变体的名称和数量。它在所有项目中保持完全一致，因此看起来永远是底座的外壳，而绝不会像被评审的设计的一部分。不要用项目的 token、字体或颜色给它重新定型。
 
-It is a floating dark pill, bottom-center. Dark glass works on top of any page — light or dark — which is why it is not theme-aware.
+它是一个悬浮的深色胶囊，位于底部居中。深色玻璃放在任何页面上——浅色或深色——都能成立，这正是它不做主题适配的原因。
 
-## Markup
+## 标记
 
-The sliding highlight span first, one button per variant, a hairline divider, then the replay button (only when at least one variant has motion to re-trigger):
+先放滑动高亮 span，然后每个变体一个按钮，一条发丝级分隔线，最后是重播按钮（仅当至少一个变体有值得重触发的动效时才渲染）：
 
 ```html
 <nav class="proto-picker" aria-label="Prototype variants">
@@ -19,9 +19,9 @@ The sliding highlight span first, one button per variant, a hairline divider, th
 </nav>
 ```
 
-In a framework, keep the class names and structure; only the rendering syntax changes.
+在框架中，保留类名和结构，只改渲染语法。
 
-## Styles
+## 样式
 
 ```css
 .proto-picker {
@@ -121,25 +121,25 @@ In a framework, keep the class names and structure; only the rendering syntax ch
 }
 ```
 
-## Rules
+## 规则
 
-- **Verbatim.** These values are the spec. No project fonts, no brand colors, no theme switching, no extra shadows or borders.
-- **The highlight slides; the variant swap stays instant.** The active pill animates between buttons (250ms, strong ease-out) as spatial feedback on the picker itself — but the variant being previewed still switches with no transition. The `width` transition is a deliberate exception to the transform/opacity rule: the element is 28px tall, absolutely positioned, and has no layout dependents, so the paint cost is negligible.
-- **One allowed modification:** if a variant occupies the bottom-center of the screen (a toast stack, a bottom sheet, a dock), set `data-position="top"` so the picker never covers the work. Nothing else about it may move or change.
-- **Replay is conditional.** Render the replay button and its divider only when at least one variant has an entrance or state animation worth re-triggering; a static comparison gets a shorter pill.
+- **逐字照抄。** 这些数值就是规范。不用项目字体，不用品牌色，不做主题切换，不加多余的阴影或边框。
+- **高亮会滑动，变体切换保持即时。** 激活胶囊在按钮之间做动画（250ms，强 ease-out），作为切换器自身的空间反馈——但正在预览的变体依旧无过渡地直接切换。`width` 过渡是对 transform/opacity 法则的一次有意豁免：该元素高 28px、绝对定位、没有任何布局依赖者，绘制成本可以忽略不计。
+- **唯一允许的修改：** 如果某个变体占据了屏幕底部居中的位置（toast 堆叠、底部抽屉、dock），就设置 `data-position="top"`，让切换器永不遮挡作品。除此之外，它的任何部分都不许挪动或改变。
+- **重播按钮按需渲染。** 只有当至少一个变体带有值得重触发的入场或状态动画时，才渲染重播按钮及其分隔线；纯静态对比用更短的胶囊即可。
 
-## Behavior contract
+## 行为契约
 
-The contract is fixed regardless of how the harness renders:
+无论底座如何渲染，契约固定不变：
 
-- Number keys `1–N` and `←`/`→` switch variants; `R` replays. Ignore key events when focus is in an input, textarea, select, or contenteditable, or when a modifier is held.
-- Clicking an item switches to it; exactly one item carries `data-active` and `aria-current="true"` at all times, and the highlight slides to it.
-- Selection persists across reload via a URL param (`?v=2`), falling back to variant 1. The highlight takes its initial position without animating (`data-ready` is added after first paint).
-- Switching re-mounts the variant (so entrance animations re-run); the replay key re-mounts without switching.
+- 数字键 `1–N` 和 `←`/`→` 切换变体；`R` 重播。焦点位于 input、textarea、select 或 contenteditable 中，或按住修饰键时，忽略按键事件。
+- 点击某一项即切换到它；任何时刻都有且仅有一项携带 `data-active` 和 `aria-current="true"`，高亮随之滑动到位。
+- 选择通过 URL 参数（`?v=2`）在刷新后保留，缺省回退到变体 1。高亮初始就位时不带动画（`data-ready` 在首次绘制之后添加）。
+- 切换会重新挂载变体（入场动画因此重跑）；重播键只重新挂载、不切换。
 
-## Reference wiring
+## 参考接线
 
-Verbatim for the standalone-HTML branch; in a framework, keep the same behavior but express it idiomatically (state instead of `innerHTML`, a keyed re-mount instead of `requestAnimationFrame`, refs + a layout effect for the highlight measurement).
+独立 HTML 分支下逐字照抄；在框架中保持同样的行为，但用惯用方式表达（用状态代替 `innerHTML`，用带 key 的重挂载代替 `requestAnimationFrame`，用 refs 加 layout effect 测量高亮）。
 
 ```js
 // `variants` is an array of render functions, one per variant, in picker order.

@@ -1,23 +1,23 @@
-# States and Variants
+# 状态与变体
 
-Component state definitions and variant patterns.
+组件状态定义与变体模式。
 
-## Interactive States
+## 交互状态
 
-### State Definitions
+### 状态定义
 
-| State | Trigger | Visual Change |
-|-------|---------|---------------|
-| default | None | Base appearance |
-| hover | Mouse over | Slight color shift |
-| focus | Tab/click | Focus ring |
-| active | Mouse down | Darkest color |
-| disabled | disabled attr | Reduced opacity |
-| loading | Async action | Spinner + opacity |
+| 状态 | 触发条件 | 视觉变化 |
+|------|----------|----------|
+| default | 无 | 基础外观 |
+| hover | 鼠标悬停 | 颜色轻微加深 |
+| focus | Tab/点击 | 显示焦点环 |
+| active | 鼠标按下 | 颜色最深 |
+| disabled | disabled 属性 | 降低不透明度 |
+| loading | 异步操作 | Spinner + 降低不透明度 |
 
-### State Priority
+### 状态优先级
 
-When multiple states apply, priority (highest to lowest):
+多个状态同时生效时，优先级从高到低依次为：
 
 1. disabled
 2. loading
@@ -26,7 +26,7 @@ When multiple states apply, priority (highest to lowest):
 5. hover
 6. default
 
-### State Transitions
+### 状态过渡
 
 ```css
 /* Standard transition for interactive elements */
@@ -37,17 +37,17 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-| Transition | Duration | Easing |
-|------------|----------|--------|
-| Color changes | 150ms | ease-in-out |
-| Background | 150ms | ease-in-out |
-| Transform | 200ms | ease-out |
-| Opacity | 150ms | ease |
-| Shadow | 200ms | ease-out |
+| 过渡项 | 时长 | 缓动 |
+|--------|------|------|
+| 颜色变化 | 150ms | ease-in-out |
+| 背景 | 150ms | ease-in-out |
+| 变换（transform） | 200ms | ease-out |
+| 不透明度 | 150ms | ease |
+| 阴影 | 200ms | ease-out |
 
-## Focus States
+## 焦点状态
 
-### Focus Ring Spec
+### 焦点环规格
 
 ```css
 /* Standard focus ring */
@@ -58,14 +58,14 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-| Property | Value |
-|----------|-------|
-| Ring width | 2px |
-| Ring offset | 2px |
-| Ring color | primary (blue-500) |
-| Offset color | background |
+| 属性 | 值 |
+|------|-----|
+| 焦点环宽度 | 2px |
+| 焦点环偏移 | 2px |
+| 焦点环颜色 | primary (blue-500) |
+| 偏移底色 | background |
 
-### Focus Within
+### 容器焦点（focus-within）
 
 ```css
 /* Container focus when child is focused */
@@ -74,9 +74,9 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-## Disabled States
+## 禁用状态
 
-### Visual Treatment
+### 视觉处理
 
 ```css
 .disabled {
@@ -86,32 +86,32 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-| Property | Disabled Value |
-|----------|----------------|
-| Opacity | 50% |
-| Pointer events | none |
-| Cursor | not-allowed |
-| Background | muted |
-| Color | muted-foreground |
+| 属性 | 禁用时的值 |
+|------|------------|
+| 不透明度 | 50% |
+| 指针事件（pointer-events） | none |
+| 光标 | not-allowed |
+| 背景 | muted |
+| 颜色 | muted-foreground |
 
-### Accessibility
+### 无障碍
 
-- Use `aria-disabled="true"` for semantic disabled
-- Use `disabled` attribute for form elements
-- Maintain sufficient contrast (3:1 minimum)
+- 需要语义化禁用时，使用 `aria-disabled="true"`
+- 表单元素直接使用 `disabled` 属性
+- 保持足够的对比度（至少 3:1）
 
-## Loading States
+## 加载状态
 
-### Spinner Placement
+### Spinner 位置
 
-| Component | Spinner Position |
-|-----------|------------------|
-| Button | Replace icon or center |
-| Input | Trailing position |
-| Card | Center overlay |
-| Page | Center of viewport |
+| 组件 | Spinner 位置 |
+|------|--------------|
+| Button | 替换图标或居中显示 |
+| Input | 尾部位置 |
+| Card | 居中覆盖层 |
+| Page | 视口中央 |
 
-### Loading Treatment
+### 加载态处理
 
 ```css
 .loading {
@@ -129,9 +129,9 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-## Error States
+## 错误状态
 
-### Visual Indicators
+### 视觉指示
 
 ```css
 .error {
@@ -145,23 +145,23 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-| Element | Error Treatment |
-|---------|-----------------|
-| Input border | red-500 |
-| Input focus ring | red/20% |
-| Helper text | red-600 |
-| Icon | red-500 |
+| 元素 | 错误处理 |
+|------|----------|
+| 输入框边框 | red-500 |
+| 输入框焦点环 | red/20% |
+| 辅助文本 | red-600 |
+| 图标 | red-500 |
 
-### Error Messages
+### 错误提示
 
-- Position below input
-- Use error color
-- Include icon for accessibility
-- Clear on valid input
+- 置于输入框下方
+- 使用错误色
+- 配图标以保障无障碍
+- 输入合法后即清除
 
-## Variant Patterns
+## 变体模式
 
-### Color Variants
+### 颜色变体
 
 ```css
 /* Pattern for color variants */
@@ -183,7 +183,7 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-### Size Variants
+### 尺寸变体
 
 ```css
 /* Pattern for size variants */
@@ -206,25 +206,25 @@ When multiple states apply, priority (highest to lowest):
 }
 ```
 
-## Accessibility Requirements
+## 无障碍要求
 
-### Color Contrast
+### 色彩对比度
 
-| Element | Minimum Ratio |
-|---------|---------------|
-| Normal text | 4.5:1 |
-| Large text (18px+) | 3:1 |
-| UI components | 3:1 |
-| Focus indicator | 3:1 |
+| 元素 | 最低对比度 |
+|------|------------|
+| 普通文本 | 4.5:1 |
+| 大号文本（18px 以上） | 3:1 |
+| UI 组件 | 3:1 |
+| 焦点指示 | 3:1 |
 
-### State Indicators
+### 状态指示
 
-- Never rely on color alone
-- Use icons, text, or patterns
-- Ensure focus is visible
-- Provide loading announcements
+- 绝不仅靠颜色传达状态
+- 辅以图标、文字或图案
+- 确保焦点可见
+- 播报加载状态
 
-### ARIA States
+### ARIA 状态
 
 ```html
 <!-- Disabled -->

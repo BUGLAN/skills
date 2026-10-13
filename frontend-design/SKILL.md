@@ -1,42 +1,42 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
+description: 创建设计品质出众、风格独树一帜、可直接用于生产环境的前端界面。当用户要求构建 Web 组件、页面、artifact、海报或应用（例如网站、落地页、仪表盘、React 组件、HTML/CSS 布局），或要求美化任何 Web UI 的样式时，使用本 skill。生成的代码与 UI 设计富有创意、打磨精致，避免千篇一律的 AI 通用审美。
 license: Complete terms in LICENSE.txt
 ---
 
-This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
+本 skill 用于指导创建风格独树一帜、可直接上线的前端界面，规避千篇一律的「AI slop」式审美。请编写真正可运行的代码，并以极致的专注对待美学细节与创意取舍。
 
-The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
+用户会提出前端需求：要构建的组件、页面、应用或界面，其中可能附带关于用途、受众或技术约束的背景信息。
 
-## Design Thinking
+## 设计思考
 
-Before coding, understand the context and commit to a BOLD aesthetic direction:
-- **Purpose**: What problem does this interface solve? Who uses it?
-- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
-- **Constraints**: Technical requirements (framework, performance, accessibility).
-- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+动手编码之前，先理解上下文，然后坚定地敲定一个大胆的美学方向：
+- **目的**：这个界面要解决什么问题？谁在使用它？
+- **基调**：选定一种极致风格：冷酷极简、极繁式的混乱、复古未来主义、有机/自然、奢华/精致、俏皮/玩具感、杂志编辑风、粗野主义/原始粗粝、装饰艺术/几何、柔和/粉彩、工业/实用主义，等等。可选的风味非常丰富——把它们当作灵感来源，但最终要设计出真正忠于所选美学方向的作品。
+- **约束**：技术要求（框架、性能、无障碍访问）。
+- **差异化**：是什么让它令人过目难忘？用户会记住的那一件事是什么？
 
-**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+**至关重要**：选定一个清晰的概念方向，并精准地执行它。大胆的极繁主义与克制的极简主义都能成立——关键在于意图明确，而非力度夸张。
 
-Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
-- Production-grade and functional
-- Visually striking and memorable
-- Cohesive with a clear aesthetic point-of-view
-- Meticulously refined in every detail
+随后实现可运行的代码（HTML/CSS/JS、React、Vue 等），要求做到：
+- 达到生产级质量，功能完备
+- 视觉冲击力强、令人难忘
+- 风格统一，美学立场清晰
+- 每一处细节都经过精心打磨
 
-## Frontend Aesthetics Guidelines
+## 前端美学指南
 
-Focus on:
-- **Typography**: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics; unexpected, characterful font choices. Pair a distinctive display font with a refined body font.
-- **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
-- **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
-- **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
-- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
+重点关注：
+- **字体排印**：选择美观、独特、有趣的字体。避免 Arial、Inter 这类平庸的通用字体，转而选用能提升整体美感的独特字体——出人意料、个性鲜明的字体。用一款辨识度高的展示字体（display font）搭配一款考究的正文字体。
+- **色彩与主题**：坚定贯彻统一的整体审美。使用 CSS 变量保证一致性。主色搭配锐利点缀色的方案，远胜于畏首畏尾、平均分配的调色板。
+- **动效**：用动画实现效果与微交互。HTML 项目优先考虑纯 CSS 方案；React 项目在可用时使用 Motion 库。聚焦高影响力的时刻：一次精心编排的页面加载，配合交错呈现（animation-delay），比零散的微交互更能带来愉悦感。善用滚动触发和令人惊喜的 hover 状态。
+- **空间构成**：出人意料的布局。不对称。交叠。对角线动线。打破网格的元素。慷慨的留白，或克制的密度。
+- **背景与视觉细节**：营造氛围与纵深感，而不是默认使用纯色。添加与整体审美相称的场景化效果与纹理。运用渐变网格（gradient mesh）、噪点纹理、几何图案、多层透明叠加、戏剧化的阴影、装饰性边框、自定义光标、颗粒感覆层等富有创意的手法。
 
-NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
+绝不使用泛滥的 AI 生成式审美，例如被用滥的字体族（Inter、Roboto、Arial、系统字体）、俗套的配色（尤其是白底紫渐变）、一眼可测的布局与组件模式，以及缺乏场景个性的千篇一律的设计。
 
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
+创造性地解读需求，做出真正贴合具体场景的意外之选。每一次设计都不应雷同：在明暗主题之间切换，尝试不同的字体、不同的美学风格。绝不在多次生成中反复收敛到同一批流行选择（例如 Space Grotesk）。
 
-**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
+**重要**：实现复杂度要与美学愿景相匹配。极繁主义的设计需要精心编写的代码，配上大量的动画与效果；极简或精致的设计则需要克制与精准，在间距、字体排印与细微细节上一丝不苟。优雅来自对愿景的出色执行。
 
-Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+记住：Claude 完全有能力完成非凡的创意工作。不要有所保留——当思路跳出框框、全心投入一个独特愿景时，把真正能创造出来的东西展现出来。

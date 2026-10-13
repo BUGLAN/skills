@@ -1,178 +1,178 @@
 ---
 name: redesign-existing-projects
-description: Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
+description: 将现有网站与应用升级至高端品质。审计现有设计，识别千篇一律的 AI 模式，并在不破坏功能的前提下落实高端设计标准。兼容任何 CSS 框架或原生 CSS。
 ---
 
-# Redesign Skill
+# 重设计技能
 
-## How This Works
+## 工作方式
 
-When applied to an existing project, follow this sequence:
+应用到现有项目时，按以下顺序执行：
 
-1. **Scan** — Read the codebase. Identify the framework, styling method (Tailwind, vanilla CSS, styled-components, etc.), and current design patterns.
-2. **Diagnose** — Run through the audit below. List every generic pattern, weak point, and missing state you find.
-3. **Fix** — Apply targeted upgrades working with the existing stack. Do not rewrite from scratch. Improve what's there.
+1. **扫描** —— 通读代码库，识别框架、样式方案（Tailwind、原生 CSS、styled-components 等）以及当前的设计模式。
+2. **诊断** —— 逐项过一遍下文的设计审计，列出发现的每一个套路化模式、薄弱点与缺失状态。
+3. **修复** —— 在既有 stack 之上做针对性升级。不要推倒重来，只改进现有的部分。
 
-## Design Audit
+## 设计审计
 
-### Typography
+### 字体排印
 
-Check for these problems and fix them:
+检查以下问题并逐一修复：
 
-- **Browser default fonts or Inter everywhere.** Replace with a font that has character. Good options: `Geist`, `Outfit`, `Cabinet Grotesk`, `Satoshi`. For editorial/creative projects, pair a serif header with a sans-serif body.
-- **Headlines lack presence.** Increase size for display text, tighten letter-spacing, reduce line-height. Headlines should feel heavy and intentional.
-- **Body text too wide.** Limit paragraph width to roughly 65 characters. Increase line-height for readability.
-- **Only Regular (400) and Bold (700) weights used.** Introduce Medium (500) and SemiBold (600) for more subtle hierarchy.
-- **Numbers in proportional font.** Use a monospace font or enable tabular figures (`font-variant-numeric: tabular-nums`) for data-heavy interfaces.
-- **Missing letter-spacing adjustments.** Use negative tracking for large headers, positive tracking for small caps or labels.
-- **All-caps subheaders everywhere.** Try lowercase italics, sentence case, or small-caps instead.
-- **Orphaned words.** Single words sitting alone on the last line. Fix with `text-wrap: balance` or `text-wrap: pretty`.
+- **通篇使用浏览器默认字体或 Inter。** 换成有辨识度、有个性的字体。推荐选择：`Geist`、`Outfit`、`Cabinet Grotesk`、`Satoshi`。编辑类或创意类项目可用衬线标题搭配无衬线正文。
+- **标题缺乏存在感。** 增大展示级文字的字号，收紧字距，减小行高。标题应当厚重而笃定。
+- **正文行宽过宽。** 段落宽度控制在约 65 字符以内，并增大行高以提升可读性。
+- **只用了 Regular（400）和 Bold（700）两个字重。** 引入 Medium（500）与 SemiBold（600），让层级更细腻。
+- **数字使用比例字体。** 数据密集的界面应改用等宽字体，或启用表格数字（`font-variant-numeric: tabular-nums`）。
+- **缺少字距调整。** 大标题用负字距，小型大写字母或标签用正字距。
+- **到处都是全大写的小标题。** 试试小写斜体、句首大写（sentence case）或小型大写字母（small-caps）。
+- **孤字成行。** 末行只剩一个单词孤零零挂着。用 `text-wrap: balance` 或 `text-wrap: pretty` 修复。
 
-### Color and Surfaces
+### 颜色与表面
 
-- **Pure `#000000` background.** Replace with off-black, dark charcoal, or tinted dark (`#0a0a0a`, `#121212`, or a dark navy).
-- **Oversaturated accent colors.** Keep saturation below 80%. Desaturate accents so they blend with neutrals instead of screaming.
-- **More than one accent color.** Pick one. Remove the rest. Consistency beats variety.
-- **Mixing warm and cool grays.** Stick to one gray family. Tint all grays with a consistent hue (warm or cool, not both).
-- **Purple/blue "AI gradient" aesthetic.** This is the most common AI design fingerprint. Replace with neutral bases and a single, considered accent.
-- **Generic `box-shadow`.** Tint shadows to match the background hue. Use colored shadows (e.g., dark blue shadow on a blue background) instead of pure black at low opacity.
-- **Flat design with zero texture.** Add subtle noise, grain, or micro-patterns to backgrounds. Pure flat vectors feel sterile.
-- **Perfectly even gradients.** Break the uniformity with radial gradients, noise overlays, or mesh gradients instead of standard linear 45-degree fades.
-- **Inconsistent lighting direction.** Audit all shadows to ensure they suggest a single, consistent light source.
-- **Random dark sections in a light mode page (or vice versa).** A single dark-background section breaking an otherwise light page looks like a copy-paste accident. Either commit to a full dark mode or keep a consistent background tone throughout. If contrast is needed, use a slightly darker shade of the same palette — not a sudden jump to `#111` in the middle of a cream page.
-- **Empty, flat sections with no visual depth.** Sections that are just text on a plain background feel unfinished. Add high-quality background imagery (blurred, overlaid, or masked), subtle patterns, or ambient gradients. Use reliable placeholder sources like `https://picsum.photos/seed/{name}/1920/1080` when real assets are not available. Experiment with background images behind hero sections, feature blocks, or CTAs — even a subtle full-width photo at low opacity adds presence.
+- **纯 `#000000` 背景。** 换成近黑色、深炭色或带色相的深色（`#0a0a0a`、`#121212` 或深藏青）。
+- **强调色饱和度过高。** 饱和度控制在 80% 以下。降低强调色的饱和度，使其融入中性色，而非突兀刺眼。
+- **强调色不止一种。** 只留一种，其余删掉。一致性胜过多样性。
+- **冷暖灰混用。** 只用一族灰。所有灰色统一偏向同一色相（偏暖或偏冷，二选一）。
+- **紫蓝「AI 渐变」审美。** 这是最典型的 AI 设计指纹。改用中性底色，搭配一个经过深思熟虑的强调色。
+- **千篇一律的 `box-shadow`。** 让阴影带上背景的色相。使用彩色阴影（例如蓝底配深蓝阴影），而不是低透明度的纯黑。
+- **毫无质感的纯扁平设计。** 给背景加入细微噪点、颗粒或微型图案。纯扁平的矢量观感显得冷清乏味。
+- **过于均匀的渐变。** 别用标准的 45 度线性渐隐，改用径向渐变、噪点叠加或网格渐变（mesh gradient）打破均匀感。
+- **光源方向不一致。** 审计所有阴影，确保它们指向同一个、前后一致的光源。
+- **浅色页面里混入突兀的深色区块（反之亦然）。** 整页浅色中突然插进一个深色背景区块，看起来就像复制粘贴引发的事故。要么整体做完整的深色模式，要么全程保持一致的背景色调。确实需要对比时，用同一色板中略深一档的颜色——而不是在米白色页面中间突然跳到 `#111`。
+- **空洞扁平、毫无纵深的区块。** 只有一片纯色背景加文字的区块显得像没做完。为其加入高质量背景图像（模糊、叠加或蒙版处理）、细微图案或氛围渐变。没有真实素材时，可使用可靠的占位图源，如 `https://picsum.photos/seed/{name}/1920/1080`。尝试在 hero 区块、功能模块或 CTA 背后铺背景图——即便只是一张低透明度的全宽照片，也能让页面更有分量。
 
-### Layout
+### 布局
 
-- **Everything centered and symmetrical.** Break symmetry with offset margins, mixed aspect ratios, or left-aligned headers over centered content.
-- **Three equal card columns as feature row.** This is the most generic AI layout. Replace with a 2-column zig-zag, asymmetric grid, horizontal scroll, or masonry layout.
-- **Using `height: 100vh` for full-screen sections.** Replace with `min-height: 100dvh` to prevent layout jumping on mobile browsers (iOS Safari viewport bug).
-- **Complex flexbox percentage math.** Replace with CSS Grid for reliable multi-column structures.
-- **No max-width container.** Add a container constraint (around 1200-1440px) with auto margins so content doesn't stretch edge-to-edge on wide screens.
-- **Cards of equal height forced by flexbox.** Allow variable heights or use masonry when content varies in length.
-- **Uniform border-radius on everything.** Vary the radius: tighter on inner elements, softer on containers.
-- **No overlap or depth.** Elements sit flat next to each other. Use negative margins to create layering and visual depth.
-- **Symmetrical vertical padding.** Top and bottom padding are always identical. Adjust optically — bottom padding often needs to be slightly larger.
-- **Dashboard always has a left sidebar.** Try top navigation, a floating command menu, or a collapsible panel instead.
-- **Missing whitespace.** Double the spacing. Let the design breathe. Dense layouts work for data dashboards, not for marketing pages.
-- **Buttons not bottom-aligned in card groups.** When cards have different content lengths, CTAs end up at random heights. Pin buttons to the bottom of each card so they form a clean horizontal line regardless of content above.
-- **Feature lists starting at different vertical positions.** In pricing tables or comparison cards, the list of features should start at the same Y position across all columns. Use consistent spacing above the list or fixed-height title/price blocks.
-- **Inconsistent vertical rhythm in side-by-side elements.** When placing cards, columns, or panels next to each other, align shared elements (titles, descriptions, prices, buttons) across all items. Misaligned baselines make the layout look broken.
-- **Mathematical alignment that looks optically wrong.** Centering by the math doesn't always look centered to the eye. Icons next to text, play buttons in circles, or text in buttons often need 1-2px optical adjustments to feel right.
+- **所有内容居中且对称。** 用错位的边距、混合的宽高比，或「标题左对齐 + 内容居中」来打破对称。
+- **三张等宽卡片并排充当功能区。** 这是最套路化的 AI 布局。改成两列之字形、非对称网格、横向滚动或瀑布流（masonry）布局。
+- **全屏区块使用 `height: 100vh`。** 改用 `min-height: 100dvh`，避免移动端浏览器视口变化引起布局跳动（iOS Safari 视口 bug）。
+- **复杂的 flexbox 百分比计算。** 多列结构改用 CSS Grid，更可靠。
+- **没有 max-width 容器。** 增加容器约束（约 1200-1440px）并配合自动外边距，避免内容在宽屏上被拉伸到贴边。
+- **用 flexbox 强行拉成等高的卡片。** 内容长短不一时，允许高度各不相同，或改用瀑布流布局。
+- **所有元素圆角一律相同。** 圆角要有变化：内部元素收紧，容器放宽。
+- **没有重叠与纵深。** 元素扁平地并排摆放。用负外边距制造层叠与视觉纵深。
+- **上下内边距完全对称。** 顶部与底部 padding 总是一样大。应做视觉补偿——底部 padding 往往需要略大一点。
+- **仪表盘永远是左侧边栏。** 试试顶部导航、悬浮命令菜单或可折叠面板。
+- **留白不足。** 把间距翻倍，让设计得以呼吸。高密度布局适合数据仪表盘，不适合营销页。
+- **成组卡片中按钮没有底部对齐。** 卡片内容长短不一时，CTA 会散落在随机高度。把按钮固定到每张卡片底部，无论上方内容多长，都能连成一条整齐的横线。
+- **功能列表起始高度参差不齐。** 在定价表或对比卡片中，各列的功能列表应从同一 Y 位置开始。可在列表上方保持一致的间距，或给标题/价格块设定固定高度。
+- **并排元素的纵向节奏不一致。** 卡片、列或面板并排放置时，所有条目的共有元素（标题、描述、价格、按钮）要对齐。基线错位会让布局看起来像散架了。
+- **数学上对齐、视觉上却不对。** 按几何数值居中，看上去未必居中。文字旁边的图标、圆形里的播放按钮、按钮内的文字，往往需要 1-2px 的视觉微调才显得舒服。
 
-### Interactivity and States
+### 交互与状态
 
-- **No hover states on buttons.** Add background shift, slight scale, or translate on hover.
-- **No active/pressed feedback.** Add a subtle `scale(0.98)` or `translateY(1px)` on press to simulate a physical click.
-- **Instant transitions with zero duration.** Add smooth transitions (200-300ms) to all interactive elements.
-- **Missing focus ring.** Ensure visible focus indicators for keyboard navigation. This is an accessibility requirement, not optional.
-- **No loading states.** Replace generic circular spinners with skeleton loaders that match the layout shape.
-- **No empty states.** An empty dashboard showing nothing is a missed opportunity. Design a composed "getting started" view.
-- **No error states.** Add clear, inline error messages for forms. Do not use `window.alert()`.
-- **Dead links.** Buttons that link to `#`. Either link to real destinations or visually disable them.
-- **No indication of current page in navigation.** Style the active nav link differently so users know where they are.
-- **Scroll jumping.** Anchor clicks jump instantly. Add `scroll-behavior: smooth`.
-- **Animations using `top`, `left`, `width`, `height`.** Switch to `transform` and `opacity` for GPU-accelerated, smooth animation.
+- **按钮没有 hover 状态。** 为悬停添加背景色变化、轻微缩放或位移。
+- **没有按压反馈。** 按下时加上细微的 `scale(0.98)` 或 `translateY(1px)`，模拟真实的物理按压。
+- **零时长的瞬时切换。** 给所有交互元素加上平滑过渡（200-300ms）。
+- **缺少焦点环。** 必须为键盘导航提供可见的焦点指示。这是无障碍硬性要求，不是可选项。
+- **没有加载状态。** 用与布局形状匹配的骨架屏取代千篇一律的圆形 spinner。
+- **没有空状态。** 空空如也的仪表盘是白白浪费的机会。设计一个精心编排的「开始使用」视图。
+- **没有错误状态。** 为表单添加清晰的行内错误提示。不要使用 `window.alert()`。
+- **死链接。** 按钮链接指向 `#`。要么指向真实目标，要么在视觉上将其禁用。
+- **导航中没有当前页标识。** 用不同样式突出当前激活的导航项，让用户知道自己身在何处。
+- **锚点跳转生硬。** 点击锚点瞬间跳到目标。加上 `scroll-behavior: smooth`。
+- **动画使用 `top`、`left`、`width`、`height`。** 改用 `transform` 和 `opacity`，获得 GPU 加速的流畅动画。
 
-### Content
+### 文案内容
 
-- **Generic names like "John Doe" or "Jane Smith".** Use diverse, realistic-sounding names.
-- **Fake round numbers like `99.99%`, `50%`, `$100.00`.** Use organic, messy data: `47.2%`, `$99.00`, `+1 (312) 847-1928`.
-- **Placeholder company names like "Acme Corp", "Nexus", "SmartFlow".** Invent contextual, believable brand names.
-- **AI copywriting cliches.** Never use "Elevate", "Seamless", "Unleash", "Next-Gen", "Game-changer", "Delve", "Tapestry", or "In the world of...". Write plain, specific language.
-- **Exclamation marks in success messages.** Remove them. Be confident, not loud.
-- **"Oops!" error messages.** Be direct: "Connection failed. Please try again."
-- **Passive voice.** Use active voice: "We couldn't save your changes" instead of "Mistakes were made."
-- **All blog post dates identical.** Randomize dates to appear real.
-- **Same avatar image for multiple users.** Use unique assets for every distinct person.
-- **Lorem Ipsum.** Never use placeholder latin text. Write real draft copy.
-- **Title Case On Every Header.** Use sentence case instead.
+- **「John Doe」「Jane Smith」这类泛泛的示例名。** 使用多样、听感真实的人名。
+- **`99.99%`、`50%`、`$100.00` 这类凑整的假数据。** 改用自然、带毛边的数据：`47.2%`、`$99.00`、`+1 (312) 847-1928`。
+- **「Acme Corp」「Nexus」「SmartFlow」这类占位公司名。** 虚构贴合语境、令人信服的品牌名。
+- **AI 文案套话。** 绝不使用 "Elevate"、"Seamless"、"Unleash"、"Next-Gen"、"Game-changer"、"Delve"、"Tapestry" 或 "In the world of..."。写平实、具体的语言。
+- **成功提示里带感叹号。** 删掉。要笃定，不要喧哗。
+- **「Oops!」式的报错文案。** 直接说明问题：「连接失败，请重试。」
+- **被动语态。** 改用主动语态：写「我们未能保存你的更改」，而不是「出现了一些失误」。
+- **所有博客文章的日期一模一样。** 把日期随机化，看起来才真实。
+- **多个用户共用同一张头像。** 每个不同的人都要有独立的头像素材。
+- **Lorem Ipsum。** 绝不使用拉丁文占位文本，要写真实的初稿文案。
+- **所有标题一律 Title Case（实词首字母大写）。** 改用句首大写（sentence case）。
 
-### Component Patterns
+### 组件模式
 
-- **Generic card look (border + shadow + white background).** Remove the border, or use only background color, or use only spacing. Cards should exist only when elevation communicates hierarchy.
-- **Always one filled button + one ghost button.** Add text links or tertiary styles to reduce visual noise.
-- **Pill-shaped "New" and "Beta" badges.** Try square badges, flags, or plain text labels.
-- **Accordion FAQ sections.** Use a side-by-side list, searchable help, or inline progressive disclosure.
-- **3-card carousel testimonials with dots.** Replace with a masonry wall, embedded social posts, or a single rotating quote.
-- **Pricing table with 3 towers.** Highlight the recommended tier with color and emphasis, not just extra height.
-- **Modals for everything.** Use inline editing, slide-over panels, or expandable sections instead of popups for simple actions.
-- **Avatar circles exclusively.** Try squircles or rounded squares for a less generic look.
-- **Light/dark toggle always a sun/moon switch.** Use a dropdown, system preference detection, or integrate it into settings.
-- **Footer link farm with 4 columns.** Simplify. Focus on main navigational paths and legally required links.
+- **千篇一律的卡片外观（边框 + 阴影 + 白色背景）。** 去掉边框，或只用背景色，或只用间距来做区分。只有当浮起效果确实在传达层级时，才保留卡片。
+- **永远是一个实心按钮 + 一个幽灵按钮。** 加入文字链接或三级按钮样式，降低视觉噪音。
+- **胶囊形的「New」「Beta」徽章。** 试试方形徽章、旗标或纯文字标签。
+- **手风琴式 FAQ 板块。** 改用并排列表、可搜索的帮助页或行内渐进披露。
+- **带圆点指示器的三卡轮播用户证言。** 换成瀑布流证言墙、内嵌社交帖子，或单条轮换引言。
+- **三塔式定价表。** 用颜色和强调突出推荐档位，而不是单纯把它加高。
+- **什么操作都弹模态框。** 简单操作改用行内编辑、侧滑面板或可展开区块，别再弹窗。
+- **头像清一色圆形。** 试试 squircle 或圆角方形，观感更不落俗套。
+- **明暗切换永远是太阳/月亮开关。** 改用下拉菜单、跟随系统偏好，或整合进设置页。
+- **页脚是四列链接堆场。** 做减法。只保留主要导航路径和法律必需的链接。
 
-### Iconography
+### 图标
 
-- **Lucide or Feather icons exclusively.** These are the "default" AI icon choice. Use Phosphor, Heroicons, or a custom set for differentiation.
-- **Rocketship for "Launch", shield for "Security".** Replace cliche metaphors with less obvious icons (bolt, fingerprint, spark, vault).
-- **Inconsistent stroke widths across icons.** Audit all icons and standardize to one stroke weight.
-- **Missing favicon.** Always include a branded favicon.
-- **Stock "diverse team" photos.** Use real team photos, candid shots, or a consistent illustration style instead of uncanny stock imagery.
+- **只用 Lucide 或 Feather 图标。** 这是 AI 的「默认」图标选择。换用 Phosphor、Heroicons 或自定义图标集以形成差异。
+- **「发布」必配火箭、「安全」必配盾牌。** 用不那么一眼可辨的图标替换老套隐喻（闪电、指纹、火花、保险库）。
+- **图标描边粗细不一致。** 审计所有图标，统一为同一线宽。
+- **缺少 favicon。** 务必提供带品牌感的 favicon。
+- **图库里「多元团队」式的摆拍照片。** 用真实团队照片、抓拍，或风格统一的插画，别用违和的图库素材。
 
-### Code Quality
+### 代码质量
 
-- **Div soup.** Use semantic HTML: `<nav>`, `<main>`, `<article>`, `<aside>`, `<section>`.
-- **Inline styles mixed with CSS classes.** Move all styling to the project's styling system.
-- **Hardcoded pixel widths.** Use relative units (`%`, `rem`, `em`, `max-width`) for flexible layouts.
-- **Missing alt text on images.** Describe image content for screen readers. Never leave `alt=""` or `alt="image"` on meaningful images.
-- **Arbitrary z-index values like `9999`.** Establish a clean z-index scale in the theme/variables.
-- **Commented-out dead code.** Remove all debug artifacts before shipping.
-- **Import hallucinations.** Check that every import actually exists in `package.json` or the project dependencies.
-- **Missing meta tags.** Add proper `<title>`, `description`, `og:image`, and social sharing meta tags.
+- **div 泛滥成灾。** 使用语义化 HTML：`<nav>`、`<main>`、`<article>`、`<aside>`、`<section>`。
+- **行内样式与 CSS 类混用。** 把所有样式收进项目的样式系统。
+- **写死的像素宽度。** 使用相对单位（`%`、`rem`、`em`、`max-width`）实现弹性布局。
+- **图片缺少 alt 文本。** 为屏幕阅读器描述图片内容。有意义的图片绝不能留 `alt=""` 或 `alt="image"`。
+- **`9999` 这类随手写的 z-index。** 在主题/变量中建立一套干净的 z-index 阶梯。
+- **注释掉的死代码。** 上线前清除所有调试残留。
+- **凭空臆造的 import。** 检查每个 import 是否真实存在于 `package.json` 或项目依赖中。
+- **缺少 meta 标签。** 补全规范的 `<title>`、`description`、`og:image` 及社交分享 meta 标签。
 
-### Strategic Omissions (What AI Typically Forgets)
+### 系统性遗漏（AI 通常会忘记的部分）
 
-- **No legal links.** Add privacy policy and terms of service links in the footer.
-- **No "back" navigation.** Dead ends in user flows. Every page needs a way back.
-- **No custom 404 page.** Design a helpful, branded "page not found" experience.
-- **No form validation.** Add client-side validation for emails, required fields, and format checks.
-- **No "skip to content" link.** Essential for keyboard users. Add a hidden skip-link.
-- **No cookie consent.** If required by jurisdiction, add a compliant consent banner.
+- **没有法律链接。** 在页脚加上隐私政策与服务条款链接。
+- **没有「返回」导航。** 用户流程走成死胡同。每个页面都要有回退路径。
+- **没有自定义 404 页面。** 设计一个有用且带品牌感的「页面未找到」体验。
+- **没有表单校验。** 为邮箱、必填项和格式检查添加客户端校验。
+- **没有「跳到主内容」链接。** 这对键盘用户至关重要。添加一个隐藏的 skip-link。
+- **没有 Cookie 同意提示。** 若所在司法辖区有要求，添加合规的同意横幅。
 
-## Upgrade Techniques
+## 升级技法
 
-When upgrading a project, pull from these high-impact techniques to replace generic patterns:
+升级项目时，从下列高影响技法中取用，替换套路化的模式：
 
-### Typography Upgrades
-- **Variable font animation.** Interpolate weight or width on scroll or hover for text that feels alive.
-- **Outlined-to-fill transitions.** Text starts as a stroke outline and fills with color on scroll entry or interaction.
-- **Text mask reveals.** Large typography acting as a window to video or animated imagery behind it.
+### 排印升级
+- **可变字体动画。** 在滚动或悬停时对字重或字宽做插值，让文字活起来。
+- **描边到填充的过渡。** 文字以描边形态出现，随滚动入场或交互逐渐填上颜色。
+- **文字蒙版揭示。** 大字号排版化作一扇窗，透出背后的视频或动效图像。
 
-### Layout Upgrades
-- **Broken grid / asymmetry.** Elements that deliberately ignore column structure — overlapping, bleeding off-screen, or offset with calculated randomness.
-- **Whitespace maximization.** Aggressive use of negative space to force focus on a single element.
-- **Parallax card stacks.** Sections that stick and physically stack over each other during scroll.
-- **Split-screen scroll.** Two halves of the screen sliding in opposite directions.
+### 布局升级
+- **破碎网格 / 非对称。** 元素刻意无视栏式结构——相互重叠、出血到屏幕之外，或以精心计算的随机感错位。
+- **留白最大化。** 大胆使用负空间，把注意力逼向单一元素。
+- **视差卡片堆叠。** 各区块在滚动时依次吸附，像实体卡片一样层层叠上去。
+- **分屏滚动。** 屏幕两半朝相反方向滑动。
 
-### Motion Upgrades
-- **Smooth scroll with inertia.** Decouple scrolling from browser defaults for a heavier, cinematic feel.
-- **Staggered entry.** Elements cascade in with slight delays, combining Y-axis translation with opacity fade. Never mount everything at once.
-- **Spring physics.** Replace linear easing with spring-based motion for a natural, weighty feel on all interactive elements.
-- **Scroll-driven reveals.** Content entering through expanding masks, wipes, or draw-on SVG paths tied to scroll progress.
+### 动效升级
+- **带惯性的平滑滚动。** 让滚动摆脱浏览器默认行为，获得更厚重、更具电影感的体验。
+- **错峰入场。** 元素以细微延迟依次浮现，Y 轴位移与透明度渐显相结合。切忌一次性全部挂载。
+- **弹簧物理。** 用基于弹簧的运动取代线性缓动，让所有交互元素带上自然、有分量的手感。
+- **滚动驱动的揭示。** 内容通过不断扩张的蒙版、擦除效果或跟随滚动进度描绘的 SVG 路径渐次入场。
 
-### Surface Upgrades
-- **True glassmorphism.** Go beyond `backdrop-filter: blur`. Add a 1px inner border and a subtle inner shadow to simulate edge refraction.
-- **Spotlight borders.** Card borders that illuminate dynamically under the cursor.
-- **Grain and noise overlays.** A fixed, pointer-events-none overlay with subtle noise to break digital flatness.
-- **Colored, tinted shadows.** Shadows that carry the hue of the background rather than using generic black.
+### 表面质感升级
+- **真正的玻璃拟态。** 不止于 `backdrop-filter: blur`。加一圈 1px 内边框和细微的内阴影，模拟边缘折射。
+- **聚光灯边框。** 卡片边框在光标经过时被动态点亮。
+- **颗粒与噪点叠加。** 一层固定的、pointer-events-none 的细微噪点覆盖，打破数字化的扁平感。
+- **彩色调性阴影。** 让阴影带上背景的色相，而不是用千篇一律的黑色。
 
-## Fix Priority
+## 修复优先级
 
-Apply changes in this order for maximum visual impact with minimum risk:
+按以下顺序落地改动，以最小风险换取最大视觉收益：
 
-1. **Font swap** — biggest instant improvement, lowest risk
-2. **Color palette cleanup** — remove clashing or oversaturated colors
-3. **Hover and active states** — makes the interface feel alive
-4. **Layout and spacing** — proper grid, max-width, consistent padding
-5. **Replace generic components** — swap cliche patterns for modern alternatives
-6. **Add loading, empty, and error states** — makes it feel finished
-7. **Polish typography scale and spacing** — the premium final touch
+1. **更换字体** —— 见效最快、风险最低
+2. **清理配色** —— 去掉互相冲突或过饱和的颜色
+3. **补齐 hover 与 active 状态** —— 让界面活起来
+4. **布局与间距** —— 规整的网格、max-width、一致的 padding
+5. **替换套路化组件** —— 把老套模式换成现代替代方案
+6. **补上加载、空状态与错误状态** —— 让产品显得完整
+7. **打磨字号层级与间距** —— 高端感的最后一笔
 
-## Rules
+## 规则
 
-- Work with the existing tech stack. Do not migrate frameworks or styling libraries.
-- Do not break existing functionality. Test after every change.
-- Before importing any new library, check the project's dependency file first.
-- If the project uses Tailwind, check the version (v3 vs v4) before modifying config.
-- If the project has no framework, use vanilla CSS.
-- Keep changes reviewable and focused. Small, targeted improvements over big rewrites.
+- 在既有技术 stack 上工作。不要迁移框架或样式库。
+- 不要破坏现有功能。每次改动后都要测试。
+- 引入任何新库之前，先查看项目的依赖文件。
+- 如果项目使用 Tailwind，修改配置前先确认版本（v3 还是 v4）。
+- 如果项目没有使用任何框架，就使用原生 CSS。
+- 保持改动可审查、聚焦。小而准的改进，胜过大动干戈的重写。

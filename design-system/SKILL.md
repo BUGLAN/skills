@@ -1,6 +1,6 @@
 ---
 name: design-system
-description: Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.
+description: 令牌架构、组件规格与幻灯片生成。三层令牌（primitive→semantic→component）、CSS 变量、间距/字阶比例、组件规格、策略化幻灯片创作。适用于设计令牌、系统化设计、符合品牌规范的演示文稿。
 argument-hint: "[component or token]"
 license: MIT
 metadata:
@@ -8,25 +8,25 @@ metadata:
   version: "1.0.0"
 ---
 
-# Design System
+# 设计系统
 
-Token architecture, component specifications, systematic design, slide generation.
+令牌架构、组件规格、系统化设计、幻灯片生成。
 
-## When to Use
+## 适用场景
 
-- Design token creation
-- Component state definitions
-- CSS variable systems
-- Spacing/typography scales
-- Design-to-code handoff
-- Tailwind theme configuration
-- **Slide/presentation generation**
+- 创建设计令牌（design token）
+- 定义组件状态
+- 搭建 CSS 变量体系
+- 制定间距/字阶比例
+- 设计到开发的交接
+- 配置 Tailwind 主题
+- **生成幻灯片/演示文稿**
 
-## Token Architecture
+## 令牌架构
 
-Load: `references/token-architecture.md`
+加载：`references/token-architecture.md`
 
-### Three-Layer Structure
+### 三层结构
 
 ```
 Primitive (raw values)
@@ -36,7 +36,7 @@ Semantic (purpose aliases)
 Component (component-specific)
 ```
 
-**Example:**
+**示例：**
 ```css
 /* Primitive */
 --color-blue-600: #2563EB;
@@ -48,81 +48,81 @@ Component (component-specific)
 --button-bg: var(--color-primary);
 ```
 
-## Script Paths
+## 脚本路径
 
-Script paths in this skill and its `references/` are relative to the directory that contains this SKILL.md, not to the project: `scripts/<file>` is this skill's own `scripts/` folder, and `../<skill>/scripts/<file>` is a sibling sub-skill installed alongside it. Build the full path from that directory (Claude Code reports it as the skill's base directory when the skill loads) and keep the working directory at the project root — the scripts read and write project files such as `docs/brand-guidelines.md`, `assets/design-tokens.json` or `src/` relative to it.
+本 skill 及其 `references/` 中的脚本路径均相对于本 SKILL.md 所在目录，而非项目目录：`scripts/<file>` 指本 skill 自带的 `scripts/` 文件夹，`../<skill>/scripts/<file>` 指与之并列安装的兄弟子 skill。请基于该目录拼接完整路径（skill 加载时，Claude Code 会将其报告为该 skill 的 base 目录），并让工作目录保持在项目根目录——脚本会以此为基准读写 `docs/brand-guidelines.md`、`assets/design-tokens.json`、`src/` 等项目文件。
 
-## Quick Start
+## 快速上手
 
-**Generate tokens:**
+**生成令牌：**
 ```bash
 node scripts/generate-tokens.cjs --config tokens.json -o tokens.css
 ```
 
-**Validate usage:**
+**校验用法：**
 ```bash
 node scripts/validate-tokens.cjs --dir src/
 ```
 
-## References
+## 参考资料
 
-| Topic | File |
-|-------|------|
-| Token Architecture | `references/token-architecture.md` |
-| Primitive Tokens | `references/primitive-tokens.md` |
-| Semantic Tokens | `references/semantic-tokens.md` |
-| Component Tokens | `references/component-tokens.md` |
-| Component Specs | `references/component-specs.md` |
-| States & Variants | `references/states-and-variants.md` |
-| Tailwind Integration | `references/tailwind-integration.md` |
+| 主题 | 文件 |
+|------|------|
+| 令牌架构 | `references/token-architecture.md` |
+| 原始令牌 | `references/primitive-tokens.md` |
+| 语义令牌 | `references/semantic-tokens.md` |
+| 组件令牌 | `references/component-tokens.md` |
+| 组件规格 | `references/component-specs.md` |
+| 状态与变体 | `references/states-and-variants.md` |
+| Tailwind 集成 | `references/tailwind-integration.md` |
 
-## Component Spec Pattern
+## 组件规格模式
 
-| Property | Default | Hover | Active | Disabled |
-|----------|---------|-------|--------|----------|
-| Background | primary | primary-dark | primary-darker | muted |
-| Text | white | white | white | muted-fg |
-| Border | none | none | none | muted-border |
-| Shadow | sm | md | none | none |
+| 属性 | 默认 | 悬停 | 按下 | 禁用 |
+|------|------|------|------|------|
+| 背景 | primary | primary-dark | primary-darker | muted |
+| 文字 | white | white | white | muted-fg |
+| 边框 | none | none | none | muted-border |
+| 阴影 | sm | md | none | none |
 
-## Scripts
+## 脚本
 
-| Script | Purpose |
-|--------|---------|
-| `generate-tokens.cjs` | Generate CSS from JSON token config |
-| `validate-tokens.cjs` | Check for hardcoded values in code |
-| `search-slides.py` | BM25 search + contextual recommendations |
-| `slide-token-validator.py` | Validate slide HTML for token compliance |
-| `fetch-background.py` | Fetch images from Pexels/Unsplash |
+| 脚本 | 用途 |
+|------|------|
+| `generate-tokens.cjs` | 从 JSON 令牌配置生成 CSS |
+| `validate-tokens.cjs` | 检查代码中的硬编码值 |
+| `search-slides.py` | BM25 检索 + 上下文推荐 |
+| `slide-token-validator.py` | 校验幻灯片 HTML 的令牌合规性 |
+| `fetch-background.py` | 从 Pexels/Unsplash 获取图片 |
 
-## Templates
+## 模板
 
-| Template | Purpose |
-|----------|---------|
-| `design-tokens-starter.json` | Starter JSON with three-layer structure |
+| 模板 | 用途 |
+|------|------|
+| `design-tokens-starter.json` | 内置三层结构的 JSON 起步配置 |
 
-## Integration
+## 集成
 
-**With brand:** Extract primitives from brand colors/typography
-**With ui-styling:** Component tokens → Tailwind config
+**与 brand 协同：**从品牌色彩/字型中提取 primitive 令牌
+**与 ui-styling 协同：**组件令牌 → Tailwind 配置
 
-**Skill Dependencies:** brand, ui-styling
-**Primary Agents:** ui-ux-designer, frontend-developer
+**依赖 skill：**brand、ui-styling
+**主要 Agent：**ui-ux-designer、frontend-developer
 
-## Slide System
+## 幻灯片系统
 
-Brand-compliant presentations using design tokens + Chart.js + contextual decision system.
+基于设计令牌 + Chart.js + 上下文决策系统，产出符合品牌规范的演示文稿。
 
-### Source of Truth
+### 事实来源
 
-| File | Purpose |
-|------|---------|
-| `docs/brand-guidelines.md` | Brand identity, voice, colors |
-| `assets/design-tokens.json` | Token definitions (primitive→semantic→component) |
-| `assets/design-tokens.css` | CSS variables (import in slides) |
-| `assets/css/slide-animations.css` | CSS animation library |
+| 文件 | 用途 |
+|------|------|
+| `docs/brand-guidelines.md` | 品牌识别、语气与色彩 |
+| `assets/design-tokens.json` | 令牌定义（primitive→semantic→component） |
+| `assets/design-tokens.css` | CSS 变量（在幻灯片中引入） |
+| `assets/css/slide-animations.css` | CSS 动画库 |
 
-### Slide Search (BM25)
+### 幻灯片检索（BM25）
 
 ```bash
 # Basic search (auto-detect domain)
@@ -137,20 +137,20 @@ python scripts/search-slides.py "problem slide" --context --position 2 --total 9
 python scripts/search-slides.py "cta" --context --position 9 --prev-emotion frustration
 ```
 
-### Decision System CSVs
+### 决策系统 CSV
 
-| File | Purpose |
-|------|---------|
-| `data/slide-strategies.csv` | 15 deck structures + emotion arcs + sparkline beats |
-| `data/slide-layouts.csv` | 25 layouts + component variants + animations |
-| `data/slide-layout-logic.csv` | Goal → Layout + break_pattern flag |
-| `data/slide-typography.csv` | Content type → Typography scale |
-| `data/slide-color-logic.csv` | Emotion → Color treatment |
-| `data/slide-backgrounds.csv` | Slide type → Image category (Pexels/Unsplash) |
-| `data/slide-copy.csv` | 25 copywriting formulas (PAS, AIDA, FAB) |
-| `data/slide-charts.csv` | 25 chart types with Chart.js config |
+| 文件 | 用途 |
+|------|------|
+| `data/slide-strategies.csv` | 15 种 deck 结构 + 情绪弧线 + sparkline 节拍 |
+| `data/slide-layouts.csv` | 25 种布局 + 组件变体 + 动画 |
+| `data/slide-layout-logic.csv` | 目标 → 布局 + break_pattern 标记 |
+| `data/slide-typography.csv` | 内容类型 → 字阶 |
+| `data/slide-color-logic.csv` | 情绪 → 色彩处理 |
+| `data/slide-backgrounds.csv` | 幻灯片类型 → 图片类别（Pexels/Unsplash） |
+| `data/slide-copy.csv` | 25 种文案公式（PAS、AIDA、FAB） |
+| `data/slide-charts.csv` | 25 种图表类型及 Chart.js 配置 |
 
-### Contextual Decision Flow
+### 上下文决策流程
 
 ```
 1. Parse goal/context
@@ -169,26 +169,26 @@ python scripts/search-slides.py "cta" --context --position 9 --prev-emotion frus
 5. Validate with slide-token-validator.py
 ```
 
-### Pattern Breaking (Duarte Sparkline)
+### 打破模式（Duarte Sparkline）
 
-Premium decks alternate between emotions for engagement:
+高端 deck 会在不同情绪间交替，以持续抓住观众：
 ```
 "What Is" (frustration) ↔ "What Could Be" (hope)
 ```
 
-System calculates pattern breaks at 1/3 and 2/3 positions.
+系统会在 1/3 与 2/3 两个位置安排模式切换。
 
-### Slide Requirements
+### 幻灯片要求
 
-**ALL slides MUST:**
-1. Import `assets/design-tokens.css` - single source of truth
-2. Use CSS variables: `var(--color-primary)`, `var(--slide-bg)`, etc.
-3. Use Chart.js for charts (NOT CSS-only bars)
-4. Include navigation (keyboard arrows, click, progress bar)
-5. Center align content
-6. Focus on persuasion/conversion
+**所有幻灯片必须：**
+1. 引入 `assets/design-tokens.css`——它是唯一事实来源
+2. 使用 CSS 变量：`var(--color-primary)`、`var(--slide-bg)` 等
+3. 图表必须使用 Chart.js（不要用纯 CSS 柱条）
+4. 提供导航（键盘方向键、点击、进度条）
+5. 内容居中对齐
+6. 聚焦说服与转化
 
-### Chart.js Integration
+### Chart.js 集成
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -211,7 +211,7 @@ new Chart(document.getElementById('revenueChart'), {
 </script>
 ```
 
-### Token Compliance
+### 令牌合规
 
 ```css
 /* CORRECT - uses token */
@@ -225,24 +225,24 @@ color: #FF6B6B;
 font-family: 'Space Grotesk';
 ```
 
-### Reference Implementation
+### 参考实现
 
-Working example with all features:
+包含全部功能的完整示例：
 ```
 assets/designs/slides/claudekit-pitch-251223.html
 ```
 
-### Command
+### 命令
 
 ```bash
 /slides:create "10-slide investor pitch for ClaudeKit Marketing"
 ```
 
-## Best Practices
+## 最佳实践
 
-1. Never use raw hex in components - always reference tokens
-2. Semantic layer enables theme switching (light/dark)
-3. Component tokens enable per-component customization
-4. Use HSL format for opacity control
-5. Document every token's purpose
-6. **Slides must import design-tokens.css and use var() exclusively**
+1. 组件中绝不使用原始 hex 值——一律引用令牌
+2. 语义层让主题切换（亮色/暗色）成为可能
+3. 组件令牌支持逐组件定制
+4. 使用 HSL 格式，便于控制透明度
+5. 为每个令牌写明用途
+6. **幻灯片必须引入 design-tokens.css，并只通过 var() 取值**

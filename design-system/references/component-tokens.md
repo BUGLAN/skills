@@ -1,8 +1,8 @@
-# Component Tokens
+# 组件令牌（Component Tokens）
 
-Component-specific tokens referencing semantic layer.
+面向具体组件的令牌，引用语义层。
 
-## Button Tokens
+## Button 令牌
 
 ```css
 :root {
@@ -46,7 +46,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Input Tokens
+## Input 令牌
 
 ```css
 :root {
@@ -78,7 +78,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Card Tokens
+## Card 令牌
 
 ```css
 :root {
@@ -101,7 +101,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Badge Tokens
+## Badge 令牌
 
 ```css
 :root {
@@ -129,7 +129,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Alert Tokens
+## Alert 令牌
 
 ```css
 :root {
@@ -148,7 +148,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Dialog/Modal Tokens
+## Dialog/Modal 令牌
 
 ```css
 :root {
@@ -168,7 +168,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Table Tokens
+## Table 令牌
 
 ```css
 :root {
@@ -190,7 +190,7 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Usage Example
+## 使用示例
 
 ```css
 .button {

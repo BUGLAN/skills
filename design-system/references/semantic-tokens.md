@@ -1,10 +1,10 @@
-# Semantic Tokens
+# 语义令牌（Semantic Tokens）
 
-Purpose-based aliases referencing primitive tokens.
+按用途命名的别名，指向原始令牌。
 
-## Color Semantics
+## 色彩语义
 
-### Background & Foreground
+### 背景与前景
 
 ```css
 :root {
@@ -71,7 +71,7 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-### Status Colors
+### 状态色
 
 ```css
 :root {
@@ -89,7 +89,7 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-### Border & Ring
+### 边框与焦点环（Ring）
 
 ```css
 :root {
@@ -99,7 +99,7 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-## Spacing Semantics
+## 间距语义
 
 ```css
 :root {
@@ -120,7 +120,7 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-## Typography Semantics
+## 字阶语义
 
 ```css
 :root {
@@ -140,7 +140,7 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-## Interactive States
+## 交互状态
 
 ```css
 :root {
@@ -159,7 +159,7 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-## Dark Mode Overrides
+## 暗色模式覆盖
 
 ```css
 .dark {
@@ -186,9 +186,9 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-## Usage Patterns
+## 使用模式
 
-### Applying Semantic Tokens
+### 应用语义令牌
 
 ```css
 /* Good - uses semantic tokens */
@@ -205,9 +205,9 @@ Purpose-based aliases referencing primitive tokens.
 }
 ```
 
-### Theme Switching
+### 主题切换
 
-Semantic tokens enable instant theme switching:
+语义令牌让主题即时切换成为可能：
 
 ```js
 // Toggle dark mode

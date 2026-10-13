@@ -1,6 +1,6 @@
 ---
 name: bug-fix
-description: "Systematic workflow for verifying bug fixes to ensure quality and prevent regres..."
+description: "系统化的 bug 修复验证工作流，确保修复质量并防止回归..."
 version: 1.0.0
 tags: []
 progressive_disclosure:
@@ -9,51 +9,51 @@ progressive_disclosure:
     when_to_use: "When working with bug-fix or related functionality."
     quick_start: "1. Review the core concepts below. 2. Apply patterns to your use case. 3. Follow best practices for implementation."
 ---
-# Bug Fix Verification
+# Bug 修复验证
 
-Systematic workflow for verifying bug fixes to ensure quality and prevent regressions.
+系统化的 bug 修复验证工作流，确保修复质量、防止回归。
 
-## When to Use This Skill
+## 适用场景
 
-Use this skill when:
-- Fixing a reported bug
-- Creating PR for bug fix
-- Need to document bug fix verification
-- Want to ensure fix doesn't introduce regressions
-- Need structured approach to bug resolution
+在以下情况使用本技能：
+- 修复一个已上报的 bug
+- 为 bug 修复创建 PR
+- 需要记录 bug 修复的验证过程
+- 想确保修复不会引入回归
+- 需要一套结构化的 bug 解决流程
 
-## Why Bug Fix Verification Matters
+## Bug 修复验证为何重要
 
-### Problems It Solves
-- ❌ Fixing symptoms instead of root cause
-- ❌ Introducing new bugs while fixing old ones
-- ❌ Incomplete testing of edge cases
-- ❌ No proof that bug is actually fixed
-- ❌ Poor documentation of fix reasoning
+### 它解决的问题
+- ❌ 修复症状而非根因
+- ❌ 修旧 bug 时引入新 bug
+- ❌ 边界情况测试不充分
+- ❌ 无法证明 bug 确实已修复
+- ❌ 修复思路缺乏文档记录
 
-### Benefits
-- ✅ Confirms bug is truly fixed (not masked)
-- ✅ Documents root cause analysis
-- ✅ Prevents regression with tests
-- ✅ Provides clear evidence for stakeholders
-- ✅ Improves team knowledge of codebase
+### 收益
+- ✅ 确认 bug 真正修复（而非被掩盖）
+- ✅ 记录根因分析
+- ✅ 用测试防止回归
+- ✅ 为相关方提供清晰证据
+- ✅ 加深团队对代码库的理解
 
-## Bug Fix Workflow
+## Bug 修复工作流
 
-### Step 1: Reproduce Before Fix
+### 第 1 步：修复前先复现
 
-**Critical**: Never fix a bug without first reproducing it.
+**关键**：没有先复现，就不要动手修复。
 
-#### Reproduction Checklist
-- [ ] Document exact steps to reproduce
-- [ ] Capture error message/behavior with screenshots
-- [ ] Note frequency (100% reproducible, intermittent, etc.)
-- [ ] Video recording if UI-related or complex interaction
-- [ ] Identify affected versions/environments
-- [ ] Note any workarounds users have found
-- [ ] Verify bug exists in clean environment (not just local)
+#### 复现清单
+- [ ] 记录精确的复现步骤
+- [ ] 用截图记录错误信息/异常行为
+- [ ] 记录复现频率（100% 必现、偶发等）
+- [ ] 涉及 UI 或复杂交互时录制视频
+- [ ] 确认受影响的版本/环境
+- [ ] 记录用户已发现的临时规避方法
+- [ ] 在干净环境中验证 bug 是否存在（而不只是本地）
 
-#### Reproduction Documentation Template
+#### 复现记录模板
 ```markdown
 ## Bug Reproduction
 
@@ -85,19 +85,19 @@ Use this skill when:
 ![Console error](screenshots/console-error.png)
 ```
 
-### Step 2: Root Cause Analysis
+### 第 2 步：根因分析
 
-Investigate WHY the bug occurs, not just WHAT happens.
+排查重点在于 bug 为什么会发生，而不只是发生了什么。
 
-#### Investigation Steps
-1. **Review Error Logs**: Check server logs, browser console, error tracking
-2. **Trace Code Path**: Follow execution from trigger point to error
-3. **Identify Breaking Point**: Find exact line/function where bug occurs
-4. **Understand Context**: Why does code behave this way?
-5. **Check Recent Changes**: Did recent commit introduce this?
-6. **Review Related Code**: Are there similar patterns elsewhere?
+#### 排查步骤
+1. **检查错误日志**：查看服务器日志、浏览器控制台、错误监控
+2. **追踪代码路径**：从触发点一路跟踪到出错位置
+3. **定位崩溃点**：找到 bug 发生的确切行/函数
+4. **理解上下文**：代码为什么会这样表现？
+5. **检查近期变更**：是否由最近的 commit 引入？
+6. **审查相关代码**：其他地方是否存在类似模式？
 
-#### Root Cause Documentation
+#### 根因记录
 ```markdown
 ## Root Cause Analysis
 
@@ -118,18 +118,18 @@ Investigate WHY the bug occurs, not just WHAT happens.
 - Backend inconsistency not documented in API contract
 ```
 
-### Step 3: Implement Fix
+### 第 3 步：实施修复
 
-Fix the root cause, not the symptom.
+修复根因，而非症状。
 
-#### Fix Guidelines
-- **Minimal Change**: Fix only what's necessary
-- **Defensive Coding**: Add validation/guards
-- **Consistent Patterns**: Follow existing error handling patterns
-- **Type Safety**: Use types to prevent similar bugs
-- **Documentation**: Comment non-obvious fixes
+#### 修复准则
+- **最小改动**：只修必须修的
+- **防御式编码**：补充校验/守卫
+- **遵循既有模式**：沿用现有的错误处理模式
+- **类型安全**：借助类型防止同类 bug
+- **文档**：为不直观的修复加注释
 
-#### Example Fix
+#### 修复示例
 ```typescript
 // BEFORE (Bug)
 function generateReport(transactions) {
@@ -154,19 +154,19 @@ function generateReport(transactions) {
 }
 ```
 
-### Step 4: Verify Fix
+### 第 4 步：验证修复
 
-Prove the bug is fixed through systematic testing.
+通过系统化测试证明 bug 已被修复。
 
-#### Verification Checklist
-- [ ] Follow same reproduction steps
-- [ ] Confirm bug no longer occurs
-- [ ] Test edge cases around the fix
-- [ ] Verify no new errors introduced
-- [ ] Check fix works across environments (dev, staging)
-- [ ] Validate fix matches expected behavior
+#### 验证清单
+- [ ] 按原复现步骤重新操作
+- [ ] 确认 bug 不再出现
+- [ ] 测试修复周边的边界情况
+- [ ] 确认没有引入新错误
+- [ ] 确认修复在多环境有效（dev、staging）
+- [ ] 校验修复行为符合预期
 
-#### Verification Documentation
+#### 验证记录
 ```markdown
 ## Fix Verification
 
@@ -191,17 +191,17 @@ Prove the bug is fixed through systematic testing.
 - ✅ Other export features still work
 ```
 
-### Step 5: Add Tests to Prevent Regression
+### 第 5 步：添加测试防止回归
 
-**Critical**: Every bug fix must include tests.
+**关键**：每个 bug 修复都必须附带测试。
 
-#### Test Requirements
-- [ ] Test that reproduces original bug (should pass after fix)
-- [ ] Tests for edge cases discovered during investigation
-- [ ] Integration test if bug involved multiple components
-- [ ] Update existing tests if they need to handle new scenarios
+#### 测试要求
+- [ ] 能复现原 bug 的测试（修复后应通过）
+- [ ] 覆盖排查过程中发现的边界情况
+- [ ] bug 涉及多个组件时补集成测试
+- [ ] 需要应对新场景时更新既有测试
 
-#### Example Tests
+#### 测试示例
 ```typescript
 describe('generateReport', () => {
   // Test that reproduces original bug
@@ -241,11 +241,11 @@ describe('generateReport', () => {
 });
 ```
 
-### Step 6: Document in PR
+### 第 6 步：在 PR 中记录
 
-Comprehensive PR description for bug fixes.
+为 bug 修复撰写完整的 PR 描述。
 
-#### PR Template for Bug Fixes
+#### Bug 修复 PR 模板
 ```markdown
 ## Bug Fix: [Brief Description]
 
@@ -316,54 +316,54 @@ Comprehensive PR description for bug fixes.
 - Related to #456 (similar null handling issue)
 ```
 
-## Common Pitfalls to Avoid
+## 常见误区
 
-### During Investigation
-- ❌ Assuming you know the cause without verifying
-- ❌ Fixing symptoms instead of root cause
-- ❌ Not checking if similar bugs exist elsewhere
-- ❌ Skipping reproduction in clean environment
+### 排查阶段
+- ❌ 不经验证就主观认定原因
+- ❌ 修症状不修根因
+- ❌ 不排查其他地方是否有同类 bug
+- ❌ 跳过干净环境复现
 
-### During Implementation
-- ❌ Making changes beyond fixing the bug
-- ❌ Refactoring unrelated code in bug fix PR
-- ❌ Adding features while fixing bugs
-- ❌ Not handling all edge cases discovered
+### 实施阶段
+- ❌ 做超出修复范围的改动
+- ❌ 在 bug 修复 PR 中重构无关代码
+- ❌ 修 bug 时顺手加功能
+- ❌ 未处理已发现的全部边界情况
 
-### During Verification
-- ❌ Only testing happy path after fix
-- ❌ Not testing in multiple environments
-- ❌ Skipping regression testing
-- ❌ Not documenting what was tested
+### 验证阶段
+- ❌ 修复后只测正常路径
+- ❌ 不在多环境下测试
+- ❌ 跳过回归测试
+- ❌ 不记录测试内容
 
-### During Documentation
-- ❌ Vague PR descriptions ("Fixed bug")
-- ❌ Not explaining root cause
-- ❌ Missing before/after evidence
-- ❌ Not linking to original bug report
+### 文档阶段
+- ❌ PR 描述含糊（只写"已修复 bug"）
+- ❌ 不解释根因
+- ❌ 缺少修复前后的对比证据
+- ❌ 未链接原始 bug 报告
 
-## Bug Fix Quality Standards
+## Bug 修复质量标准
 
-### Minimum Requirements
-- ✅ Root cause identified and documented
-- ✅ Fix is minimal and targeted
-- ✅ Tests added to prevent regression
-- ✅ Verification documented with evidence
-- ✅ No new bugs introduced
-- ✅ Works across all supported environments
+### 最低要求
+- ✅ 找到并记录根因
+- ✅ 修复最小且聚焦
+- ✅ 添加测试防止回归
+- ✅ 验证有据可查
+- ✅ 未引入新 bug
+- ✅ 在所有支持的环境下可用
 
-### Excellence Indicators
-- ✅ Similar patterns checked and fixed
-- ✅ Multiple edge cases tested
-- ✅ Performance impact measured
-- ✅ Team knowledge shared (wiki/docs updated)
-- ✅ Preventive measures suggested
+### 卓越指标
+- ✅ 排查并修复了同类模式
+- ✅ 测试了多个边界情况
+- ✅ 评估了性能影响
+- ✅ 团队知识共享（更新 wiki/文档）
+- ✅ 提出预防措施建议
 
-## Automation Support
+## 自动化支持
 
-### Bug Fix PR Template
+### Bug 修复 PR 模板
 
-Create `.github/PULL_REQUEST_TEMPLATE/bug_fix.md`:
+创建 `.github/PULL_REQUEST_TEMPLATE/bug_fix.md`：
 ```markdown
 ## Bug Fix
 
@@ -402,7 +402,7 @@ Create `.github/PULL_REQUEST_TEMPLATE/bug_fix.md`:
 **After**: [Screenshot]
 ```
 
-### GitHub Actions for Bug Fix PRs
+### 用于 Bug 修复 PR 的 GitHub Actions
 
 ```yaml
 name: Bug Fix Verification
@@ -440,22 +440,22 @@ jobs:
           fi
 ```
 
-## Success Criteria
+## 成功标准
 
-### Bug Fix is Complete When
-- ✅ Bug can no longer be reproduced
-- ✅ Root cause is understood and documented
-- ✅ Fix is minimal and targeted
-- ✅ Tests prevent regression
-- ✅ Edge cases are handled
-- ✅ Works in all environments
-- ✅ PR documentation is comprehensive
-- ✅ No new issues introduced
+### 修复完成的判定标准
+- ✅ bug 无法再复现
+- ✅ 根因已弄清并记录
+- ✅ 修复最小且聚焦
+- ✅ 测试防止回归
+- ✅ 边界情况已处理
+- ✅ 在所有环境下可用
+- ✅ PR 文档完整
+- ✅ 未引入新问题
 
-## Related Skills
+## 相关技能
 
-- `universal-verification-pre-merge` - Pre-merge verification checklist
-- `universal-verification-screenshot` - Visual verification for UI bugs
-- `universal-debugging-systematic-debugging` - Systematic debugging methodology
-- `universal-debugging-root-cause-tracing` - Root cause analysis techniques
-- `universal-testing-testing-anti-patterns` - Testing patterns to avoid
+- `universal-verification-pre-merge` - 合并前验证清单
+- `universal-verification-screenshot` - UI bug 的可视化验证
+- `universal-debugging-systematic-debugging` - 系统化调试方法论
+- `universal-debugging-root-cause-tracing` - 根因分析技术
+- `universal-testing-testing-anti-patterns` - 应避免的测试反模式

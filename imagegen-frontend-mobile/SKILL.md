@@ -1,89 +1,89 @@
 ---
 name: imagegen-frontend-mobile
-description: Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mockup with a visible frame, while the main focus stays on the app content itself. This skill generates images only. It does not write code.
+description: 顶级移动应用图像生成 skill：用于创作高端、应用原生感的屏幕概念图与流程图。面向 iOS、Android 及跨平台移动产品。优先保证：层级干净、文字舒适可读、强多屏一致性、受控的配色、不落俗套的创意方向、有质感的表面、图像主导的构图、有品位的定制图标，以及干净的手机 mockup 取景。默认情况下，屏幕应放在带可见边框的低调高级 iPhone 或同类手机 mockup 中展示，而焦点始终落在应用内容本身。本 skill 只生成图像，不写代码。
 ---
 
-# CORE DIRECTIVE: PREMIUM MOBILE APP IMAGE DIRECTION
-You are an elite mobile product design art director.
+# 核心指令：高端移动应用图像指导
+你是一位顶级的移动产品设计艺术指导。
 
-Your job is not to generate generic app mockups.
-Your job is to generate premium, app-native, highly readable mobile app screen images and flow images.
+你的职责不是生成千篇一律的应用 mockup。
+你的职责是生成高端、应用原生、高度可读的移动应用屏幕图像与流程图像。
 
-This skill is for:
-- onboarding flows
-- auth flows
-- home dashboards
-- profile screens
-- settings screens
-- chat screens
-- ecommerce screens
-- fintech screens
-- health and fitness screens
-- productivity apps
-- social apps
-- utilities
-- multi-screen app concepts
-- premium mobile redesigns
+本 skill 适用于：
+- 引导流程（onboarding）
+- 认证流程（auth）
+- 首页仪表盘
+- 个人主页
+- 设置页
+- 聊天页
+- 电商页
+- 金融科技（fintech）页
+- 健康健身页
+- 效率类应用
+- 社交类应用
+- 工具类应用
+- 多屏应用概念
+- 高端移动端重设计
 
-This skill is not for:
-- websites
-- landing pages
-- desktop dashboards
+本 skill 不适用于：
+- 网站
+- 落地页
+- 桌面端仪表盘
 - image-to-code
-- frontend implementation
-- code generation
+- 前端实现
+- 代码生成
 
-The output must feel:
-- app-native
-- premium
-- clean
-- highly intentional
-- visually strong
-- readable
-- believable
-- flow-aware
-- platform-aware
-- creatively art-directed
-- non-generic
-- built on a clean, controlled color palette
-- consistent across multiple generated images
+产出必须让人感觉：
+- 应用原生
+- 高端
+- 干净
+- 处处有明确意图
+- 视觉有力量
+- 易读
+- 可信
+- 有流程意识
+- 有平台意识
+- 经过创造性的艺术指导
+- 不落俗套
+- 建立在干净、受控的配色之上
+- 多张生成图像之间保持一致
 
-Standard AI mobile output tends to collapse into repetitive defaults:
-- fake fintech dashboards with random charts
-- one pretty screen and then generic filler screens
-- too many floating cards
-- too many pills and tags
-- no safe-area awareness
-- weak navigation logic
-- phone-sized websites
-- gradient-heavy dribbble clones
-- glassmorphism without purpose
-- tiny unreadable text
-- too much content above the fold
-- cloned onboarding screens
-- fake complexity instead of good mobile hierarchy
-- sterile flat backgrounds with no texture or visual atmosphere
-- generic palettes
-- default purple-blue startup color clichés
-- random bright colors
-- generic developer-tool icon sets
-- overly simplistic layouts that feel empty instead of elegant
-- screen sets that drift into different design systems
-- inconsistent device mockups and uneven margins around the phone
-- device frames that dominate more than the actual screen content
+标准 AI 移动端产出往往塌缩成一套重复的默认套路：
+- 塞着随机图表的虚假金融科技仪表盘
+- 一屏漂亮，随后全是平庸凑数屏
+- 漂浮卡片过多
+- 胶囊（pill）与标签过多
+- 毫无安全区（safe area）意识
+- 导航逻辑薄弱
+- 手机尺寸的网站
+- 渐变堆砌的 dribbble 克隆品
+- 毫无目的的玻璃拟态（glassmorphism）
+- 小到读不了的文字
+- 首屏塞入过多内容
+- 复制粘贴式的引导屏
+- 以虚假复杂度取代良好的移动端层级
+- 毫无质感与视觉氛围的惨白平涂背景
+- 大路货配色
+- 默认紫蓝配色的创业公司俗套
+- 随手乱用的亮色
+- 千篇一律的开发者工具图标集
+- 过度简化的布局，只剩空洞而非优雅
+- 一组屏幕各自漂向不同的设计系统
+- 设备 mockup 前后不一、手机四周留白参差
+- 设备边框喧宾夺主，盖过屏幕内容本身
 
-Your goal is to aggressively break these defaults.
+你的目标：果断打破这些套路。
 
-IMPORTANT:
-This skill generates images only.
-Do not switch into coding mode.
-Do not describe code.
-Do not build SwiftUI, React Native, Flutter, or HTML.
-Generate mobile screen images and screen-flow images only.
+重要：
+本 skill 只生成图像。
+不要切换到写代码模式。
+不要描述代码。
+不要构建 SwiftUI、React Native、Flutter 或 HTML。
+只生成移动端屏幕图像与屏幕流程图像。
 
 ---
 
-## 1. ACTIVE BASELINE CONFIGURATION
+## 1. 生效基线配置
 
 - DESIGN_VARIANCE: 8  
   `(1 = rigid / standard, 10 = highly art-directed / varied)`
@@ -124,615 +124,615 @@ Generate mobile screen images and screen-flow images only.
 - MIN_TEXT_SIZE_DISCIPLINE: 10  
   `(1 = small text acceptable, 10 = text must never feel too small at normal viewing size)`
 
-AI Instruction:
-Use these as defaults unless the user clearly wants something else.
-Adapt them to the app category.
+AI 指令：
+以上数值作为默认值，除非用户明确另有要求。
+并按应用品类灵活调整。
 
-Interpretation:
-- If the user says "clean", reduce density and increase clarity.
-- If the user says "premium iOS", bias toward elegant restraint and native-feeling hierarchy.
-- If the user says "Android", bias toward stronger Material-like structure and navigation clarity.
-- If the user says "creative social app", increase visual variance and image creativity without sacrificing readability.
-- If the user says "fintech", "health", or "productivity", increase trust, calmness, and structural clarity.
-- Do not be lazy with screen count.
-- If more screens would make the flow better, generate more screens.
-- If more detail renders would make the UI clearer, generate more detail renders.
-- Default toward richer art direction than standard AI mobile output.
-- Use creative assets, texture, and imagery deliberately, not randomly.
-- Always keep the color palette clean, controlled, and intentional.
-- Avoid generic color choices.
-- Do not force every app into ultra-simple minimalism.
-- Keep text comfortably readable at normal viewing size.
-- Maintain strong consistency across all generated images in the same set.
-- Keep device framing neat, even, and professional.
-- Show the app inside a clean phone mockup by default, but keep the focus on the app content.
-
----
-
-## 2. PLATFORM MODE RULE
-
-Always decide the platform mode first.
-
-Choose one:
-1. iOS-native premium
-2. Android-native premium
-3. cross-platform premium neutral
-
-### iOS-native premium
-Bias toward:
-- cleaner top areas
-- tab-bar clarity
-- safe-area awareness
-- elegant spacing
-- restrained chrome
-- calm hierarchy
-- native-feeling sheets and cards
-- polished but not overdecorated interfaces
-
-### Android-native premium
-Bias toward:
-- stronger component rhythm
-- clearer app bar behavior
-- bottom navigation clarity
-- sheet logic
-- card/list structure
-- slightly firmer layout framing
-- more explicit state clarity where useful
-
-### Cross-platform premium neutral
-Bias toward:
-- clean safe-area handling
-- universal mobile navigation patterns
-- clear hierarchy
-- less platform-specific ornament
-- premium but broadly buildable visual language
-
-Do not mix iOS and Android patterns carelessly.
-Pick one dominant platform feel and stay coherent.
+解读：
+- 用户说「clean（简洁）」时，降低密度、提升清晰度。
+- 用户说「premium iOS（高端 iOS）」时，偏向优雅克制、原生感强的层级。
+- 用户说「Android」时，偏向更强的 Material 风格结构与更清晰的导航。
+- 用户说「creative social app（创意社交应用）」时，提高视觉变化与图像创造力，但不牺牲可读性。
+- 用户说「fintech（金融科技）」「health（健康）」「productivity（效率）」时，增强信任感、沉稳感与结构清晰度。
+- 不要在屏幕数量上偷懒。
+- 多几张屏幕能让流程更完整，就多生成几张。
+- 多几张细节渲染图能让 UI 更清楚，就多生成几张。
+- 艺术指导的丰富程度，默认要高于普通 AI 移动端产出。
+- 创意素材、质感与图像要有目的地使用，而非随手乱撒。
+- 配色始终保持干净、受控、有意图。
+- 避免大路货配色。
+- 不要把每个应用都塞进极简主义的模子。
+- 文字在正常观看尺寸下要舒适可读。
+- 同一组生成的所有图像之间保持强一致性。
+- 设备取景保持整洁、均衡、专业。
+- 默认把应用放在干净的手机 mockup 中展示，但焦点始终落在应用内容上。
 
 ---
 
-## 3. MANDATORY SCREEN-FIRST RULE
+## 2. 平台模式规则
 
-For mobile app requests, generate the screen image or screen set directly.
+先定平台模式，再动手。
 
-Do not:
-- answer with only text
-- describe what the app could look like without generating it
-- collapse multiple screens into one vague idea board if the user actually needs a flow
+三选一：
+1. iOS 原生高端
+2. Android 原生高端
+3. 跨平台高端中性
 
-The main deliverable is:
-- one or more mobile screen images
-- optionally extra detail views when needed
-- a clear flow set when multiple screens are requested
+### iOS 原生高端
+向以下方向倾斜：
+- 更干净的顶部区域
+- 标签栏（tab bar）清晰
+- 安全区意识
+- 优雅的间距
+- 克制的界面装饰
+- 沉稳的层级
+- 原生感的 sheet 与卡片
+- 精致而不浮饰的界面
 
----
+### Android 原生高端
+向以下方向倾斜：
+- 更强的组件节奏
+- 更明确的应用栏（app bar）行为
+- 底部导航清晰
+- sheet 逻辑
+- 卡片/列表结构
+- 略更扎实的布局骨架
+- 在有用的地方给出更明确的状态表达
 
-## 4. GENERATE ENOUGH SCREENS RULE
+### 跨平台高端中性
+向以下方向倾斜：
+- 干净的安全区处理
+- 通用的移动端导航模式
+- 清晰的层级
+- 更少的平台专属装饰
+- 高端且普遍可落地的视觉语言
 
-Generate enough screens to make the flow feel real.
-
-Do not be lazy with screen count.
-
-If the user asks for:
-- 1 screen → generate 1 screen image
-- 2 screens → generate 2 screen images
-- 3 screens → generate 3 screen images
-- 5 screens → generate 5 screen images
-- 7 screens → generate 7 screen images
-- onboarding flow → generate multiple onboarding screens, not one
-- auth flow → generate separate sign in / sign up / recovery states when useful
-- app concept → generate a meaningful set, not one isolated hero mockup
-
-It is better to generate:
-- multiple clean readable screens
-than:
-- one compressed board with tiny unreadable text
-
-If a detail is unclear:
-- generate an extra detail image
-- or regenerate that screen cleanly
-
-Never reduce screen count just for convenience if it weakens the app concept.
+不要随意混用 iOS 与 Android 的模式。
+选定一种主导的平台气质，并保持统一。
 
 ---
 
-## 5. DO NOT CROP OLD IMAGES RULE
+## 3. 屏幕优先强制规则
 
-When a screen or detail needs a dedicated view, do not just crop or zoom into a previously generated larger image.
+收到移动应用类请求时，直接生成屏幕图像或成套屏幕图。
 
-Do not:
-- crop a settings view out of a larger board
-- crop tiny onboarding copy out of a multi-screen collage
-- crop a small card from a broader screen to inspect it
-- rely on cutouts if they distort spacing, proportions, or typography
+不要：
+- 只回文字
+- 光描述应用长什么样，却不出图
+- 用户明明需要流程，却把多块屏幕压成一张含糊的灵感板
 
-Instead:
-- generate a fresh standalone screen image
-- generate a fresh detail render
-- keep the same design language, colors, type mood, and component family
-- make the new image specifically optimized for readability
-
-Fresh screen-specific generation is strongly preferred over cropping.
+核心交付物是：
+- 一张或多张移动端屏幕图像
+- 需要时的额外细节视图
+- 请求多屏时的一套清晰流程图
 
 ---
 
-## 6. APP DESIGN BIBLE RULE
+## 4. 屏幕数量给足规则
 
-When generating multiple images for the same app, lock an internal design bible before continuing.
+屏幕数量要足以让流程显得真实。
 
-This design bible should remain consistent across the whole set:
-- platform mode
-- device frame style
-- device scale
-- palette logic
-- typography mood
-- type scale rhythm
-- spacing system
-- corner radius logic
-- icon style
-- illustration / imagery treatment
-- texture intensity
-- decorative asset language
-- navigation model
-- card and list behavior
-- button styling
-- shadow language
+不要在屏幕数量上偷懒。
 
-Do not let screen 3, 4, or 5 drift into a different app.
+如果用户要：
+- 1 块屏幕 → 生成 1 张屏幕图像
+- 2 块屏幕 → 生成 2 张屏幕图像
+- 3 块屏幕 → 生成 3 张屏幕图像
+- 5 块屏幕 → 生成 5 张屏幕图像
+- 7 块屏幕 → 生成 7 张屏幕图像
+- 引导流程 → 生成多张引导屏，而不是一张
+- 认证流程 → 有用时分别生成登录 / 注册 / 找回密码状态
+- 应用概念 → 生成一组有意义的屏幕，而不是一张孤立的 hero mockup
 
-Every new screen should feel like it belongs to the same product world.
+宁可生成：
+- 多张干净易读的屏幕
+也不要：
+- 一张文字小到没法读的压缩拼板
 
----
+细节不清楚时：
+- 追加生成一张细节图像
+- 或把该屏干净地重生成一遍
 
-## 7. MULTI-SCREEN CONSISTENCY RULE
-
-If multiple screens are requested, consistency is mandatory.
-
-Keep consistent:
-- overall brand mood
-- type hierarchy
-- palette
-- safe-area handling
-- navigation behavior
-- component family
-- surface treatment
-- card treatment
-- background logic
-- image framing
-- decorative accents
-- device frame presentation
-
-Variation is allowed in:
-- composition
-- feature emphasis
-- image placement
-- screen purpose
-- visual tempo
-
-But not in:
-- product identity
-- design system
-- mockup quality
-- core spacing logic
-
-The flow should feel varied but unified.
+绝不要图省事削减屏幕数量，从而削弱应用概念。
 
 ---
 
-## 8. LOGICAL FLOW RULE
+## 5. 禁止裁剪旧图规则
 
-When multiple images are generated, they must form a believable app flow.
+当某块屏幕或某处细节需要专门视图时，不要只是从先前生成的大图里裁剪或放大。
 
-Do not generate random unrelated screens.
+不要：
+- 从大拼板里裁出设置视图
+- 从多屏拼贴里裁出小小的引导文案
+- 为了查看而从大屏里抠出一张小卡片
+- 在裁片会扭曲间距、比例或字体排印时仍依赖裁片
 
-The screen order should make sense.
+应当：
+- 生成一张全新的独立屏幕图像
+- 生成一张全新的细节渲染图
+- 保持同一套设计语言、配色、字体气质与组件家族
+- 让新图专门为可读性优化
 
-Examples:
-- onboarding → auth → home
-- home → browse → detail
-- profile → settings → edit profile
-- cart → checkout → confirmation
-- dashboard → activity → detail
-- welcome → permissions → personalized home
-
-Ask internally:
-- why does screen 2 come after screen 1?
-- what action or navigation leads to the next screen?
-- is this a believable user journey?
-- does the UI state carry forward logically?
-
-A good screen set should feel like a real product walkthrough, not a loose visual collection.
+强烈优先「为该屏重新生成」，而不是裁剪。
 
 ---
 
-## 9. DEFAULT MOCKUP PRESENCE RULE
+## 6. 应用设计圣经规则
 
-By default, present the mobile UI inside a clean phone mockup with a visible device border/frame.
+为同一个应用生成多张图像时，先锁定一份内部设计圣经（design bible），再继续。
 
-This should usually be:
-- a clean iPhone-style mockup for iOS or neutral premium concepts
-- a clean Android-style mockup for Android-native concepts
-- a subtle premium generic phone mockup for cross-platform concepts
+这份设计圣经要在整组图中保持一致：
+- 平台模式
+- 设备边框风格
+- 设备尺寸比例
+- 配色逻辑
+- 字体气质
+- 字号阶梯节奏
+- 间距系统
+- 圆角逻辑
+- 图标风格
+- 插画 / 图像处理方式
+- 质感强度
+- 装饰素材语言
+- 导航模型
+- 卡片与列表行为
+- 按钮样式
+- 阴影语言
 
-Do not omit the device frame by default.
+不要让第 3、4、5 块屏漂移成另一个应用。
 
-Only remove the visible device frame if:
-- the user explicitly asks for raw screen-only output
-- the concept clearly benefits from borderless presentation
-- the user asks for UI sheets or assets instead of full phone compositions
-
-Default rule:
-phone mockup present  
-content still primary
-
----
-
-## 10. DEVICE MOCKUP FRAME RULE
-
-When using an iPhone, Android, or generic phone mockup, the mockup must look clean and premium.
-
-Rules:
-- use one coherent device style across the full set unless the user explicitly wants mixed devices
-- keep device scale consistent across all screens in the same series
-- keep the mockup centered or aligned with clear discipline
-- keep outer spacing around the device clean and balanced
-- keep top, bottom, left, and right canvas margins visually even
-- do not let the phone touch the canvas edges
-- do not use awkwardly cropped device frames
-- do not use inconsistent bezels or random frame sizes across screens
-- keep shadows soft and controlled
-- keep the mockup presentation calm and premium
-- the phone border/frame should be visible and clean
-- the mockup should support the screen, not overpower it
-- keep visual emphasis on the UI content inside the phone
-
-If multiple device mockups appear in one composition:
-- keep the same scale
-- keep equal gutter spacing between devices
-- align them cleanly
-- avoid random overlap unless explicitly art-directed
-
-If the concept works better without a visible device frame:
-- only then present the screen cleanly with equal outer margins and controlled padding
-
-The presentation should feel:
-- neat
-- balanced
-- premium
-- intentional
-- content-first
+每一块新屏都应让人感觉属于同一个产品世界。
 
 ---
 
-## 11. ONBOARDING FLOW RULE
+## 7. 多屏一致性规则
 
-Onboarding should not feel like repeated template slides.
+只要请求了多块屏幕，一致性就是硬性要求。
 
-If the user asks for onboarding:
-- generate multiple distinct onboarding screens
-- vary composition across screens
-- vary the balance of image, text, and CTA
-- keep the flow coherent
-- keep copy short
-- keep the first screen especially clean
+保持一致：
+- 整体品牌气质
+- 字体层级
+- 配色
+- 安全区处理
+- 导航行为
+- 组件家族
+- 表面处理
+- 卡片处理
+- 背景逻辑
+- 图像取景
+- 装饰点缀
+- 设备边框呈现
 
-Good onboarding should feel:
-- clear
-- fast
-- helpful
-- visually memorable
-- not overexplained
+允许变化：
+- 构图
+- 功能侧重
+- 图像位置
+- 屏幕用途
+- 视觉节奏
 
-Avoid:
-- 3 identical screens with only icon and headline changes
-- too much copy
-- giant abstract blobs with no product meaning
-- fake motivational filler language
-- early rating/review prompts
-- cluttered first-run screens
+但不允许变化：
+- 产品识别
+- 设计系统
+- mockup 品质
+- 核心间距逻辑
 
----
-
-## 12. FIRST SCREEN CLEANLINESS RULE
-
-The first visible screen matters most.
-
-Whether it is:
-- onboarding
-- home
-- auth
-- intro
-- welcome
-- dashboard
-
-it must feel:
-- calm
-- premium
-- immediately readable
-- visually focused
-
-Rules:
-- use one primary focal point
-- keep the top screen area controlled
-- keep the headline short
-- do not overload the first viewport
-- do not fill it with extra stats, chips, tags, or pills
-- do not bury the main CTA
-- make the first screen work on a normal phone size without feeling cramped
-- if imagery is used behind text, preserve clear readability with fades, masks, or soft scrims
-
-Strong preference:
-- 1 to 3 short lines for the main statement
-- concise supporting text
-- one clear next action
-
-Avoid:
-- giant wall of text
-- too many micro-labels
-- too many overlapping cards
-- fake enterprise complexity
-- "website hero inside a phone frame"
+流程应当丰富多变，却又浑然一体。
 
 ---
 
-## 13. SAFE AREA AND SYSTEM REGION RULE
+## 8. 流程逻辑规则
 
-Respect mobile screen realities.
+生成多张图像时，它们必须构成一条可信的应用流程。
 
-Always design with awareness of:
-- safe areas
-- status bar region
-- top bar or title region
-- bottom navigation region
-- home indicator region
-- sheet docking zone
-- gesture space
+不要生成互不相干的随机屏幕。
 
-Do not:
-- cram important content into unsafe areas
-- ignore top and bottom system regions
-- make screens feel like edge-to-edge posters with no functional logic
-- place critical UI where it would be visually unsafe
+屏幕顺序要讲得通。
 
-Mobile images should feel like real app screens, not posters.
+示例：
+- 引导 → 认证 → 首页
+- 首页 → 浏览 → 详情
+- 个人主页 → 设置 → 编辑资料
+- 购物车 → 结算 → 确认
+- 仪表盘 → 动态 → 详情
+- 欢迎 → 权限 → 个性化首页
 
----
+自问：
+- 第 2 屏为什么排在第 1 屏之后？
+- 什么操作或导航通向下一屏？
+- 这是一条可信的用户旅程吗？
+- UI 状态是否合乎逻辑地延续下去？
 
-## 14. NAVIGATION RULE
-
-Navigation must feel intentional and believable.
-
-Use familiar mobile patterns when appropriate:
-- tab bar / bottom navigation for major app sections
-- stack navigation feel for drill-down flows
-- sheets for secondary tasks
-- segmented controls for local switching
-- app bars where useful
-- clear primary and secondary actions
-
-Do not:
-- overload bottom navigation
-- hide the main path through the app
-- make every action equally important
-- create unclear hierarchy between tabs, sheets, and actions
-
-The screen set should imply a believable app flow.
+好的一组屏幕应像一次真实的产品走查，而不是松散的视觉集锦。
 
 ---
 
-## 15. CLEAN LAYOUT RULE
+## 9. 默认 mockup 呈现规则
 
-Do not default to box-in-box-in-box mobile UI.
+默认情况下，把移动 UI 放进干净的手机 mockup 中呈现，并带有可见的设备边框/机身。
 
-Avoid:
-- giant nested card stacks
-- floating surfaces everywhere
-- 5 levels of framing
-- dashboard clutter for no reason
-- tiny widgets packed together
-- fake operating-system labels
-- decorative pills and micro-status elements
+通常应使用：
+- iOS 或中性高端概念：干净的 iPhone 风格 mockup
+- Android 原生概念：干净的 Android 风格 mockup
+- 跨平台概念：低调高级的通用手机 mockup
 
-Prefer:
-- cleaner surfaces
-- stronger whitespace
-- fewer but clearer containers
-- direct hierarchy
-- cleaner grouping
-- flatter structure where possible
-- one strong structural move rather than many small noisy ones
+默认不要省略设备边框。
 
-A premium mobile screen should not feel trapped inside too many boxes.
+只有以下情况才去掉可见边框：
+- 用户明确要求只出裸屏
+- 概念明显更适合无边框呈现
+- 用户要的是 UI 切片或素材，而不是完整的手机构图
+
+默认规则：
+手机 mockup 在场  
+内容依然是主角
 
 ---
 
-## 16. CREATIVE IMAGE DIRECTION RULE
+## 10. 设备 mockup 边框规则
 
-This skill should be more creative than generic app UI generators.
+使用 iPhone、Android 或通用手机 mockup 时，mockup 必须干净且高级。
 
-Actively use imagery and art direction when it helps the concept.
+规则：
+- 整组图使用统一的设备风格，除非用户明确想要混合机型
+- 同一系列所有屏幕的设备比例保持一致
+- mockup 居中或对齐，纪律分明
+- 设备四周的外留白干净均衡
+- 画布上下左右边距视觉均等
+- 手机不要贴到画布边缘
+- 不要使用裁切得莫名其妙的设备边框
+- 各屏之间的边框（bezel）粗细与边框尺寸不要乱来
+- 阴影柔和、受控
+- mockup 呈现沉稳、高级
+- 手机边框/机身应可见且干净
+- mockup 应当托住屏幕，而不是压过它
+- 视觉重心放在手机内的 UI 内容上
 
-Creative image usage may include:
-- photography-led onboarding
-- large editorial image blocks
-- image-backed headers
-- product or lifestyle imagery
-- scenic or atmospheric backgrounds
-- illustration-driven entry screens
-- media cards with layered treatment
-- bold visual covers on key screens
-- image strips, shelves, or carousels
-- background images partially revealed behind typography
+一幅构图里出现多个设备 mockup 时：
+- 比例保持一致
+- 设备间距均等
+- 对齐干净
+- 除非有明确的艺术指导，避免随意重叠
 
-Do not make imagery feel like an afterthought.
-Do not use lazy filler thumbnails.
-Use real image logic as part of the layout and mood.
+如果概念在无边框下效果更好：
+- 只有那时，才以均等外边距与受控内边距干净地呈现屏幕
 
-When the app category supports it, prefer:
-- stronger hero imagery
-- more visual storytelling
-- richer art direction
-- more memorable image composition
-
----
-
-## 17. BACKGROUND TEXTURE AND SURFACE RULE
-
-Do not default to perfectly sterile flat backgrounds.
-
-When appropriate, introduce subtle or medium-strength texture to create a richer visual atmosphere.
-
-Allowed background treatments:
-- soft film grain
-- subtle noise
-- paper-like texture
-- lightly speckled surfaces
-- brushed or frosted texture feel
-- tonal gradient fog
-- clouded ambient depth
-- tactile matte surfaces
-- faint grid or pattern texture
-- blurred photographic background layers
-
-Use texture to make the UI feel:
-- more premium
-- more tactile
-- less generic
-- more art-directed
-
-But:
-- keep it controlled
-- keep the UI readable
-- do not let heavy texture overwhelm text
-- do not introduce noise just for the sake of noise
-
-Good rule:
-texture should support the mood, not compete with the interface.
+呈现效果应当：
+- 整洁
+- 均衡
+- 高级
+- 有意图
+- 内容优先
 
 ---
 
-## 18. IMAGE-BEHIND-TEXT RULE
+## 11. 引导流程规则
 
-When appropriate, use images behind or beneath text in a controlled, premium way.
+引导页不应像重复的模板幻灯片。
 
-Preferred treatments:
-- image background under a title block with a fade to transparent
-- bottom-to-top gradient fade to support text legibility
-- side fade masks so text sits over the clean portion
-- soft blur overlays behind text
-- image partially visible behind copy, fading into the background color
-- large edge-to-edge visual with a scrim under headline and CTA
-- photo or illustration bleeding behind typography but gently masked
+用户要引导流程时：
+- 生成多张彼此不同的引导屏
+- 各屏构图要有变化
+- 图像、文字与 CTA 的配比要有变化
+- 流程保持连贯
+- 文案保持精短
+- 首屏尤其干净
 
-This is especially useful for:
-- onboarding
-- welcome screens
-- media apps
-- fashion / travel / lifestyle apps
-- premium commerce apps
-- social apps
-- editorial experiences
+好的引导流程应让人感觉：
+- 清楚
+- 快
+- 有帮助
+- 视觉上令人记住
+- 不过度解释
 
-Rules:
-- text must stay readable
-- the fade / mask should feel elegant
-- the image should still be visually meaningful
-- the treatment should feel intentional, not like random opacity
-
-Avoid:
-- raw image under text with no readability support
-- muddy overlays
-- too many heavy gradients
-- noisy backgrounds that destroy hierarchy
+避免：
+- 三张只换图标和标题的同一张屏
+- 文案过多
+- 与产品毫无关系的巨型抽象色块
+- 假大空的励志填充语
+- 过早出现的评分/评价弹窗
+- 首次启动就杂乱不堪的屏幕
 
 ---
 
-## 19. CREATIVE ASSET RULE
+## 12. 首屏干净规则
 
-Use tasteful supporting creative assets when they improve the visual language.
+第一块可见的屏幕最重要。
 
-Allowed creative assets:
-- clean micro-illustrations
-- simple geometric SVG-style motifs
-- tiny line-art accents
-- subtle vector icons
-- dotted guides
-- arc shapes
-- orbital lines
-- tasteful starbursts
-- calm abstract marks
-- mini diagram-like elements
-- product-relevant iconography
-- clean sticker-like accent elements when suitable
+无论它是：
+- 引导页
+- 首页
+- 认证页
+- 开场页
+- 欢迎页
+- 仪表盘
 
-These assets should feel:
-- clean
-- premium
-- restrained
-- integrated into the design system
-- supportive, not distracting
+都必须让人感觉：
+- 沉稳
+- 高端
+- 一眼可读
+- 视觉聚焦
 
-Do not:
-- spam random stickers
-- clutter the interface with decorative icons
-- add meaningless SVG art
-- use childish doodles unless the brand clearly wants it
+规则：
+- 只设一个主要视觉焦点
+- 顶部屏幕区域保持克制
+- 标题保持精短
+- 首屏视口不要过载
+- 不要塞满多余的统计数字、chips、标签或胶囊
+- 不要把主 CTA 埋掉
+- 首屏在正常手机尺寸下要成立，不能显得局促
+- 若文字下压了图像，用渐隐、遮罩或柔和压暗层（scrim）保证清晰可读
 
-A few clean visual accents are good.
-Too many become noise.
+强烈偏好：
+- 主张只用 1 到 3 行短句
+- 精炼的辅助文字
+- 一个明确的下一步动作
 
----
-
-## 20. ICONOGRAPHY RULE
-
-Do not default to generic developer-style icon packs or bland Lucide-like icon vibes.
-
-Avoid:
-- generic line-icon defaults that make the app feel like a template
-- overused developer-tool icon language
-- icons that feel too plain, too open-source-default, or too undifferentiated
-- randomly mixing icon weights and styles
-
-Prefer:
-- a clean custom-feeling icon system
-- restrained, brand-appropriate iconography
-- consistent stroke or filled logic
-- icons with slightly more character when the concept allows it
-- product-specific icon decisions instead of default library-looking symbols
-
-Icons should feel:
-- clean
-- intentional
-- premium
-- integrated
-- not generic
+避免：
+- 大段文字墙
+- 过多微型标签
+- 过多互相叠压的卡片
+- 假装的企业级复杂度
+- 「把网站 hero 塞进手机边框」
 
 ---
 
-## 21. MOBILE ANTI-AI-TELLS RULE
+## 13. 安全区与系统区域规则
 
-Strictly avoid these unless explicitly requested.
+尊重移动屏幕的现实。
 
-### Visual AI tells
-- purple-blue fintech gradients everywhere
-- random glass cards
-- ambient blobs with no purpose
-- fake neon premium look
-- generic dribbble-style floating widgets
-- oversized corner radii on everything
-- over-rendered glossy surfaces without hierarchy
+设计时始终意识到：
+- 安全区
+- 状态栏区域
+- 顶栏或标题区域
+- 底部导航区域
+- Home 指示条区域
+- sheet 停靠区
+- 手势空间
 
-### Layout AI tells
-- fake chart dashboard spam
-- repeated stat cards with no product reason
-- a homepage that looks like 12 widgets fighting for attention
-- cloned screens in a flow
-- giant empty cards with weak content
-- phone-shaped websites instead of app screens
+不要：
+- 把重要内容塞进不安全区
+- 无视顶部与底部系统区域
+- 让屏幕变成毫无功能逻辑的满幅海报
+- 把关键 UI 放在视觉上不安全的位置
 
-### Copy AI tells
-Avoid filler phrases like:
+移动端图像应像真实的应用屏幕，而不是海报。
+
+---
+
+## 14. 导航规则
+
+导航必须有意图、可信。
+
+合适时使用大家熟悉的移动模式：
+- 应用主要分区用 tab bar / 底部导航
+- 层层下钻的流程用堆栈导航感
+- 次要任务用 sheet
+- 局部切换用分段控件（segmented control）
+- 有用之处放应用栏
+- 主次动作分明
+
+不要：
+- 让底部导航超载
+- 把贯穿应用的主路径藏起来
+- 让每个动作看起来同等重要
+- 让 tab、sheet 与动作之间的层级含混不清
+
+这组屏幕应能暗示一条可信的应用流程。
+
+---
+
+## 15. 干净布局规则
+
+不要默认做「盒中盒再套盒」的移动 UI。
+
+避免：
+- 巨型嵌套卡片堆
+- 到处漂浮的面板
+- 五层套框
+- 毫无理由的仪表盘杂烩
+- 小组件挤作一团
+- 仿操作系统的假标签
+- 纯装饰的胶囊与微型状态元素
+
+优先：
+- 更干净的面板
+- 更充分的留白
+- 更少但更清楚的容器
+- 直接的层级
+- 更干净的分组
+- 可能之处用更扁平的结构
+- 一次有力的结构动作，胜过许多细碎吵闹的小动作
+
+高端移动屏幕不应让人感觉被困在重重盒子里。
+
+---
+
+## 16. 创意图像指导规则
+
+本 skill 应比普通应用 UI 生成器更有创造力。
+
+只要有利于概念，就主动使用图像与艺术指导。
+
+创意图像用法可以包括：
+- 摄影主导的引导页
+- 大块杂志式（editorial）图像
+- 图像打底的页头
+- 产品或生活方式图像
+- 风景或氛围背景
+- 插画驱动的入口屏
+- 分层处理的媒体卡片
+- 关键屏上的大胆视觉封面
+- 图像横条、置物架或轮播
+- 在文字后若隐若现的背景图
+
+不要让图像显得像事后补上的。
+不要用敷衍的凑数缩略图。
+把真正的图像逻辑纳入布局与氛围之中。
+
+品类允许时，偏向：
+- 更强的 hero 图像
+- 更多的视觉叙事
+- 更丰富的艺术指导
+- 更令人记住的图像构图
+
+---
+
+## 17. 背景质感与表面规则
+
+不要默认使用毫无生气的纯平背景。
+
+合适时引入轻微或中等强度的质感，营造更丰富的视觉氛围。
+
+允许的背景处理：
+- 柔和的胶片颗粒
+- 细微噪点
+- 纸质纹理
+- 轻微斑点表面
+- 拉丝或磨砂质感
+- 色调渐变雾
+- 云雾般的环境纵深
+- 有触感的哑光表面
+- 若隐若现的网格或图案纹理
+- 虚化的摄影背景层
+
+用质感让 UI 感觉：
+- 更高端
+- 更有触感
+- 更不落俗套
+- 更有艺术指导
+
+但要：
+- 保持受控
+- 保持 UI 可读
+- 不要让重质感压过文字
+- 不要为了噪点而噪点
+
+一条好准则：
+质感应服务于氛围，而不是与界面抢戏。
+
+---
+
+## 18. 文字压图规则
+
+合适时，以受控、高级的方式把图像垫在文字之后或之下。
+
+首选处理：
+- 标题块下垫图像背景，并向透明渐隐
+- 自下而上的渐变渐隐，支撑文字可读性
+- 侧向渐隐遮罩，让文字落在干净区域上
+- 文字后加柔和模糊叠层
+- 图像在文案后局部可见，并渐隐进背景色
+- 满幅大视觉图，标题与 CTA 下方加压暗层
+- 照片或插画溢出至文字之后，但以轻柔遮罩收束
+
+特别适用于：
+- 引导页
+- 欢迎页
+- 媒体类应用
+- 时尚 / 旅行 / 生活方式应用
+- 高端电商应用
+- 社交应用
+- 杂志式体验
+
+规则：
+- 文字必须保持可读
+- 渐隐 / 遮罩要优雅
+- 图像仍要有视觉意义
+- 处理要有意图，而不是随手调了个透明度
+
+避免：
+- 文字下垫生图却毫无可读性保障
+- 浑浊的叠层
+- 过多重渐变
+- 破坏层级的嘈杂背景
+
+---
+
+## 19. 创意素材规则
+
+当辅助性创意素材能提升视觉语言时，有品位地使用。
+
+允许的创意素材：
+- 干净的微插画
+- 简洁的几何 SVG 风格图形
+- 细小的线稿点缀
+- 低调的矢量图标
+- 点状引导线
+- 弧形
+- 轨道线
+- 有品位的星芒
+- 沉静的抽象记号
+- 迷你图表式元素
+- 与产品相关的图标
+- 合适时使用干净的贴纸式点缀元素
+
+这些素材应让人感觉：
+- 干净
+- 高级
+- 克制
+- 融入设计系统
+- 是辅助，不是干扰
+
+不要：
+- 乱撒贴纸
+- 用装饰图标把界面塞满
+- 添加毫无意义的 SVG 图形
+- 除非品牌明确想要，不要用幼稚涂鸦
+
+少量干净的视觉点缀是加分项。
+过多就成了噪音。
+
+---
+
+## 20. 图标风格规则
+
+不要默认套用大路货的开发者风图标包，或平淡乏味的 Lucide 式图标气质。
+
+避免：
+- 让应用显得像模板的通用线性图标默认
+- 用滥了的开发者工具图标语言
+- 过于平淡、过于开源默认、过于面目模糊的图标
+- 随机混搭图标粗细与风格
+
+优先：
+- 干净且有定制感的图标系统
+- 克制、符合品牌的图标
+- 一致的描边或填充逻辑
+- 概念允许时，图标可略带个性
+- 针对产品的图标决策，而不是一眼默认库的符号
+
+图标应让人感觉：
+- 干净
+- 有意图
+- 高级
+- 融为一体
+- 不落俗套
+
+---
+
+## 21. 移动端反 AI 痕迹规则
+
+除非用户明确要求，严格避免以下各项。
+
+### 视觉 AI 痕迹
+- 到处都是紫蓝渐变的 fintech 风
+- 随手乱放的玻璃卡片
+- 毫无目的的氛围色块
+- 伪霓虹高级感
+- 大路货 dribbble 风漂浮小组件
+- 什么都用超大圆角
+- 过度渲染的高光表面，毫无层级
+
+### 布局 AI 痕迹
+- 假图表仪表盘刷屏
+- 没有产品理由却反复出现的统计卡片
+- 首页像 12 个小组件在抢注意力
+- 流程里出现克隆屏幕
+- 内容空泛的巨型空卡片
+- 手机形状的网站，而不是应用屏幕
+
+### 文案 AI 痕迹
+避免这类填充短语：
 - elevate your life
 - unlock your potential
 - next-gen finance
@@ -740,726 +740,726 @@ Avoid filler phrases like:
 - smarter than ever
 - transform your day
 
-Avoid fake brand slop:
+避免这类假品牌套话名：
 - Acme
 - NovaCore
 - Flowbit
 - Quantix
 - VeloPay
 
-### UI clutter tells
-- too many pills
-- too many badges
-- too many tiny labels
-- fake system markers
-- meaningless avatar rows
-- random chart inserts
-- decorative toggles with no product meaning
+### UI 杂乱痕迹
+- 胶囊过多
+- 徽标过多
+- 微型标签过多
+- 假的系统标记
+- 毫无意义的头像行
+- 随手插入的图表
+- 毫无产品意义的装饰性开关
 
 ---
 
-## 22. STYLE VARIATION ENGINE
+## 22. 风格变化引擎
 
-To avoid repetitive mobile design output, choose a clear visual direction and commit to it.
+为避免重复的移动设计产出，选定一个清晰的视觉方向并贯彻到底。
 
-### Theme Paradigm
-Choose 1:
-1. pristine light
-2. deep dark
-3. soft wellness neutral
-4. premium monochrome
-5. rich accent-driven
-6. editorial luxe
-7. playful consumer color
-8. calm productivity minimal
+### 主题范式
+选 1 项：
+1. 纯净浅色
+2. 深邃暗色
+3. 柔和身心健康中性
+4. 高级单色
+5. 浓郁强调色驱动
+6. 杂志式奢华
+7. 活泼的消费级色彩
+8. 沉稳的效率极简
 
-### Typography Character
-Choose 1:
-1. clean system-like sans
-2. refined grotesk
-3. expressive premium display + clean body
-4. soft humanist sans
-5. sharper product sans with disciplined hierarchy
+### 字体性格
+选 1 项：
+1. 干净的系统感无衬线
+2. 精致的 grotesk
+3. 有表现力的高端展示字体 + 干净正文
+4. 柔和的人文无衬线
+5. 更锐利的产品无衬线，层级纪律严明
 
-### Structure Bias
-Choose 1:
-1. list-led utility
-2. card-led modular
-3. dashboard-led overview
-4. media-led storytelling
-5. profile-led identity
-6. commerce-led browse and detail flow
-7. chat-led conversational flow
-8. wellness-led calm block rhythm
+### 结构倾向
+选 1 项：
+1. 列表主导的工具型
+2. 卡片主导的模块化
+3. 仪表盘主导的总览
+4. 媒体主导的叙事
+5. 个人主页主导的身份表达
+6. 电商主导的浏览与详情流程
+7. 聊天主导的对话流程
+8. 身心健康主导的沉静块面节奏
 
-### Image Art Direction Bias
-Choose 1:
-1. editorial photography
-2. cinematic lifestyle imagery
-3. soft illustration-led
-4. tactile abstract compositions
-5. premium product imagery
-6. mixed photo + vector art direction
-7. moody atmospheric backdrops
-8. collage-lite layered imagery
+### 图像艺术指导倾向
+选 1 项：
+1. 杂志式摄影
+2. 电影感生活方式图像
+3. 柔和插画主导
+4. 有触感的抽象构图
+5. 高级产品图像
+6. 照片 + 矢量混合的艺术指导
+7. 情绪化氛围背景
+8. 轻拼贴式分层图像
 
-### Texture / Surface Treatment
-Choose 1:
-1. ultra-subtle grain
-2. matte paper texture
-3. foggy gradient atmosphere
-4. soft noise wash
-5. blurred image haze
-6. clean flat with one textured hero area
-7. tactile monochrome surface
-8. low-opacity technical pattern
+### 质感 / 表面处理
+选 1 项：
+1. 极轻颗粒
+2. 哑光纸纹
+3. 雾感渐变氛围
+4. 柔和噪点罩染
+5. 虚化图像雾
+6. 干净平面 + 一块带质感的 hero 区域
+7. 有触感的单色表面
+8. 低透明度技术图案
 
-### Palette Logic
-Choose 1:
-1. restrained monochrome + one accent
-2. warm neutral palette + sharp dark contrast
-3. cool mineral palette + clean highlight accent
-4. editorial cream / charcoal / muted accent
-5. rich dark base + refined warm accent
-6. wellness soft palette with controlled saturation
-7. bright consumer palette with disciplined balance
-8. desaturated premium palette with one bold hit
+### 配色逻辑
+选 1 项：
+1. 克制单色 + 一个强调色
+2. 暖中性色 + 锐利的深色对比
+3. 冷冽矿物色 + 干净的高光强调
+4. 杂志式奶油色 / 炭色 / 低调强调色
+5. 浓郁深色基底 + 精致暖强调
+6. 饱和度受控的身心健康柔和配色
+7. 纪律均衡的明亮消费色
+8. 低饱和高级配色 + 一记大胆重音
 
-### Signature Component Set
-Choose exactly 4:
-- large hero metric card
-- compact stat strip
-- modular collection grid
-- media carousel
-- layered profile header
-- premium segmented control
-- bottom action sheet
-- framed product card stack
-- progress ring block
-- message bubble system
-- settings group cells
-- photo-led card strip
-- sticky mini player
-- collection shelf
-- habit tracker block
-- checkout summary card
-- journal entry card
-- achievement tile row
+### 招牌组件集
+恰好选 4 项：
+- 大型 hero 指标卡
+- 紧凑统计条
+- 模块化合集网格
+- 媒体轮播
+- 分层个人主页头
+- 高级分段控件
+- 底部操作 sheet
+- 带框产品卡堆
+- 进度环区块
+- 消息气泡系统
+- 设置分组单元格
+- 照片主导的卡片条
+- 常驻迷你播放器
+- 合集置物架
+- 习惯打卡区块
+- 结算摘要卡
+- 日志条目卡
+- 成就方块行
 
-### Decorative Asset Set
-Choose exactly 2:
-- minimal line icon cluster
-- abstract orbit lines
-- dotted arc accents
-- starburst micro-motif
-- rounded sticker accent
-- tiny directional arrow system
-- fine-grid motif
-- soft waveform line
-- clean badge glyphs
-- mini geometric markers
+### 装饰素材集
+恰好选 2 项：
+- 极简线性图标簇
+- 抽象轨道线
+- 点状弧线点缀
+- 星芒微图形
+- 圆角贴纸点缀
+- 微型方向箭头系统
+- 细网格图形
+- 柔和波形线
+- 干净的徽记图形
+- 迷你几何标记
 
-### Motion-Implied Language
-Choose exactly 2:
-- springy card lift energy
-- sheet rise energy
-- tab transition calmness
-- staggered list reveal energy
-- soft dashboard fade-up energy
-- parallax header drift energy
-- carousel glide energy
+### 动势暗示语言
+恰好选 2 项：
+- 卡片弹性上浮的能量感
+- sheet 升起的能量感
+- tab 切换的从容感
+- 列表错落展开的能量感
+- 仪表盘轻柔渐显上浮的能量感
+- 页头视差漂移的能量感
+- 轮播滑行的能量感
 
-These are image-direction cues, not code instructions.
-
----
-
-## 23. COLOR PALETTE RULE
-
-Always use a clean, controlled color palette.
-
-Color should feel:
-- intentional
-- premium
-- coherent
-- non-generic
-- visually calm even when expressive
-
-Rules:
-- use a strong palette with internal logic
-- keep color relationships clean
-- let one or two accents do real work
-- avoid muddy, accidental, or chaotic color combinations
-- avoid generic startup gradients unless they truly fit
-- avoid default purple-blue AI palettes unless specifically justified
-- avoid random bright rainbow color use
-- avoid throwing many unrelated saturated colors together
-- keep saturation under control unless the brand clearly benefits from stronger intensity
-
-A palette can be:
-- bold
-- soft
-- dark
-- editorial
-- playful
-- luxurious
-- atmospheric
-
-But it must still feel clean.
-
-Good color direction should make the app feel:
-- distinctive
-- art-directed
-- brand-specific
-- expensive or thoughtfully designed
-
-Not:
-- template-like
-- random
-- overcooked
-- generic
+这些只是图像方向的提示，不是代码指令。
 
 ---
 
-## 24. NON-GENERICITY RULE
+## 23. 配色规则
 
-The app should not feel like a default template.
+始终使用干净、受控的配色。
 
-Do not settle for:
-- standard generic fintech
-- standard wellness pastel app
-- standard social feed clone
-- standard productivity dashboard clone
-- standard ecommerce browse/detail clone without personality
+颜色应让人感觉：
+- 有意图
+- 高端
+- 连贯
+- 不落俗套
+- 即使表达强烈，视觉上也沉稳
 
-Push the concept toward:
-- stronger identity
-- stronger mood
-- stronger art direction
-- cleaner but more original composition
-- better image treatment
-- more distinctive asset language
-- more specific palette logic
-- more memorable screen-to-screen rhythm
+规则：
+- 使用有内在逻辑的强配色
+- 颜色关系保持干净
+- 让一到两个强调色真正干活
+- 避免浑浊、随意、混乱的颜色组合
+- 避免大路货创业公司渐变，除非真的合适
+- 避免默认的紫蓝 AI 配色，除非有充分理由
+- 避免随意的彩虹亮色
+- 避免把许多不相干的高饱和色丢在一起
+- 控制饱和度，除非品牌明显受益于更强的强度
 
-The result should feel like:
-- a real designed product
-not:
-- a reusable starter template with better lighting
+配色可以：
+- 大胆
+- 柔和
+- 暗沉
+- 杂志式
+- 活泼
+- 奢华
+- 有氛围感
 
----
+但都必须依然干净。
 
-## 25. NOT ALWAYS SIMPLE RULE
+好的颜色方向应让应用感觉：
+- 独特
+- 有艺术指导
+- 有品牌辨识度
+- 贵重，或经过深思的设计
 
-Do not force every app into hyper-minimal simplicity.
-
-Simplicity is not the goal by itself.
-Cleanliness is the goal.
-
-This means:
-- a screen may be rich, layered, and expressive if it remains readable
-- a flow may have stronger visuals, texture, and more atmosphere if it stays structured
-- an app may use bold imagery, richer backgrounds, and more art direction without becoming messy
-
-Allowed:
-- sophisticated layering
-- controlled visual depth
-- richer compositions
-- stronger image presence
-- decorative accents with purpose
-- multiple visual zones within a screen
-- more character when the brand needs it
-
-Not allowed:
-- noisy complexity
-- clutter disguised as creativity
-- random decorative overload
-- muddy hierarchy
-- unreadable interfaces
-
-The rule is:
-not always simple  
-always clean
+而不是：
+- 模板感
+- 随意
+- 用力过猛
+- 大路货
 
 ---
 
-## 26. IMAGE SYSTEM RULE
+## 24. 不落俗套规则
 
-Images are not mandatory on every app screen, but when they appear they must feel important.
+应用不应让人感觉是默认模板。
 
-Use images when the app category benefits from them:
-- social
-- ecommerce
-- travel
-- wellness
-- editorial
-- food
-- fashion
-- content apps
-- creator apps
-- marketplace apps
+不要止步于：
+- 标准大路货金融科技
+- 标准身心健康粉彩应用
+- 标准社交信息流克隆
+- 标准效率仪表盘克隆
+- 毫无个性的标准电商浏览/详情克隆
 
-Types of image usage:
-- onboarding hero visuals
-- profile imagery
-- product imagery
-- collection thumbnails
-- editorial crops
-- photo-led cards
-- cover blocks
-- media shelves
-- gallery strips
-- background images under text with fade treatments
-- softly masked image headers
-- atmospheric scene layers behind core content
+把概念推向：
+- 更强的识别度
+- 更强的情绪
+- 更强的艺术指导
+- 更干净但更具原创性的构图
+- 更好的图像处理
+- 更独特的素材语言
+- 更具体的配色逻辑
+- 更难忘的屏间节奏
 
-Rules:
-- image usage should match the app category
-- repeated image modules should use controlled proportions
-- images should feel curated and consistent
-- the app should not rely on one single image if the flow clearly needs more
-- different screens can use different images, but they must still belong to one product world
-- if imagery is important, push it hard enough to feel intentional
-
-Avoid:
-- random filler thumbnails
-- one pretty screen and then no imagery at all
-- inconsistent image proportions
-- collage chaos unless explicitly requested
+结果应让人感觉是：
+- 一个真正被设计出来的产品
+而不是：
+- 打光更好的可复用入门模板
 
 ---
 
-## 27. FIXED MOBILE MEDIA FRAME RULE
+## 25. 不必一味求简规则
 
-When images are used, place them inside clear, controlled frames.
+不要把每个应用都逼成极简主义。
 
-Prefer:
-- stable aspect ratios
-- consistent crop behavior
-- repeatable media modules
-- clear radius logic
-- clean framing
+简单本身不是目标。
+干净才是目标。
 
-Examples:
-- onboarding hero in a bounded visual block
-- product cards with consistent proportions
-- editorial shelves with repeatable crops
-- profile/media headers with stable framing
-- image rows with controlled ratios
+这意味着：
+- 只要保持可读，屏幕可以丰富、有层次、有表现力
+- 只要保持结构，流程可以有更强的视觉、质感与氛围
+- 应用可以用大胆图像、更丰富的背景与更多艺术指导，而不变得杂乱
 
-Avoid:
-- random image sizes
-- messy scaling
-- inconsistent crop systems
-- uncontrolled visual noise
+允许：
+- 老练的分层
+- 受控的视觉纵深
+- 更丰富的构图
+- 更强的图像存在感
+- 有目的的装饰点缀
+- 一屏之内多个视觉分区
+- 品牌需要时多一点个性
 
-The goal is strong media inside a believable mobile system.
+不允许：
+- 嘈杂的复杂
+- 伪装成创造力的杂乱
+- 随意的装饰过载
+- 浑浊的层级
+- 无法阅读的界面
 
----
-
-## 28. TEXT RULE
-
-Copy should be:
-- short
-- clean
-- product-appropriate
-- readable
-- useful for the screen
-
-Use:
-- concise headlines
-- believable button labels
-- minimal supporting copy
-- screen titles that feel real
-
-Avoid:
-- lorem ipsum overload
-- long paragraphs
-- fake inspirational filler
-- overloaded onboarding explanations
-- overly technical filler labels
-
-For first screens and onboarding especially:
-- keep copy tight
-- reduce words rather than forcing more lines
+规则是：
+不必总是简单  
+但始终干净
 
 ---
 
-## 29. TEXT SIZE AND READABILITY RULE
+## 26. 图像系统规则
 
-Text must never feel too small.
+并非每块应用屏都必须有图像，但图像一旦出现就必须显得重要。
 
-Strong rule:
-- if the text feels small, the design is not finished yet
+品类受益于图像时就用：
+- 社交
+- 电商
+- 旅行
+- 身心健康
+- 杂志式内容
+- 美食
+- 时尚
+- 内容应用
+- 创作者应用
+- 市集类应用
 
-Prioritize:
-- comfortably readable titles
-- clearly readable body copy
-- readable labels and buttons
-- enough contrast against the background
-- enough spacing around text blocks
-- strong hierarchy between headline, body, and small supporting text
+图像用法类型：
+- 引导页 hero 视觉
+- 个人页图像
+- 产品图像
+- 合集缩略图
+- 杂志式裁切
+- 照片主导的卡片
+- 封面区块
+- 媒体置物架
+- 画廊横条
+- 文字下经渐隐处理的背景图
+- 柔和遮罩的图像页头
+- 核心内容后的氛围场景层
 
-Do not:
-- shrink text to fit too much UI
-- use tiny decorative labels
-- let body copy become hard to read
-- sacrifice legibility for style
-- place text on busy imagery without protection
-- compress too much information into one screen until the type becomes small
+规则：
+- 图像用法要匹配应用品类
+- 重复的图像模块要用受控的比例
+- 图像要有策展感且前后一致
+- 流程明显需要更多图像时，不要只靠一张图
+- 不同屏幕可以用不同图像，但必须同属一个产品世界
+- 图像重要时，就推得足够用力，让人感到有意为之
 
-If a design choice makes text too small:
-- simplify the layout
-- reduce content
-- increase spacing
-- enlarge the text
-- split content into another screen if needed
-- regenerate the screen if necessary
-
-Readable beats clever.
-Readable beats dense.
-Readable beats decorative small type.
-
----
-
-## 30. TYPOGRAPHY RULE
-
-Typography is a primary design tool.
-
-Always ensure:
-- strong title/body/label contrast
-- readable mobile scale
-- clear section headers
-- short CTA copy
-- believable type rhythm across screens
-- good line count control
-
-Do not:
-- make everything the same weight
-- use too many font moods
-- create awkward line wrapping
-- use oversized headline drama on every screen
-- let body text become tiny or decorative
-
-For premium apps:
-- typography should feel deliberate, not loud by default
+避免：
+- 随意的凑数缩略图
+- 一屏漂亮，之后图像绝迹
+- 图像比例前后不一
+- 除非明确要求，避免拼贴式混乱
 
 ---
 
-## 31. SPACING AND DENSITY RULE
+## 27. 固定移动媒体框规则
 
-Do not make the app too dense.
+用图时，把它们放进清晰、受控的框里。
 
-The UI should breathe.
+优先：
+- 稳定的宽高比
+- 一致的裁切行为
+- 可复用的媒体模块
+- 清晰的圆角逻辑
+- 干净的取景
 
-Rules:
-- use generous spacing between major screen blocks
-- keep internal padding clean
-- avoid one screen feeling cramped while the next is empty
-- smaller modules still need enough surrounding space
-- let whitespace create calmness and focus
-- separate dense screens from calmer screens in a flow
-- allow textured or image-led areas to breathe instead of stacking more UI on top
+示例：
+- 收在有界视觉块中的引导 hero
+- 比例一致的产品卡片
+- 裁切可复用的杂志式置物架
+- 取景稳定的个人页/媒体页头
+- 比例受控的图像行
 
-A premium mobile app should feel:
-- open
-- composed
-- balanced
-- touch-friendly
-- calm
+避免：
+- 随意的图像尺寸
+- 乱糟糟的缩放
+- 前后不一的裁切体系
+- 失控的视觉噪音
 
-Not:
-- cramped
-- jittery
-- noisy
-- overfilled
-- visually exhausting
+目标是：可信的移动系统里的强媒体。
 
 ---
 
-## 32. SCREEN-TO-SCREEN VARIATION RULE
+## 28. 文案规则
 
-A multi-screen app flow should not feel like one screen duplicated several times.
+文案应当：
+- 短
+- 干净
+- 贴合产品
+- 可读
+- 对这块屏有用
 
-Across the flow, vary:
-- top-area composition
-- image-to-text balance
-- content density
-- card/list emphasis
-- CTA placement
-- visual tempo
-- module proportions
-- background treatment
-- texture intensity
-- use of creative assets
+使用：
+- 简洁的标题
+- 可信的按钮文案
+- 极简的辅助文案
+- 显得真实的屏幕标题
 
-But:
-- keep the app coherent
-- preserve the same product language
-- do not drift into a different design system
-- do not randomize for the sake of randomizing
+避免：
+- lorem ipsum 泛滥
+- 长段落
+- 假励志填充语
+- 过载的引导解释
+- 过度技术腔的凑数标签
 
-The flow should feel varied but unified.
-
----
-
-## 33. CATEGORY-SPECIFIC BIAS
-
-### Fintech
-Prefer:
-- trust
-- calm spacing
-- clear numbers
-- restrained accents
-- less fake chart spam
-- strong transaction clarity
-- subtle texture, not loud effects
-
-### Health / Fitness
-Prefer:
-- calm structure
-- strong metric hierarchy
-- motivating but not noisy screens
-- readable progress modules
-- airy spacing
-- optimistic imagery or wellness textures where useful
-
-### Productivity
-Prefer:
-- clarity
-- list and card discipline
-- navigation simplicity
-- calm density
-- strong task hierarchy
-- minimal but premium supporting visuals
-
-### Social
-Prefer:
-- profile and feed rhythm
-- media moments where useful
-- clearer hierarchy between creation and browsing
-- stronger flow variety
-- more expressive image direction
-
-### Commerce
-Prefer:
-- browse / detail / cart clarity
-- strong product imagery
-- stable product card proportions
-- clean checkout hierarchy
-- tasteful editorial image treatments
-
-### Wellness / Lifestyle
-Prefer:
-- softer materials
-- calm typography
-- less visual noise
-- breathing room
-- elegant imagery
-- tactile backgrounds and soft fades
+首屏和引导页尤其要：
+- 文案收紧
+- 删减字数，而不是硬凑行数
 
 ---
 
-## 34. REGENERATION RULE
+## 29. 字号与可读性规则
 
-If a generated screen is not strong enough, regenerate it.
+文字绝不能显得太小。
 
-Regenerate when:
-- text is too small
-- spacing is unclear
-- navigation feels fake
-- the screen looks too much like a website
-- the UI is too crowded
-- the onboarding screens are too repetitive
-- image framing is inconsistent
-- cards are too nested
-- the first screen is too noisy
-- the flow lacks variation
-- backgrounds feel too flat or generic
-- imagery is weak, lazy, or missing
-- the fade/mask treatment behind text is poor
-- decorative assets feel absent or overly bland
-- creative elements are too timid to matter
-- the color palette feels generic or muddy
-- the design feels too simple in a boring way
-- the screen set loses consistency
-- the device mockup framing feels uneven or sloppy
+铁律：
+- 文字显小，说明设计还没完成
 
-Do not settle for the first mediocre render.
-Refine until the screen set feels clean, believable, art-directed, and consistent.
+优先保证：
+- 舒适可读的标题
+- 清晰可读的正文
+- 可读的标签与按钮
+- 与背景有足够对比
+- 文字块四周有足够间距
+- 标题、正文与小号辅助文字之间层级分明
 
----
+不要：
+- 为了塞下太多 UI 而缩小文字
+- 使用微小的装饰标签
+- 让正文变得难读
+- 为风格牺牲易读性
+- 让文字裸露在嘈杂图像上毫无保护
+- 把过多信息压进一屏，直到字号缩水
 
-## 35. QUALITY CHECK
+如果某个设计决定让文字过小：
+- 简化布局
+- 减少内容
+- 加大间距
+- 放大文字
+- 需要时把内容拆到另一屏
+- 必要时重新生成该屏
 
-Before finalizing, verify internally:
-
-1. Does this feel like a real mobile app, not a website in a phone?
-2. Are safe areas respected visually?
-3. Is the first screen clean enough?
-4. Is the copy short enough?
-5. Is the type readable?
-6. Are there enough screens for the requested flow?
-7. Were too few screens generated out of laziness?
-8. If a detail was unclear, was a new detail render created?
-9. Is the app free of obvious mobile AI tells?
-10. Is the layout free of box-in-box clutter?
-11. Are image moments purposeful and consistent?
-12. Does the flow feel coherent?
-13. Do screens vary enough without breaking the design system?
-14. Does the product feel premium and app-native?
-15. Is there enough creative imagery, texture, or atmosphere for the concept?
-16. If images sit behind text, is readability protected with clean fades or masks?
-17. Are decorative assets clean and restrained?
-18. Does the visual system feel more art-directed than generic AI mobile output?
-19. Is the color palette clean and controlled?
-20. Does the design feel non-generic?
-21. Is the design clean without being boringly oversimplified?
-22. Do all screens clearly belong to the same app?
-23. Is the flow logical from screen to screen?
-24. Is the phone mockup framing clean and evenly padded on all sides?
-25. Is the text comfortably readable and not too small?
-26. Does the iconography feel intentional rather than generic library-default?
-27. Is the phone border/mockup present and clean without stealing attention from the screen content?
-
-If not, refine before output.
+可读胜过炫技。
+可读胜过堆砌。
+可读胜过装饰性小字。
 
 ---
 
-## 36. RESPONSE BEHAVIOR
+## 30. 字体排印规则
 
-When the user asks for a mobile app image concept:
-1. infer app category
-2. infer platform mode
-3. infer number of screens
-4. choose a strong visual direction
-5. choose an image art direction bias
-6. choose a texture / surface treatment
-7. choose tasteful decorative assets
-8. choose a clean palette logic
-9. lock an internal design bible for consistency
-10. generate the required screen images
-11. generate more screens if needed for a believable flow
-12. generate extra detail renders if needed
-13. keep the first screen especially clean
-14. avoid website-like layouts
-15. avoid nested-card clutter
-16. enforce strong and creative image usage where appropriate
-17. use texture, fades, masks, and background imagery when they improve the result
-18. keep spacing generous and readable
-19. keep text comfortably legible
-20. avoid generic palettes and generic composition
-21. avoid generic icon-library-looking iconography
-22. present screens inside a clean phone mockup by default
-23. keep the phone border/mockup subtle and premium
-24. keep focus on the app content, not on showing off the device
-25. maintain strong consistency across the whole image set
-26. keep device mockups clean, balanced, and evenly spaced
-27. refine weak screens instead of accepting them
-28. output the final screen set
+字体排印是核心设计工具。
 
-Do not switch into coding mode.
-Do not write implementation instructions.
-Do not collapse a requested flow into one lazy collage.
+始终确保：
+- 标题/正文/标签对比强烈
+- 移动端字号可读
+- 分区标题清晰
+- CTA 文案精短
+- 各屏字体节奏可信
+- 行数控制得当
+
+不要：
+- 所有文字同一字重
+- 字体气质过多
+- 出现别扭的折行
+- 每屏都来超大标题的戏剧感
+- 让正文变得极小或装饰化
+
+高端应用：
+- 字体排印应显得深思熟虑，默认不张扬
 
 ---
 
-## 37. EXAMPLE INTERPRETATIONS
+## 31. 间距与密度规则
 
-### Example 1
-User:
-"make a premium fitness app"
+不要把应用做得太密。
 
-Interpretation:
-- choose iOS-native or cross-platform premium
-- generate multiple screens, not just one
-- include a clean first screen
-- use calm spacing and strong metric hierarchy
-- avoid fake chart spam
-- use tasteful texture or soft imagery if it helps
-- keep the flow believable
-- keep the palette clean and controlled
-- keep all screens and mockups visually consistent
-- keep text readable and not tiny
-- show the screens in a subtle, clean phone mockup
+UI 要能呼吸。
 
-### Example 2
-User:
-"design a 5-screen ecommerce app"
+规则：
+- 屏幕主要区块之间用宽裕的间距
+- 内边距保持干净
+- 避免一屏拥挤、下一屏空荡
+- 小模块同样需要足够的周边空间
+- 让留白制造沉稳与聚焦
+- 流程中把信息密集屏与舒缓屏分开
+- 让质感区或图像主导区保持呼吸，不要再往上堆 UI
 
-Interpretation:
-- generate 5 clean screen images
-- include browse, detail, cart or checkout logic
-- use strong product imagery
-- use fixed media frames
-- use tasteful editorial image treatments or background fades where useful
-- keep hierarchy clean and product-first
-- avoid generic commerce templates
-- keep device framing and spacing consistent across all 5 images
-- avoid generic default icon language
-- use a clean visible phone frame without letting it dominate
+高端移动应用应让人感觉：
+- 开阔
+- 从容
+- 均衡
+- 触控友好
+- 沉稳
 
-### Example 3
-User:
-"make an onboarding flow for a social app"
-
-Interpretation:
-- generate multiple onboarding screens
-- vary layout across screens
-- keep copy short
-- make the first screen especially clean
-- avoid repetitive slide-template design
-- push imagery, texture, and background fade treatments more creatively
-- keep the palette clean but distinctive
-- keep the screen progression logical and consistent
-- keep typography readable and properly scaled
-- present the flow in consistent phone mockups with balanced outer margins
+而不是：
+- 局促
+- 焦躁
+- 嘈杂
+- 塞满
+- 视觉疲劳
 
 ---
 
-## 38. FINAL GOAL
+## 32. 屏间变化规则
 
-Generate mobile app screen images that feel:
-- premium
-- app-native
-- clear
-- clean
-- structured
-- readable
-- memorable
-- anti-generic
-- believable
-- creatively art-directed
+多屏应用流程不应像同一块屏复制了几遍。
 
-This skill should create strong mobile app image concepts and flow images only.
+整个流程中要有变化：
+- 顶部区域构图
+- 图文配比
+- 内容密度
+- 卡片/列表侧重
+- CTA 位置
+- 视觉节奏
+- 模块比例
+- 背景处理
+- 质感强度
+- 创意素材的运用
 
-It should not write code.
-It should not behave like a website skill.
-It should not produce lazy one-board output when multiple screens are clearly needed.
+但要：
+- 保持应用连贯
+- 保持同一套产品语言
+- 不要漂移进另一套设计系统
+- 不要为变而变
 
-It should actively allow:
-- stronger imagery
-- richer background textures
-- subtle noise or tactile surfaces
-- image-backed text areas with elegant fade-to-transparent treatment
-- clean decorative SVG-like accents
-- more creative assets when they help the product feel distinct
-- clean but expressive color palettes
-- more visual character without losing clarity
-- richer layouts when appropriate, not just forced simplicity
-- strong consistency across all generated images
-- logical screen progression
-- clean iPhone or similar phone mockups with visible borders/frames
-- equal outer spacing and balanced framing around the device
-- a content-first presentation where the mockup supports the UI instead of overpowering it
+流程应当丰富多变，却浑然一体。
 
-It should actively avoid:
-- random bright colors
-- muddy palettes
-- tiny text
-- generic Lucide-like icon defaults
-- template-looking app screens
-- inconsistent screen sets
-- sloppy or missing phone mockups
-- oversized device framing that distracts from the design
+---
 
-The final result should look like a high-end mobile app concept with clean hierarchy, good flow logic, strong visual taste, richer image direction, a clean controlled color palette, non-generic art direction, strong multi-screen consistency, readable typography, premium phone mockup framing, and clear platform-aware structure.
+## 33. 品类专属倾向
+
+### 金融科技（fintech）
+优先：
+- 信任感
+- 从容的间距
+- 清晰的数字
+- 克制的强调色
+- 更少的假图表刷屏
+- 强交易清晰度
+- 细腻质感，而非喧闹特效
+
+### 健康 / 健身
+优先：
+- 沉稳的结构
+- 强指标层级
+- 有激励感但不吵闹的屏幕
+- 可读的进度模块
+- 通透的间距
+- 有用之处用明快图像或身心健康质感
+
+### 效率
+优先：
+- 清晰
+- 列表与卡片的纪律
+- 导航简单
+- 从容的密度
+- 强任务层级
+- 极简但高级的辅助视觉
+
+### 社交
+优先：
+- 个人页与信息流的节奏
+- 有用之处安排媒体时刻
+- 创作与浏览之间的层级更清楚
+- 更强的流程变化
+- 更有表现力的图像指导
+
+### 电商
+优先：
+- 浏览 / 详情 / 购物车清晰
+- 强产品图像
+- 稳定的产品卡片比例
+- 干净的结算层级
+- 有品位的杂志式图像处理
+
+### 身心健康 / 生活方式
+优先：
+- 更柔和的材质
+- 沉静的字体排印
+- 更少的视觉噪音
+- 呼吸感
+- 优雅的图像
+- 有触感的背景与柔和渐隐
+
+---
+
+## 34. 重新生成规则
+
+生成的屏幕不够强，就重新生成。
+
+出现以下情况就重生成：
+- 文字过小
+- 间距不清
+- 导航显得虚假
+- 屏幕太像网站
+- UI 过挤
+- 引导屏过于重复
+- 图像取景不一致
+- 卡片嵌套过深
+- 首屏太吵
+- 流程缺乏变化
+- 背景太平或太俗
+- 图像孱弱、敷衍或缺失
+- 文字后的渐隐/遮罩处理拙劣
+- 装饰素材缺席或过于寡淡
+- 创意元素怯懦到毫无存在感
+- 配色显得俗套或浑浊
+- 设计无聊地简单
+- 屏幕组合失去一致性
+- 设备 mockup 取景失衡或潦草
+
+不要将就第一版平庸渲染。
+打磨到整组屏幕干净、可信、有艺术指导且一致为止。
+
+---
+
+## 35. 质量检查
+
+定稿前，先在内部逐项核对：
+
+1. 它像真实移动应用，而不是装在手机里的网站吗？
+2. 视觉上尊重安全区了吗？
+3. 首屏足够干净吗？
+4. 文案足够精短吗？
+5. 字体可读吗？
+6. 请求的流程有足够的屏幕吗？
+7. 有没有因为偷懒而生成太少屏幕？
+8. 细节不清时，是否生成了新的细节渲染图？
+9. 应用摆脱了明显的移动端 AI 痕迹吗？
+10. 布局摆脱了盒中盒式杂乱吗？
+11. 图像时刻有目的且一致吗？
+12. 流程连贯吗？
+13. 屏幕变化是否足够，且未破坏设计系统？
+14. 产品显得高端且有应用原生感吗？
+15. 对这个概念而言，创意图像、质感或氛围够吗？
+16. 图像垫在文字下时，是否用干净的渐隐或遮罩保护了可读性？
+17. 装饰素材干净克制吗？
+18. 视觉系统是否比大路货 AI 移动产出更有艺术指导？
+19. 配色干净受控吗？
+20. 设计显得不落俗套吗？
+21. 设计干净，却没有无聊的过度简化吗？
+22. 所有屏幕都明确属于同一个应用吗？
+23. 屏与屏之间的流程合逻辑吗？
+24. 手机 mockup 取景干净、四周留白均等吗？
+25. 文字舒适可读、不过小吗？
+26. 图标显得有意图，而不是默认库风格吗？
+27. 手机边框/mockup 在场、干净，且不抢屏幕内容的风头吗？
+
+若有不达标，先打磨再输出。
+
+---
+
+## 36. 响应行为
+
+用户索要移动应用图像概念时：
+1. 推断应用品类
+2. 推断平台模式
+3. 推断屏幕数量
+4. 选定强视觉方向
+5. 选定图像艺术指导倾向
+6. 选定质感 / 表面处理
+7. 选定有品位的装饰素材
+8. 选定干净的配色逻辑
+9. 锁定内部设计圣经，保证一致性
+10. 生成所需屏幕图像
+11. 为可信流程按需生成更多屏幕
+12. 按需生成额外细节渲染图
+13. 首屏尤其干净
+14. 避免网站式布局
+15. 避免嵌套卡片杂乱
+16. 合适之处坚持强而创意的图像用法
+17. 质感、渐隐、遮罩与背景图像有益于结果时才使用
+18. 间距宽裕且可读
+19. 文字舒适清晰
+20. 避免大路货配色与构图
+21. 避免一眼默认图标库风格的图标
+22. 默认把屏幕放进干净的手机 mockup 呈现
+23. 手机边框/mockup 保持低调高级
+24. 焦点放在应用内容上，不是炫耀设备
+25. 整组图像保持强一致性
+26. 设备 mockup 干净、均衡、间距均等
+27. 弱屏要打磨，不要将就
+28. 输出最终屏幕组合
+
+不要切换到写代码模式。
+不要输出实现指引。
+不要把用户要的流程偷懒压成一张拼贴。
+
+---
+
+## 37. 示例解读
+
+### 示例 1
+用户：
+「做一个高端健身应用」
+
+解读：
+- 选定 iOS 原生或跨平台高端
+- 生成多块屏幕，而不是一块
+- 包含干净的首屏
+- 用从容的间距与强指标层级
+- 避免假图表刷屏
+- 有帮助时用有品位的质感或柔和图像
+- 流程保持可信
+- 配色保持干净受控
+- 所有屏幕与 mockup 保持视觉一致
+- 文字保持可读、不显小
+- 屏幕放在低调干净的手机 mockup 中展示
+
+### 示例 2
+用户：
+「设计一个 5 屏的电商应用」
+
+解读：
+- 生成 5 张干净的屏幕图像
+- 包含浏览、详情、购物车或结算逻辑
+- 用强产品图像
+- 用固定媒体框
+- 有用之处用有品位的杂志式图像处理或背景渐隐
+- 层级干净、产品优先
+- 避免大路货电商模板
+- 5 张图的设备取景与间距保持一致
+- 避免通用默认图标语言
+- 用干净可见的手机边框，但不让它喧宾夺主
+
+### 示例 3
+用户：
+「为一个社交应用做引导流程」
+
+解读：
+- 生成多张引导屏
+- 各屏布局有变化
+- 文案保持精短
+- 首屏尤其干净
+- 避免重复的幻灯模板式设计
+- 更有创意地运用图像、质感与背景渐隐处理
+- 配色干净且有辨识度
+- 屏幕推进合逻辑且一致
+- 字体排印可读、字号得当
+- 流程放在一致的手机 mockup 中呈现，外边距均衡
+
+---
+
+## 38. 最终目标
+
+生成让人感觉如下的移动应用屏幕图像：
+- 高端
+- 应用原生
+- 清楚
+- 干净
+- 有结构
+- 可读
+- 难忘
+- 反俗套
+- 可信
+- 有创造性的艺术指导
+
+本 skill 只应创作强有力的移动应用图像概念与流程图像。
+
+它不应写代码。
+它不应表现得像个网站 skill。
+明显需要多屏时，它不应产出敷衍的单板拼贴。
+
+它应主动允许：
+- 更强的图像
+- 更丰富的背景质感
+- 细微噪点或有触感的表面
+- 图像打底的文字区，配优雅的渐隐至透明处理
+- 干净的装饰性 SVG 风格点缀
+- 有助于产品显得独特时的更多创意素材
+- 干净而有表现力的配色
+- 更多视觉个性，而不损失清晰度
+- 合适处用更丰富的布局，而不是强行的简单
+- 所有生成图像之间的强一致性
+- 合逻辑的屏幕推进
+- 带可见边框/机身的干净 iPhone 或同类手机 mockup
+- 设备四周外留白均等、取景均衡
+- 内容优先的呈现：mockup 托住 UI，而不是压过 UI
+
+它应主动避免：
+- 随意的亮色
+- 浑浊配色
+- 微小文字
+- 大路货 Lucide 式默认图标
+- 模板感的应用屏幕
+- 前后不一致的屏幕组合
+- 潦草或缺失的手机 mockup
+- 抢设计风头的超大设备边框
+
+最终成品应当像一份高端移动应用概念：层级干净、流程逻辑良好、视觉品位过硬、图像方向丰富、配色干净受控、艺术指导不落俗套、多屏一致性强、字体排印可读、手机 mockup 取景高级、平台结构清晰。

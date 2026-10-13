@@ -1,6 +1,6 @@
 ---
 name: design-md
-description: Analyze Stitch projects and synthesize a semantic design system into DESIGN.md files
+description: 分析 Stitch 项目，把语义设计系统（semantic design system）综合成 DESIGN.md 文件
 allowed-tools:
   - "stitch*:*"
   - "Read"
@@ -8,91 +8,91 @@ allowed-tools:
   - "web_fetch"
 ---
 
-# Stitch DESIGN.md Skill
+# Stitch DESIGN.md 技能
 
-You are an expert Design Systems Lead. Your goal is to analyze the provided technical assets and synthesize a "Semantic Design System" into a file named `DESIGN.md`.
+你是一名资深设计系统负责人（Design Systems Lead）。你的目标是：分析所提供的技术资产，将其综合为一套“语义设计系统”（Semantic Design System），并写入名为 `DESIGN.md` 的文件。
 
-## Overview
+## 概述
 
-This skill helps you create `DESIGN.md` files that serve as the "source of truth" for prompting Stitch to generate new screens that align perfectly with existing design language. Stitch interprets design through "Visual Descriptions" supported by specific color values.
+本技能帮助你创建 `DESIGN.md` 文件：它作为“事实来源”（source of truth），供你在提示 Stitch 生成新屏幕时参照，确保新屏幕与既有设计语言完美契合。Stitch 依靠“视觉描述”（Visual Descriptions）并辅以具体色值来理解设计。
 
-## Prerequisites
+## 前置条件
 
-- Access to the Stitch MCP Server
-- A Stitch project with at least one designed screen
-- Access to the Stitch Effective Prompting Guide: https://stitch.withgoogle.com/docs/learn/prompting/
+- 可访问 Stitch MCP Server
+- 一个至少含有一个已完成设计屏幕的 Stitch 项目
+- 可查阅 Stitch Effective Prompting Guide：https://stitch.withgoogle.com/docs/learn/prompting/
 
-## The Goal
+## 目标
 
-The `DESIGN.md` file will serve as the "source of truth" for prompting Stitch to generate new screens that align perfectly with the existing design language. Stitch interprets design through "Visual Descriptions" supported by specific color values.
+`DESIGN.md` 文件将作为“事实来源”，供你在提示 Stitch 生成新屏幕时参照，确保新屏幕与既有设计语言完美契合。Stitch 依靠“视觉描述”并辅以具体色值来理解设计。
 
-## Retrieval and Networking
+## 检索与网络获取
 
-To analyze a Stitch project, you must retrieve screen metadata and design assets using the Stitch MCP Server tools:
+要分析 Stitch 项目，需使用 Stitch MCP Server 工具获取屏幕元数据与设计资产：
 
-1. **Namespace discovery**: Run `list_tools` to find the Stitch MCP prefix. Use this prefix (e.g., `mcp_stitch:`) for all subsequent calls.
+1. **发现命名空间**：运行 `list_tools` 找到 Stitch MCP 的前缀，后续所有调用都使用该前缀（如 `mcp_stitch:`）。
 
-2. **Project lookup** (if Project ID is not provided):
-   - Call `[prefix]:list_projects` with `filter: "view=owned"` to retrieve all user projects
-   - Identify the target project by title or URL pattern
-   - Extract the Project ID from the `name` field (e.g., `projects/13534454087919359824`)
+2. **查找项目**（未提供 Project ID 时）：
+   - 调用 `[prefix]:list_projects` 并传入 `filter: "view=owned"`，获取用户的所有项目
+   - 根据标题或 URL 模式定位目标项目
+   - 从 `name` 字段提取 Project ID（如 `projects/13534454087919359824`）
 
-3. **Screen lookup** (if Screen ID is not provided):
-   - Call `[prefix]:list_screens` with the `projectId` (just the numeric ID, not the full path)
-   - Review screen titles to identify the target screen (e.g., "Home", "Landing Page")
-   - Extract the Screen ID from the screen's `name` field
+3. **查找屏幕**（未提供 Screen ID 时）：
+   - 调用 `[prefix]:list_screens` 并传入 `projectId`（只传数字 ID，不带完整路径）
+   - 浏览各屏幕标题，定位目标屏幕（如 “Home”、“Landing Page”）
+   - 从屏幕的 `name` 字段提取 Screen ID
 
-4. **Metadata fetch**: 
-   - Call `[prefix]:get_screen` with both `projectId` and `screenId` (both as numeric IDs only)
-   - This returns the complete screen object including:
-     - `screenshot.downloadUrl` - Visual reference of the design
-     - `htmlCode.downloadUrl` - Full HTML/CSS source code
-     - `width`, `height`, `deviceType` - Screen dimensions and target platform
-     - Project metadata including `designTheme` with color and style information
+4. **获取元数据**：
+   - 调用 `[prefix]:get_screen`，同时传入 `projectId` 与 `screenId`（两者都只传数字 ID）
+   - 返回完整的屏幕对象，包括：
+     - `screenshot.downloadUrl` - 设计的视觉参考图
+     - `htmlCode.downloadUrl` - 完整的 HTML/CSS 源码
+     - `width`、`height`、`deviceType` - 屏幕尺寸与目标平台
+     - 项目元数据，其中的 `designTheme` 包含颜色与风格信息
 
-5. **Asset download**:
-   - Use `web_fetch` or `read_url_content` to download the HTML code from `htmlCode.downloadUrl`
-   - Optionally download the screenshot from `screenshot.downloadUrl` for visual reference
-   - Parse the HTML to extract Tailwind classes, custom CSS, and component patterns
+5. **下载资产**：
+   - 使用 `web_fetch` 或 `read_url_content` 从 `htmlCode.downloadUrl` 下载 HTML 代码
+   - 可按需从 `screenshot.downloadUrl` 下载截图作为视觉参考
+   - 解析 HTML，提取 Tailwind 类名、自定义 CSS 与组件模式
 
-6. **Project metadata extraction**:
-   - Call `[prefix]:get_project` with the project `name` (full path: `projects/{id}`) to get:
-     - `designTheme` object with color mode, fonts, roundness, custom colors
-     - Project-level design guidelines and descriptions
-     - Device type preferences and layout principles
+6. **提取项目元数据**：
+   - 调用 `[prefix]:get_project`，传入项目的 `name`（完整路径：`projects/{id}`），以获取：
+     - `designTheme` 对象，含配色模式、字体、圆角与自定义颜色
+     - 项目级的设计准则与描述
+     - 设备类型偏好与布局原则
 
-## Analysis & Synthesis Instructions
+## 分析与综合指令
 
-### 1. Extract Project Identity (JSON)
-- Locate the Project Title
-- Locate the specific Project ID (e.g., from the `name` field in the JSON)
+### 1. 提取项目身份信息（JSON）
+- 找到项目标题
+- 找到具体的 Project ID（如从 JSON 的 `name` 字段中获取）
 
-### 2. Define the Atmosphere (Image/HTML)
-Evaluate the screenshot and HTML structure to capture the overall "vibe." Use evocative adjectives to describe the mood (e.g., "Airy," "Dense," "Minimalist," "Utilitarian").
+### 2. 界定整体氛围（图片/HTML）
+评估截图与 HTML 结构，把握整体“气质”。用富有画面感的形容词描述基调（如 “Airy（通透）”、“Dense（紧凑）”、“Minimalist（极简）”、“Utilitarian（务实）”）。
 
-### 3. Map the Color Palette (Tailwind Config/JSON)
-Identify the key colors in the system. For each color, provide:
-- A descriptive, natural language name that conveys its character (e.g., "Deep Muted Teal-Navy")
-- The specific hex code in parentheses for precision (e.g., "#294056")
-- Its specific functional role (e.g., "Used for primary actions")
+### 3. 映射调色板（Tailwind 配置/JSON）
+识别系统中的关键颜色。每种颜色都要给出：
+- 一个能传达其性格的描述性自然语言名称（如 “Deep Muted Teal-Navy（深灰调青蓝）”）
+- 括号内标注的精确 hex 色值，以保证准确（如 “#294056”）
+- 明确的功能角色（如 “用于主要操作”）
 
-### 4. Translate Geometry & Shape (CSS/Tailwind)
-Convert technical `border-radius` and layout values into physical descriptions:
-- Describe `rounded-full` as "Pill-shaped"
-- Describe `rounded-lg` as "Subtly rounded corners"
-- Describe `rounded-none` as "Sharp, squared-off edges"
+### 4. 转译几何与形状（CSS/Tailwind）
+把技术性的 `border-radius` 与布局数值转化为具象化的描述：
+- 把 `rounded-full` 描述为 “Pill-shaped（药丸形）”
+- 把 `rounded-lg` 描述为 “Subtly rounded corners（圆角含蓄）”
+- 把 `rounded-none` 描述为 “Sharp, squared-off edges（棱角利落）”
 
-### 5. Describe Depth & Elevation
-Explain how the UI handles layers. Describe the presence and quality of shadows (e.g., "Flat," "Whisper-soft diffused shadows," or "Heavy, high-contrast drop shadows").
+### 5. 描述纵深与层次
+说明 UI 如何处理图层关系。描述阴影的有无与质感（如 “Flat（扁平无影）”、“Whisper-soft diffused shadows（轻若耳语的弥散阴影）”或 “Heavy, high-contrast drop shadows（浓重的高对比投影）”）。
 
-## Output Guidelines
+## 输出准则
 
-- **Language:** Use descriptive design terminology and natural language exclusively
-- **Format:** Generate a clean Markdown file following the structure below
-- **Precision:** Include exact hex codes for colors while using descriptive names
-- **Context:** Explain the "why" behind design decisions, not just the "what"
+- **语言**：通篇只使用描述性的设计术语与自然语言
+- **格式**：按照下述结构生成一份整洁的 Markdown 文件
+- **精确性**：颜色既给出描述性名称，也附上精确的 hex 色值
+- **语境**：解释设计决策背后的“为什么”，而非仅仅“是什么”
 
-## Output Format (DESIGN.md Structure)
+## 输出格式（DESIGN.md 结构）
 
 ```markdown
 # Design System: [Project Title]
@@ -116,57 +116,57 @@ Explain how the UI handles layers. Describe the presence and quality of shadows 
 (Description of whitespace strategy, margins, and grid alignment.)
 ```
 
-## Usage Example
+## 用法示例
 
-To use this skill for the Furniture Collection project:
+以 Furniture Collection 项目为例使用本技能：
 
-1. **Retrieve project information:**
+1. **获取项目信息：**
    ```
    Use the Stitch MCP Server to get the Furniture Collection project
    ```
 
-2. **Get the Home page screen details:**
+2. **获取 Home 页面屏幕详情：**
    ```
    Retrieve the Home page screen's code, image, and screen object information
    ```
 
-3. **Reference best practices:**
+3. **参考最佳实践：**
    ```
    Review the Stitch Effective Prompting Guide at:
    https://stitch.withgoogle.com/docs/learn/prompting/
    ```
 
-4. **Analyze and synthesize:**
-   - Extract all relevant design tokens from the screen
-   - Translate technical values into descriptive language
-   - Organize information according to the DESIGN.md structure
+4. **分析并综合：**
+   - 从屏幕中提取所有相关的设计令牌
+   - 把技术数值转译为描述性语言
+   - 按照 DESIGN.md 结构组织信息
 
-5. **Generate the file:**
-   - Create `DESIGN.md` in the project directory
-   - Follow the prescribed format exactly
-   - Ensure all color codes are accurate
-   - Use evocative, designer-friendly language
+5. **生成文件：**
+   - 在项目目录下创建 `DESIGN.md`
+   - 严格遵循规定格式
+   - 确保所有颜色代码准确无误
+   - 使用富有画面感、对设计师友好的语言
 
-## Best Practices
+## 最佳实践
 
-- **Be Descriptive:** Avoid generic terms like "blue" or "rounded." Use "Ocean-deep Cerulean (#0077B6)" or "Gently curved edges"
-- **Be Functional:** Always explain what each design element is used for
-- **Be Consistent:** Use the same terminology throughout the document
-- **Be Visual:** Help readers visualize the design through your descriptions
-- **Be Precise:** Include exact values (hex codes, pixel values) in parentheses after natural language descriptions
+- **善用描述**：避免 “blue”、“rounded” 这类泛泛之词，要写 “Ocean-deep Cerulean (#0077B6)（深海蔚蓝）”或 “Gently curved edges（弧线柔和）”
+- **讲清功能**：始终说明每个设计元素的用途
+- **保持一致**：全篇沿用同一套术语
+- **唤起画面**：让读者透过描述看见设计
+- **力求精确**：在自然语言描述之后，用括号附上精确数值（hex 色值、像素值）
 
-## Tips for Success
+## 成功要诀
 
-1. **Start with the big picture:** Understand the overall aesthetic before diving into details
-2. **Look for patterns:** Identify consistent spacing, sizing, and styling patterns
-3. **Think semantically:** Name colors by their purpose, not just their appearance
-4. **Consider hierarchy:** Document how visual weight and importance are communicated
-5. **Reference the guide:** Use language and patterns from the Stitch Effective Prompting Guide
+1. **先看全局**：先理解整体审美，再深入细节
+2. **寻找规律**：识别一致的间距、尺寸与样式模式
+3. **语义化思考**：按用途而非外观为颜色命名
+4. **关注层级**：记录视觉权重与重要程度是如何传达的
+5. **对照指南**：借用 Stitch Effective Prompting Guide 中的语言与模式
 
-## Common Pitfalls to Avoid
+## 常见误区
 
-- ❌ Using technical jargon without translation (e.g., "rounded-xl" instead of "generously rounded corners")
-- ❌ Omitting color codes or using only descriptive names
-- ❌ Forgetting to explain functional roles of design elements
-- ❌ Being too vague in atmosphere descriptions
-- ❌ Ignoring subtle design details like shadows or spacing patterns
+- ❌ 直接堆砌技术行话而不加转译（如写 “rounded-xl” 而不是 “generously rounded corners（圆角宽绰）”）
+- ❌ 遗漏颜色代码，或只写描述性名称
+- ❌ 忘记说明设计元素的功能角色
+- ❌ 氛围描述过于空泛
+- ❌ 忽视阴影、间距规律等细微设计细节

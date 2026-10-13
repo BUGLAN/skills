@@ -1,22 +1,22 @@
-# Session Management
+# 会话管理
 
-Multiple isolated browser sessions with state persistence and concurrent browsing.
+多个相互隔离的浏览器会话，支持状态持久化与并发浏览。
 
-**Related**: [authentication.md](authentication.md) for login patterns, [SKILL.md](../SKILL.md) for quick start.
+**相关文档**：[authentication.md](authentication.md)（登录模式）、[SKILL.md](../SKILL.md)（快速上手）。
 
-## Contents
+## 目录
 
-- [Named Sessions](#named-sessions)
-- [Session Isolation Properties](#session-isolation-properties)
-- [Session State Persistence](#session-state-persistence)
-- [Common Patterns](#common-patterns)
-- [Default Session](#default-session)
-- [Session Cleanup](#session-cleanup)
-- [Best Practices](#best-practices)
+- [命名会话](#named-sessions)
+- [会话隔离特性](#session-isolation-properties)
+- [会话状态持久化](#session-state-persistence)
+- [常见模式](#common-patterns)
+- [默认会话](#default-session)
+- [会话清理](#session-cleanup)
+- [最佳实践](#best-practices)
 
-## Named Sessions
+## 命名会话
 
-Use `--session` flag to isolate browser contexts:
+用 `--session` 选项隔离浏览器上下文：
 
 ```bash
 # Session 1: Authentication flow
@@ -30,26 +30,26 @@ agent-browser --session auth fill @e1 "user@example.com"
 agent-browser --session public get text body
 ```
 
-## Session Isolation Properties
+## 会话隔离特性
 
-Each session has independent:
+每个会话都独立拥有：
 - Cookies
 - LocalStorage / SessionStorage
 - IndexedDB
-- Cache
-- Browsing history
-- Open tabs
+- 缓存
+- 浏览历史
+- 打开的标签页
 
-## Session State Persistence
+## 会话状态持久化
 
-### Save Session State
+### 保存会话状态
 
 ```bash
 # Save cookies, storage, and auth state
 agent-browser state save /path/to/auth-state.json
 ```
 
-### Load Session State
+### 加载会话状态
 
 ```bash
 # Restore saved state
@@ -59,7 +59,7 @@ agent-browser state load /path/to/auth-state.json
 agent-browser open https://app.example.com/dashboard
 ```
 
-### State File Contents
+### 状态文件内容
 
 ```json
 {
@@ -70,9 +70,9 @@ agent-browser open https://app.example.com/dashboard
 }
 ```
 
-## Common Patterns
+## 常见模式
 
-### Authenticated Session Reuse
+### 复用已登录会话
 
 ```bash
 #!/bin/bash
@@ -98,7 +98,7 @@ else
 fi
 ```
 
-### Concurrent Scraping
+### 并发抓取
 
 ```bash
 #!/bin/bash
@@ -121,7 +121,7 @@ agent-browser --session site2 close
 agent-browser --session site3 close
 ```
 
-### A/B Testing Sessions
+### A/B 测试会话
 
 ```bash
 # Test different user experiences
@@ -133,9 +133,9 @@ agent-browser --session variant-a screenshot /tmp/variant-a.png
 agent-browser --session variant-b screenshot /tmp/variant-b.png
 ```
 
-## Default Session
+## 默认会话
 
-When `--session` is omitted, commands use the default session:
+省略 `--session` 时，命令使用默认会话：
 
 ```bash
 # These use the same default session
@@ -144,7 +144,7 @@ agent-browser snapshot -i
 agent-browser close  # Closes default session
 ```
 
-## Session Cleanup
+## 会话清理
 
 ```bash
 # Close specific session
@@ -154,9 +154,9 @@ agent-browser --session auth close
 agent-browser session list
 ```
 
-## Best Practices
+## 最佳实践
 
-### 1. Name Sessions Semantically
+### 1. 会话命名要有语义
 
 ```bash
 # GOOD: Clear purpose
@@ -167,7 +167,7 @@ agent-browser --session docs-scrape open https://docs.example.com
 agent-browser --session s1 open https://github.com
 ```
 
-### 2. Always Clean Up
+### 2. 用完即清理
 
 ```bash
 # Close sessions when done
@@ -175,7 +175,7 @@ agent-browser --session auth close
 agent-browser --session scrape close
 ```
 
-### 3. Handle State Files Securely
+### 3. 安全处理状态文件
 
 ```bash
 # Don't commit state files (contain auth tokens!)
@@ -185,7 +185,7 @@ echo "*.auth-state.json" >> .gitignore
 rm /tmp/auth-state.json
 ```
 
-### 4. Timeout Long Sessions
+### 4. 为长会话设置超时
 
 ```bash
 # Set timeout for automated scripts

@@ -1,10 +1,10 @@
-# Tailwind Integration
+# Tailwind 集成
 
-Map design system tokens to Tailwind CSS configuration.
+把设计系统令牌映射到 Tailwind CSS 配置。
 
-## CSS Variables Setup
+## CSS 变量设置
 
-### Base Layer
+### 基础层
 
 ```css
 /* globals.css */
@@ -56,7 +56,7 @@ Map design system tokens to Tailwind CSS configuration.
 }
 ```
 
-## Tailwind Config
+## Tailwind 配置
 
 ### tailwind.config.ts
 
@@ -112,9 +112,9 @@ const config: Config = {
 export default config
 ```
 
-## HSL Format Benefits
+## HSL 格式的优势
 
-Using HSL without function allows opacity modifiers:
+HSL 值不带函数包裹地书写，才能配合透明度修饰符使用：
 
 ```tsx
 // With HSL format (space-separated)
@@ -125,9 +125,9 @@ Using HSL without function allows opacity modifiers:
 background-color: hsl(217 91% 60% / 0.5);
 ```
 
-## Component Classes
+## 组件类
 
-### Button Example
+### Button 示例
 
 ```css
 @layer components {
@@ -171,7 +171,7 @@ background-color: hsl(217 91% 60% / 0.5);
 }
 ```
 
-## Spacing Integration
+## 间距集成
 
 ```typescript
 // tailwind.config.ts
@@ -186,7 +186,7 @@ theme: {
 }
 ```
 
-## Animation Tokens
+## 动画令牌
 
 ```typescript
 // tailwind.config.ts
@@ -215,7 +215,7 @@ theme: {
 }
 ```
 
-## Dark Mode Toggle
+## 暗色模式切换
 
 ```typescript
 // Toggle dark mode
@@ -229,16 +229,16 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 }
 ```
 
-## shadcn/ui Alignment
+## 与 shadcn/ui 对齐
 
-This configuration aligns with shadcn/ui conventions:
+这套配置与 shadcn/ui 的约定保持一致：
 
-- Same CSS variable naming
-- Same HSL format
-- Same color scale structure
-- Compatible with `npx shadcn@latest add` commands
+- CSS 变量命名相同
+- HSL 格式相同
+- 色阶结构相同
+- 兼容 `npx shadcn@latest add` 命令
 
-### Using with shadcn/ui
+### 配合 shadcn/ui 使用
 
 ```bash
 # Initialize (uses same token structure)
@@ -248,4 +248,4 @@ npx shadcn@latest init
 npx shadcn@latest add button card input
 ```
 
-Components will automatically use your design system tokens.
+添加的组件会自动套用你的设计系统令牌。

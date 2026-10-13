@@ -1,33 +1,24 @@
-# React / Next.js / Tailwind Extraction Patterns
+# React / Next.js / Tailwind 提取模式
 
-This reference covers the most common frontend stack: React components with
-Tailwind CSS (and optionally CSS Modules, styled-components, or Emotion).
+本参考覆盖最常见的前端技术栈（stack）：React 组件搭配 Tailwind CSS（可选配 CSS Modules、styled-components 或 Emotion）。
 
-## File Discovery Order
+## 文件查找顺序
 
-Read these files in priority order — higher-priority files give you the
-intended design system, lower-priority files show what actually shipped:
+按优先级顺序读下列文件——优先级越高的文件，越能反映意图中的设计系统；优先级越低的文件，越能反映实际交付的样子：
 
-1. **`tailwind.config.js` / `tailwind.config.ts`** — The single most
-   important file. Custom `theme.extend.colors`, `fontFamily`, `spacing`,
-   `borderRadius`, and `screens` are the design system definition.
+1. **`tailwind.config.js` / `tailwind.config.ts`** —— 全场最重要的文件。自定义的 `theme.extend.colors`、`fontFamily`、`spacing`、`borderRadius` 与 `screens` 就是设计系统的定义。
 
-2. **`globals.css` / `global.css` / `index.css`** — CSS custom properties
-   (`--*`), `@layer` directives, `@font-face` declarations, and base styles.
+2. **`globals.css` / `global.css` / `index.css`** —— CSS 自定义属性（`--*`）、`@layer` 指令、`@font-face` 声明与基础样式。
 
-3. **`theme.ts` / `theme.js` / `tokens.ts`** — Explicit design token files.
-   May export objects consumed by Tailwind config or CSS-in-JS providers.
+3. **`theme.ts` / `theme.js` / `tokens.ts`** —— 显式的设计令牌文件。导出的对象可能被 Tailwind 配置或 CSS-in-JS Provider 消费。
 
-4. **`src/app/layout.tsx` or `src/App.tsx`** — Root layout. Shows the global
-   font setup (via `next/font` or `<link>`), body background, and overall
-   structure.
+4. **`src/app/layout.tsx` 或 `src/App.tsx`** —— 根布局。可见全局字体设置（经 `next/font` 或 `<link>`）、body 背景与整体结构。
 
-5. **Component files (`*.tsx` / `*.jsx`)** — Look at 5-8 representative
-   components to understand usage patterns.
+5. **组件文件（`*.tsx` / `*.jsx`）** —— 挑 5-8 个有代表性的组件，理解用法模式。
 
-## Tailwind Config Extraction
+## Tailwind 配置提取
 
-The Tailwind config is structured and machine-readable. Extract directly:
+Tailwind 配置结构化、机器可读，直接提取：
 
 ```js
 // tailwind.config.js
@@ -53,11 +44,11 @@ module.exports = {
 }
 ```
 
-Map each custom value to a descriptive name and role.
+把每个自定义值映射到描述性名称和角色。
 
-## CSS Custom Properties
+## CSS 自定义属性
 
-Look for `:root` or `html` blocks in global CSS:
+在全局 CSS 中寻找 `:root` 或 `html` 块：
 
 ```css
 :root {
@@ -69,12 +60,11 @@ Look for `:root` or `html` blocks in global CSS:
 }
 ```
 
-These are explicitly declared tokens — use their names as clues for
-their intended role.
+这些是显式声明的令牌——把变量名当作其预期角色的线索。
 
-## Next.js Font Patterns
+## Next.js 字体模式
 
-Next.js uses `next/font` for optimized font loading:
+Next.js 用 `next/font` 做优化字体加载：
 
 ```tsx
 import { Inter, Playfair_Display } from 'next/font/google'
@@ -83,28 +73,26 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-display' })
 ```
 
-The `variable` names hint at usage: `--font-display` for headlines,
-`--font-inter` for body.
+`variable` 的命名暗示了用途：`--font-display` 用于标题，`--font-inter` 用于正文。
 
-## Component Scanning Strategy
+## 组件扫描策略
 
-Don't read every component. Focus on these archetypes:
+不必逐个读完所有组件，聚焦这几类典型即可：
 
-| Component Type | What to Extract |
+| 组件类型 | 提取什么 |
 |:---|:---|
-| Layout / Shell | Max-width, padding, grid structure |
-| Button / CTA | Border radius, colors, hover states, padding |
-| Card | Shadow, border, radius, internal spacing |
-| Nav / Header | Typography treatment, active states |
-| Form / Input | Border, focus state, padding |
-| Hero / Landing section | Spacing, typography scale, alignment |
+| 布局 / 外壳 | max-width、padding、栅格结构 |
+| 按钮 / CTA | 圆角、颜色、hover 状态、padding |
+| 卡片 | 阴影、描边、圆角、内部间距 |
+| 导航 / 页头 | 字体处理、激活状态 |
+| 表单 / 输入框 | 描边、聚焦状态、padding |
+| Hero / 落地页区块 | 间距、字号阶梯、对齐 |
 
-For each, look at the `className` prop for Tailwind classes or the
-`styled()` / `css()` calls for CSS-in-JS values.
+对每一类，看 `className` prop 里的 Tailwind 类名，或 `styled()` / `css()` 调用中的 CSS-in-JS 取值。
 
-## CSS-in-JS Patterns (styled-components / Emotion)
+## CSS-in-JS 模式（styled-components / Emotion）
 
-If the project uses CSS-in-JS, look for theme providers:
+如果项目用 CSS-in-JS，去找 theme provider：
 
 ```tsx
 // ThemeProvider wrapping the app
@@ -123,25 +111,22 @@ const theme = {
 }
 ```
 
-This theme object *is* the design system. Extract directly.
+这个 theme 对象*就是*设计系统，直接提取。
 
-## Component Library Integration
+## 组件库集成
 
-If the project uses Chakra UI, Material UI, Ant Design, or shadcn/ui:
+如果项目用了 Chakra UI、Material UI、Ant Design 或 shadcn/ui：
 
-- **Chakra**: Look for `extendTheme()` calls — these override defaults.
-- **MUI**: Look for `createTheme()` — palette, typography, and spacing overrides.
-- **Ant Design**: Look for `ConfigProvider` theme prop or `theme.ts` overrides.
-- **shadcn/ui**: Colors are defined as CSS custom properties in `globals.css`.
-  Check `components.json` for the style configuration.
+- **Chakra**：寻找 `extendTheme()` 调用——它们覆写了默认值。
+- **MUI**：寻找 `createTheme()`——对调色板、字体排印与间距的覆写。
+- **Ant Design**：寻找 `ConfigProvider` 的 theme prop 或 `theme.ts` 覆写。
+- **shadcn/ui**：颜色以 CSS 自定义属性的形式定义在 `globals.css`；样式配置见 `components.json`。
 
-The overrides are the design system — default values are the library's generic
-styling and should be noted but not emphasized.
+这些覆写才是设计系统——默认值只是组件库的通用样式，记录即可，不必着墨。
 
-## Responsive Patterns
+## 响应式模式
 
-Check Tailwind's `screens` config and look for responsive class prefixes
-(`sm:`, `md:`, `lg:`, `xl:`) in components:
+检查 Tailwind 的 `screens` 配置，并在组件里留意响应式类前缀（`sm:`、`md:`、`lg:`、`xl:`）：
 
 ```js
 screens: {
@@ -153,5 +138,4 @@ screens: {
 }
 ```
 
-Look for `container` configuration and `max-width` patterns on layout
-components to determine content width strategy.
+再看 `container` 配置和布局组件上的 `max-width` 模式，判断内容宽度策略。

@@ -1,32 +1,32 @@
-# Snapshot and Refs
+# 快照与 Ref
 
-Compact element references that reduce context usage dramatically for AI agents.
+紧凑的元素引用（ref），大幅降低 AI agent 的上下文消耗。
 
-**Related**: [commands.md](commands.md) for full command reference, [SKILL.md](../SKILL.md) for quick start.
+**相关文档**：[commands.md](commands.md)（完整命令参考）、[SKILL.md](../SKILL.md)（快速上手）。
 
-## Contents
+## 目录
 
-- [How Refs Work](#how-refs-work)
-- [Snapshot Command](#the-snapshot-command)
-- [Using Refs](#using-refs)
-- [Ref Lifecycle](#ref-lifecycle)
-- [Best Practices](#best-practices)
-- [Ref Notation Details](#ref-notation-details)
-- [Troubleshooting](#troubleshooting)
+- [ref 的工作原理](#how-refs-work)
+- [Snapshot 命令](#the-snapshot-command)
+- [使用 ref](#using-refs)
+- [ref 生命周期](#ref-lifecycle)
+- [最佳实践](#best-practices)
+- [ref 记法详解](#ref-notation-details)
+- [问题排查](#troubleshooting)
 
-## How Refs Work
+## ref 的工作原理
 
-Traditional approach:
+传统方式：
 ```
 Full DOM/HTML → AI parses → CSS selector → Action (~3000-5000 tokens)
 ```
 
-agent-browser approach:
+agent-browser 方式：
 ```
 Compact snapshot → @refs assigned → Direct interaction (~200-400 tokens)
 ```
 
-## The Snapshot Command
+## Snapshot 命令
 
 ```bash
 # Basic snapshot (shows page structure)
@@ -36,7 +36,7 @@ agent-browser snapshot
 agent-browser snapshot -i
 ```
 
-### Snapshot Output Format
+### Snapshot 输出格式
 
 ```
 Page: Example Site - Home
@@ -60,9 +60,9 @@ URL: https://example.com
   @e14 [a] "Privacy Policy"
 ```
 
-## Using Refs
+## 使用 ref
 
-Once you have refs, interact directly:
+拿到 ref 后即可直接交互：
 
 ```bash
 # Click the "Sign In" button
@@ -78,9 +78,9 @@ agent-browser fill @e11 "password123"
 agent-browser click @e12
 ```
 
-## Ref Lifecycle
+## ref 生命周期
 
-**IMPORTANT**: Refs are invalidated when the page changes!
+**重要**：页面一旦变化，ref 即告失效！
 
 ```bash
 # Get initial snapshot
@@ -95,9 +95,9 @@ agent-browser snapshot -i
 # @e1 [h1] "Page 2"  ← Different element now!
 ```
 
-## Best Practices
+## 最佳实践
 
-### 1. Always Snapshot Before Interacting
+### 1. 交互前务必先快照
 
 ```bash
 # CORRECT
@@ -110,7 +110,7 @@ agent-browser open https://example.com
 agent-browser click @e1            # Ref doesn't exist yet!
 ```
 
-### 2. Re-Snapshot After Navigation
+### 2. 导航后重新快照
 
 ```bash
 agent-browser click @e5            # Navigates to new page
@@ -118,7 +118,7 @@ agent-browser snapshot -i          # Get new refs
 agent-browser click @e1            # Use new refs
 ```
 
-### 3. Re-Snapshot After Dynamic Changes
+### 3. 动态变化后重新快照
 
 ```bash
 agent-browser click @e1            # Opens dropdown
@@ -126,16 +126,16 @@ agent-browser snapshot -i          # See dropdown items
 agent-browser click @e7            # Select item
 ```
 
-### 4. Snapshot Specific Regions
+### 4. 只快照特定区域
 
-For complex pages, snapshot specific areas:
+页面复杂时，可以只快照局部：
 
 ```bash
 # Snapshot just the form
 agent-browser snapshot @e9
 ```
 
-## Ref Notation Details
+## ref 记法详解
 
 ```
 @e1 [tag type="value"] "text content" placeholder="hint"
@@ -147,7 +147,7 @@ agent-browser snapshot @e9
 └─ Unique ref ID
 ```
 
-### Common Patterns
+### 常见模式
 
 ```
 @e1 [button] "Submit"                    # Button with text
@@ -162,9 +162,9 @@ agent-browser snapshot @e9
 @e10 [radio] selected                    # Selected radio
 ```
 
-## Iframes
+## iframe
 
-Snapshots automatically detect and inline iframe content. When the main-frame snapshot runs, each `Iframe` node is resolved and its child accessibility tree is included directly beneath it in the output. Refs assigned to elements inside iframes carry frame context, so interactions like `click`, `fill`, and `type` work without manually switching frames.
+快照会自动检测并内联 iframe 内容。主 frame 快照运行时，每个 `Iframe` 节点都会被解析，其子无障碍树直接内联在输出中该节点下方。分配给 iframe 内元素的 ref 自带 frame 上下文，因此 `click`、`fill`、`type` 等交互无需手动切换 frame。
 
 ```bash
 agent-browser snapshot -i
@@ -181,22 +181,22 @@ agent-browser fill @e4 "12/28"
 agent-browser click @e5
 ```
 
-**Key details:**
-- Only one level of iframe nesting is expanded (iframes within iframes are not recursed)
-- Cross-origin iframes that block accessibility tree access are silently skipped
-- Empty iframes or iframes with no interactive content are omitted from the output
-- To scope a snapshot to a single iframe, use `frame @ref` then `snapshot -i`
+**要点**：
+- 只展开一层 iframe 嵌套（iframe 中的 iframe 不再递归展开）
+- 阻止无障碍树访问的跨域 iframe 会被静默跳过
+- 空 iframe 或没有可交互内容的 iframe 不会出现在输出中
+- 要把快照限定在单个 iframe，先 `frame @ref` 再 `snapshot -i`
 
-## Troubleshooting
+## 问题排查
 
-### "Ref not found" Error
+### 「Ref not found」错误
 
 ```bash
 # Ref may have changed - re-snapshot
 agent-browser snapshot -i
 ```
 
-### Element Not Visible in Snapshot
+### 元素在快照中不可见
 
 ```bash
 # Scroll down to reveal element
@@ -208,7 +208,7 @@ agent-browser wait 1000
 agent-browser snapshot -i
 ```
 
-### Too Many Elements
+### 元素过多
 
 ```bash
 # Snapshot specific container

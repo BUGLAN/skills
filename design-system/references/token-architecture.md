@@ -1,8 +1,8 @@
-# Token Architecture
+# 令牌架构
 
-Three-layer token system for scalable, themeable design systems.
+三层令牌体系，支撑可扩展、可换主题的设计系统。
 
-## Layer Overview
+## 分层总览
 
 ```
 ┌─────────────────────────────────────────┐
@@ -17,17 +17,17 @@ Three-layer token system for scalable, themeable design systems.
 └─────────────────────────────────────────┘
 ```
 
-## Why Three Layers?
+## 为什么要三层？
 
-| Layer | Purpose | When to Change |
-|-------|---------|----------------|
-| Primitive | Base values (colors, sizes) | Rarely - foundational |
-| Semantic | Meaning assignment | Theme switching |
-| Component | Component customization | Per-component needs |
+| 层 | 用途 | 何时改动 |
+|----|------|----------|
+| Primitive | 基础值（颜色、尺寸） | 极少——属于地基 |
+| Semantic | 赋予含义 | 主题切换 |
+| Component | 组件定制 | 按组件需要 |
 
-## Layer 1: Primitive Tokens
+## 第 1 层：原始令牌（Primitive）
 
-Raw design values without semantic meaning.
+不含语义信息的设计原始值。
 
 ```css
 :root {
@@ -59,9 +59,9 @@ Raw design values without semantic meaning.
 }
 ```
 
-## Layer 2: Semantic Tokens
+## 第 2 层：语义令牌（Semantic）
 
-Purpose-based aliases that reference primitives.
+按用途命名、引用原始令牌的别名。
 
 ```css
 :root {
@@ -91,9 +91,9 @@ Purpose-based aliases that reference primitives.
 }
 ```
 
-## Layer 3: Component Tokens
+## 第 3 层：组件令牌（Component）
 
-Component-specific tokens referencing semantic layer.
+面向具体组件的令牌，引用语义层。
 
 ```css
 :root {
@@ -120,9 +120,9 @@ Component-specific tokens referencing semantic layer.
 }
 ```
 
-## Dark Mode
+## 暗色模式
 
-Override semantic tokens for dark theme:
+在暗色主题下覆盖语义令牌：
 
 ```css
 .dark {
@@ -134,7 +134,7 @@ Override semantic tokens for dark theme:
 }
 ```
 
-## Naming Convention
+## 命名约定
 
 ```
 --{category}-{item}-{variant}-{state}
@@ -146,10 +146,10 @@ Examples:
 --space-section-sm        # category-semantic-variant
 ```
 
-## Categories
+## 类别
 
-| Category | Examples |
-|----------|----------|
+| 类别 | 示例 |
+|------|------|
 | color | primary, secondary, muted, destructive |
 | space | 1, 2, 4, 8, section, component |
 | font-size | xs, sm, base, lg, xl |
@@ -157,7 +157,7 @@ Examples:
 | shadow | sm, default, lg |
 | duration | fast, normal, slow |
 
-## File Organization
+## 文件组织
 
 ```
 tokens/
@@ -167,7 +167,7 @@ tokens/
 └── index.css          # Imports all
 ```
 
-Or single file with layer comments:
+也可以合并为单文件，用注释区分层级：
 
 ```css
 /* === PRIMITIVES === */
@@ -183,15 +183,15 @@ Or single file with layer comments:
 .dark { ... }
 ```
 
-## Migration from Flat Tokens
+## 从扁平令牌迁移
 
-Before (flat):
+迁移前（扁平）：
 ```css
 --button-primary-bg: #2563EB;
 --button-secondary-bg: #F3F4F6;
 ```
 
-After (three-layer):
+迁移后（三层）：
 ```css
 /* Primitive */
 --color-blue-600: #2563EB;
@@ -206,9 +206,9 @@ After (three-layer):
 --button-secondary-bg: var(--color-secondary);
 ```
 
-## W3C DTCG Alignment
+## 对齐 W3C DTCG
 
-Token JSON format (W3C Design Tokens Community Group):
+令牌 JSON 格式（W3C Design Tokens Community Group）：
 
 ```json
 {

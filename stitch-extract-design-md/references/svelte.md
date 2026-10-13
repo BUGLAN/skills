@@ -1,29 +1,22 @@
-# Svelte / SvelteKit Extraction Patterns
+# Svelte / SvelteKit 提取模式
 
-Svelte co-locates styles even more tightly than Vue. Every `.svelte` file
-has a `<style>` block that is scoped by default. Design systems in Svelte
-projects typically live in global CSS, CSS custom properties, or a shared
-theme store.
+Svelte 的样式同址程度比 Vue 更甚：每个 `.svelte` 文件都带一个默认即作用域隔离的 `<style>` 块。Svelte 项目的设计系统通常放在全局 CSS、CSS 自定义属性或共享的 theme store 里。
 
-## File Discovery Order
+## 文件查找顺序
 
-1. **`src/app.css` / `src/app.postcss`** — Global styles and CSS custom
-   properties. The most important file.
+1. **`src/app.css` / `src/app.postcss`** —— 全局样式与 CSS 自定义属性。最重要的文件。
 
-2. **`svelte.config.js`** — May reference CSS preprocessors, Tailwind, or
-   UnoCSS configuration.
+2. **`svelte.config.js`** —— 可能引用 CSS 预处理器、Tailwind 或 UnoCSS 配置。
 
-3. **`tailwind.config.js`** (if Tailwind/UnoCSS) — Same extraction as React.
+3. **`tailwind.config.js`**（用了 Tailwind/UnoCSS 时）—— 提取方式与 React 相同。
 
-4. **`src/lib/theme.ts` / `src/lib/tokens.ts`** — Shared design tokens
-   exported as JS objects.
+4. **`src/lib/theme.ts` / `src/lib/tokens.ts`** —— 以 JS 对象导出的共享设计令牌。
 
-5. **`src/routes/+layout.svelte`** — Root layout. Shows global font loading,
-   background, and structural patterns.
+5. **`src/routes/+layout.svelte`** —— 根布局。可见全局字体加载、背景与结构模式。
 
-6. **Component `<style>` blocks** — Scoped styles revealing component patterns.
+6. **组件 `<style>` 块** —— 作用域隔离的样式，揭示组件层面的模式。
 
-## Svelte Component Style Patterns
+## Svelte 组件样式模式
 
 ```svelte
 <script>
@@ -53,20 +46,20 @@ theme store.
 </style>
 ```
 
-**Extraction points:**
-- Component props (like `variant`) reveal the intended variant system
-- `var(--*)` references → trace to `app.css`
-- Transition values reveal the interaction design philosophy
+**提取要点：**
+- 组件 prop（如 `variant`）揭示预期中的变体体系
+- `var(--*)` 引用 → 回溯到 `app.css`
+- transition 取值揭示交互设计哲学
 
-## SvelteKit Layout Patterns
+## SvelteKit 布局模式
 
-- **`+layout.svelte`** at route root — Global header, footer, font loading
-- **`+layout.ts/js`** — May load theme data or tokens
-- **`$lib/`** directory — Reusable components and shared utilities
+- 路由根部的 **`+layout.svelte`** —— 全局页头、页脚与字体加载
+- **`+layout.ts/js`** —— 可能加载主题数据或令牌
+- **`$lib/`** 目录 —— 可复用组件与共享工具
 
-## CSS Custom Properties Strategy
+## CSS 自定义属性策略
 
-Svelte projects heavily use CSS custom properties for theming:
+Svelte 项目大量使用 CSS 自定义属性做主题化：
 
 ```css
 /* app.css */
@@ -89,13 +82,11 @@ Svelte projects heavily use CSS custom properties for theming:
 }
 ```
 
-These variable names are highly intentional. Use them as the foundation
-of your design system extraction.
+这些变量名都极有意图，把它们当作设计系统提取的地基。
 
 ## Skeleton UI / DaisyUI / Flowbite-Svelte
 
-If component libraries are used:
-- **Skeleton UI**: Theme defined in `tailwind.config.js` using Skeleton's
-  design token system. Look for custom theme config object.
-- **DaisyUI**: Theme in `tailwind.config.js` → `daisyui.themes` array.
-- **Flowbite-Svelte**: Standard Tailwind theming.
+如果使用了组件库：
+- **Skeleton UI**：主题定义在 `tailwind.config.js`，使用 Skeleton 的设计令牌体系，寻找自定义主题配置对象。
+- **DaisyUI**：主题在 `tailwind.config.js` → `daisyui.themes` 数组。
+- **Flowbite-Svelte**：标准 Tailwind 主题化方式。

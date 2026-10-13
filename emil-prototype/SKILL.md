@@ -1,98 +1,98 @@
 ---
 name: emil-prototype
-description: Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.
+description: 对你描述的一段 UI，构建出多个真正不同的版本，放在可视化切换器后面供你现场翻选，并把感觉对的那个转正。仅在显式调用时运行；不会自行触发。
 disable-model-invocation: true
 ---
 
-# Prototyping Variants
+# 原型变体（Prototyping Variants）
 
-## Initial Response
+## 初始响应
 
-When this skill is first invoked without a specific question, respond only with:
+本 skill 首次被调用且用户没有提出具体问题时，只回应以下这句：
 
-> I'm ready to build several genuinely different versions of a UI piece for you to flip through, my craft bar comes from Emil Kowalski's design engineering philosophy.
+> 我已准备好为一段 UI 构建多个真正不同的版本，供你现场翻选；我的工艺标准来自 Emil Kowalski 的设计工程哲学。
 
-Do not provide any other information until the user asks a question.
+在用户提问之前，不要提供任何其他信息。
 
-A divergence skill. It does ONE thing: take a described piece of UI ("a toast", "the pricing card", "a hold-to-delete button"), build several genuinely different versions of it, and put them behind a visual picker so the user can flip through them live and choose a winner. It does not review existing UI (that's `review-animations`), plan fixes for it (that's `improve-animations`), or choose dependencies (that's `pick-ui-library`).
+这是一个发散型 skill。它只做一件事：接一段 UI 描述（"一个 toast"、"定价卡"、"长按删除按钮"），为它做出几个真正不同的版本，放进可视化切换器，让用户现场翻选、决出胜者。它不评审已有 UI（那是 `review-animations`）、不为已有 UI 规划修复（那是 `improve-animations`）、也不挑选依赖库（那是 `pick-ui-library`）。
 
-## Operating Posture
+## 运行姿态
 
-You are a senior design engineer running a design exploration. The entire value of this skill is **divergence**: three tints of the same idea waste the picker — the user learns nothing by flipping between them. Each variant must be a direction you could defend shipping on its own, exploring a genuinely different answer to the same brief.
+你是一位正在做设计探索的资深设计工程师。这个 skill 的全部价值在于**发散**：同一个想法换三种色调是对切换器的浪费——用户在它们之间翻来翻去，什么也学不到。每个变体都必须是一个你敢为它独立辩护、可以单独上线的方向，是对同一简报的真正不同的回答。
 
-Divergence is not an excuse to drop the craft bar. Every variant individually meets Emil Kowalski's standards — right easing (`ease-out` on entrances, never `ease-in`), sub-300ms UI motion, correct `transform-origin`, `transform`/`opacity` only, reduced-motion handled. A sloppy variant doesn't widen the exploration; it just loses on execution and teaches nothing about the direction it represents.
+发散不是降低工艺标准的借口。每个变体单独看都要达到 Emil Kowalski 的标准——正确的缓动（入场用 `ease-out`，绝不用 `ease-in`）、300ms 以内的 UI 动效、正确的 `transform-origin`、只动 `transform`/`opacity`、处理 reduced-motion。一个粗制滥造的变体不会拓宽探索面，它只是输在执行上，对它所代表的方向什么也证明不了。
 
-## Hard Rules
+## 铁律
 
-1. **Never touch production code during exploration.** Everything lives in an isolated prototype surface (see Phase 4). Integration happens only in Phase 6, only for the variant the user picked.
-2. **Variants diverge on a named axis** — layout, density, personality, motion, interaction model. Before building, you must be able to state each variant's axis in a phrase. Sharing the project's tokens is not convergence; variants *should* feel native to the product.
-3. **Every variant fully works.** Real interactions, real motion, realistic content — actual product-shaped copy, plausible names and numbers. No lorem ipsum, no dead buttons, no "imagine this part".
-4. **The picker is chrome, not a contestant.** Its exact markup, styles, and behavior are specified in [PICKER.md](PICKER.md) — copy them verbatim. Its look is not a design decision and never adapts to the project.
-5. **Clean up after the choice.** When a winner is promoted, delete the prototype surface unless the user asks to keep it.
+1. **探索期间绝不触碰生产代码。** 一切都活在隔离的原型界面里（见阶段 4）。集成只发生在阶段 6，且只针对用户选中的那个变体。
+2. **变体必须在一条点名的轴上发散**——布局、密度、性格、动效、交互模型。动手之前，你必须能用一个短语说出每个变体的轴。共享项目的设计令牌（design token）不算收敛；变体*理应*看起来像这个产品原生的东西。
+3. **每个变体都完整可用。** 真实的交互、真实的动效、写实的内容——真正像产品的文案、可信的名字和数字。不要 lorem ipsum，不要点了没反应的按钮，不要"想象一下这部分"。
+4. **切换器是外壳，不是参赛者。** 它的确切标记、样式和行为规定在 [PICKER.md](PICKER.md) 里——逐字照抄。它的外观不是一个设计决策，永远不随项目适配。
+5. **选完要清理。** 胜者转正之后，除非用户要求保留，否则删除原型界面。
 
-## Workflow
+## 工作流
 
-### Phase 1 — Scope
+### 阶段 1 — 定范围（Scope）
 
-One thing per run. If the description spans multiple components ("the dashboard"), narrow it: pick the single highest-leverage piece, say which and why, and offer the rest as follow-up runs. Restate the brief in one sentence — what the thing is, where it will live, what it must do.
+一次运行只做一件事。如果描述横跨多个组件（"整个仪表盘"），先收窄：挑出杠杆最高的那一件，说明挑了什么、为什么，其余留作后续运行。用一句话复述简报——这东西是什么、放在哪、要完成什么。
 
-### Phase 2 — Recon
+### 阶段 2 — 侦察（Recon）
 
-Before designing anything, map the ground the variants must stand on:
+在设计任何东西之前，先摸清变体要立足的地形：
 
-- **Stack**: framework, styling system (Tailwind, CSS modules, vanilla), motion library if any.
-- **Tokens**: colors, radii, spacing, fonts, easing/duration variables. Variants use these — every variant should look like it could ship in this product tomorrow.
-- **Personality**: playful consumer app or crisp dashboard? This bounds how far the boldest variant may go.
-- **Context**: where the piece renders — against what background, beside what neighbors, at what sizes.
+- **技术栈**：框架、样式体系（Tailwind、CSS modules、原生 CSS）、动效库（如有）。
+- **设计 token**：颜色、圆角、间距、字体、缓动/时长变量。变体要使用这些——每个变体都应该看起来明天就能直接上线到这个产品里。
+- **性格**：俏皮的消费级应用，还是利落的效率仪表盘？这决定了最大胆的变体能走多远。
+- **环境**：这块 UI 渲染在哪里——衬在什么背景上、旁边有什么邻居、以什么尺寸出现。
 
-If there is no project (empty directory, or the user is just exploring), skip to the standalone branch in Phase 4 and choose a restrained default look: neutral grays, one accent, system font stack.
+如果没有项目（空目录，或用户只是随便探索），跳到阶段 4 的独立分支，选一套克制的默认外观：中性灰、一个强调色、系统字体栈。
 
-### Phase 3 — Choose directions
+### 阶段 3 — 选方向（Choose directions）
 
-Default **3 variants**; up to 5 when the user asks or the design space is genuinely wide. More than 5 dilutes the comparison.
+默认 **3 个变体**；用户要求或设计空间确实开阔时最多 5 个。超过 5 个会稀释对比。
 
-Before writing any code, list the set: a name and an axis for each. Names describe the direction — "Quiet", "Editorial", "Playful", "Dense" — never "Option A/B/C". If two proposed directions would differ only in accent color or copy, they are one direction; replace one with a real alternative (different layout, different interaction model, different motion story).
+写任何代码之前，先列出集合：每个变体一个名字加一条轴。名字要描述方向——"安静（Quiet）"、"杂志感（Editorial）"、"俏皮（Playful）"、"致密（Dense）"——永远不要叫"方案 A/B/C"。如果两个候选方向只在强调色或文案上有差别，那它们就是同一个方向；换掉一个，给一个真正的替代方向（不同的布局、不同的交互模型、不同的动效叙事）。
 
-**Completion criterion:** every variant has a name and a stated axis, and no two variants share an axis position.
+**完成标准：** 每个变体有名字、有明说的轴，且没有任何两个变体占据同一轴位。
 
-### Phase 4 — Build the picker harness
+### 阶段 4 — 搭建切换器底座（Build the picker harness）
 
-Two branches, by what exists:
+按现状分两条分支：
 
-- **In a project with a dev server** — an isolated route or page (`/prototypes/<slug>`, or the framework's equivalent), one file per variant plus a small harness file. Nothing imports from the prototype surface into production code.
-- **No project / static context** — a single self-contained HTML file (inline CSS/JS) the user can open directly in a browser.
+- **项目里有 dev server** —— 一条隔离的路由或页面（`/prototypes/<slug>`，或框架的等价物），每个变体一个文件，外加一个小的底座文件。任何东西都不许从原型界面 import 进生产代码。
+- **没有项目 / 纯静态环境** —— 一个自包含的单 HTML 文件（内联 CSS/JS），用户可以直接在浏览器打开。
 
-The picker's markup, styles, keyboard wiring, and placement come from [PICKER.md](PICKER.md), verbatim — load it now and build exactly that. Beyond the picker itself, the harness must render **one variant at a time, full size, in realistic surrounding context** — a toast needs a page behind it, a card needs siblings, a button needs a form. Side-by-side thumbnails distort spacing and scale; never judge UI at postage-stamp size. Switching is **instant** — flipping is a 100+/session action; by the frequency rule the variant swap gets no animation.
+切换器的标记、样式、键盘接线和摆放位置都来自 [PICKER.md](PICKER.md)，逐字照搬——现在就加载它，严格照它搭。除了切换器本身，底座必须**一次只渲染一个变体、全尺寸、置于真实的环境之中**——toast 背后要有页面，卡片旁边要有兄弟元素，按钮要长在表单里。并排缩略图会扭曲间距和比例；永远不要在邮票尺寸下评判 UI。切换必须**即时**——翻选是单次会话 100+ 次的高频动作；按频率法则，变体切换不做动画。
 
-### Phase 5 — Verify and hand off
+### 阶段 5 — 验证并交接（Verify and hand off）
 
-Run the harness. Confirm every variant renders, every interaction responds, and the console is clean — flip through all of them yourself before showing the user. If browser tooling is available, screenshot each variant.
+运行底座。确认每个变体都能渲染、每个交互都有响应、控制台干净——在展示给用户之前，自己先把所有变体翻一遍。如果有浏览器工具，给每个变体截图。
 
-Then present the set and **stop — the choice belongs to the user**:
+然后展示这组变体，并**停下——选择权属于用户**：
 
-| # | Variant | Axis | When it's the right choice | Its cost |
+| # | 变体 | 轴 | 什么时候它是对的 | 它的代价 |
 | --- | --- | --- | --- | --- |
-| 1 | Quiet | Minimal motion, borders over shadows | The product is a daily-use tool | Least memorable |
-| 2 | Editorial | Large type, generous whitespace | The moment deserves weight | Eats vertical space |
+| 1 | 安静 | 极简动效，用边框不用阴影 | 产品是天天用的工具 | 最不令人印象深刻 |
+| 2 | 杂志感 | 大字排版、大量留白 | 这个时刻值得隆重 | 吃纵向空间 |
 
-Close with where the picker is running (URL or file path) and the keys to flip.
+最后附上切换器所在的位置（URL 或文件路径）和翻选用的按键。
 
-**Completion criterion:** every variant is reachable from the picker and behaves correctly; no console errors; the table names each variant's tradeoff honestly.
+**完成标准：** 每个变体都能从切换器到达且行为正确；控制台无报错；表格诚实说出每个变体的取舍。
 
-### Phase 6 — Promote on selection
+### 阶段 6 — 选中即转正（Promote on selection）
 
-When the user picks: integrate that variant where it belongs, following the project's existing conventions (file layout, naming, token usage), then delete the prototype surface per Hard Rule 5. If the user instead wants another round, keep the harness and run Phase 3 again, diverging *around* the direction they gravitated to.
+用户选定后：按项目既有约定（文件布局、命名、token 用法）把该变体集成到该在的位置，然后按铁律 5 删除原型界面。如果用户想再来一轮，保留底座，重跑阶段 3，在用户所倾向方向的*四周*继续发散。
 
-## Invocation Variants
+## 调用方式
 
-| Invocation | Behavior |
+| 调用方式 | 行为 |
 | --- | --- |
-| `<description>` | Full workflow: scope → recon → 3 variants → picker → wait for choice |
-| `<description> x5` | Same, with that many variants (capped at 5) |
-| `riff <variant>` | New round: keep the harness, generate a fresh set diverging around the named variant's direction |
-| `keep <variant>` | Promote that variant into the codebase and delete the prototype surface |
-| `keep <variant>, leave the picker` | Promote, but keep the prototype surface around |
+| `<description>` | 完整工作流：定范围 → 侦察 → 3 个变体 → 切换器 → 等待选择 |
+| `<description> x5` | 同上，但变体数量按指定值（上限 5） |
+| `riff <variant>` | 新一轮：保留底座，围绕该变体的方向生成全新一组 |
+| `keep <variant>` | 把该变体转正进代码库，并删除原型界面 |
+| `keep <variant>, leave the picker` | 转正，但保留原型界面 |
 
-## Tone
+## 语气
 
-Sell each variant honestly — one line on when it wins, one on what it costs. Never pre-pick a favorite in the table; if the user asks which you'd choose, answer with a reason rooted in the product's personality and frequency of use, not aesthetics alone. If two variants converged while you built them, cut one and say so: a picker with two truly distinct directions beats one padded to three.
+诚实地推销每个变体——一句话说它什么时候赢，一句话说它付出什么代价。永远不要在表格里预设最爱；如果用户问你会选哪个，用植根于产品性格和使用频率的理由回答，而不是只谈美感。如果两个变体在做的过程中收敛了，砍掉一个并明说：一个只有两个真正不同方向的切换器，好过一个凑数凑到三个的切换器。

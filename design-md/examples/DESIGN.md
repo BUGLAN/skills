@@ -1,154 +1,154 @@
-# Design System: Furniture Collections List
-**Project ID:** 13534454087919359824
+# 设计系统：家具系列列表（Furniture Collections List）
+**项目 ID：** 13534454087919359824
 
-## 1. Visual Theme & Atmosphere
+## 1. 视觉主题与氛围
 
-The Furniture Collections List embodies a **sophisticated, minimalist sanctuary** that marries the pristine simplicity of Scandinavian design with the refined visual language of luxury editorial presentation. The interface feels **spacious and tranquil**, prioritizing breathing room and visual clarity above all else. The design philosophy is gallery-like and photography-first, allowing each furniture piece to command attention as an individual art object.
+家具系列列表呈现的是一处**典雅极简的静谧之所**：它将斯堪的纳维亚设计的纯净简洁，与奢华杂志式呈现的精致视觉语言融为一体。界面**开阔而安宁**，把呼吸感与视觉清晰度置于一切之上。设计哲学如画廊一般、以摄影为先，让每件家具都作为独立的艺术品掌控视线。
 
-The overall mood is **airy yet grounded**, creating an aspirational aesthetic that remains approachable and welcoming. The interface feels **utilitarian in its restraint** but elegant in its execution, with every element serving a clear purpose while maintaining visual sophistication. The atmosphere evokes the serene ambiance of a high-end furniture showroom where customers can browse thoughtfully without visual overwhelm.
+整体基调**通透而不失沉稳**，营造出令人向往却依旧亲和的审美。界面**以克制见务实、以细节见优雅**：每个元素都服务于明确的用途，同时保持着视觉上的精致考究。整体氛围令人联想到高端家具展厅的静谧——顾客可以从容浏览，不受视觉过载之扰。
 
-**Key Characteristics:**
-- Expansive whitespace creating generous breathing room between elements
-- Clean, architectural grid system with structured content blocks
-- Photography-first presentation with minimal UI interference
-- Whisper-soft visual hierarchy that guides without shouting
-- Refined, understated interactive elements
-- Professional yet inviting editorial tone
+**核心特征：**
+- 大面积留白，在元素之间营造充裕的呼吸感
+- 干净利落、建筑感十足的栅格系统，内容区块结构分明
+- 以摄影为先的呈现方式，UI 干扰降到最低
+- 轻若耳语的视觉层级，引导而不喧哗
+- 精致而低调的交互元素
+- 专业又亲和的杂志式语调
 
-## 2. Color Palette & Roles
+## 2. 调色板与色彩角色
 
-### Primary Foundation
-- **Warm Barely-There Cream** (#FCFAFA) – Primary background color. Creates an almost imperceptible warmth that feels more inviting than pure white, serving as the serene canvas for the entire experience.
-- **Crisp Very Light Gray** (#F5F5F5) – Secondary surface color used for card backgrounds and content areas. Provides subtle visual separation while maintaining the airy, ethereal quality.
+### 基础底色
+- **微暖奶油白**（Warm Barely-There Cream，#FCFAFA）——主背景色。带来几乎难以察觉的暖意，比纯白更显亲切，是整个体验的宁静画布。
+- **清爽极浅灰**（Crisp Very Light Gray，#F5F5F5）——次级表面色，用于卡片背景与内容区域。在保持轻盈通透质感的同时，提供细腻的视觉分隔。
 
-### Accent & Interactive
-- **Deep Muted Teal-Navy** (#294056) – The sole vibrant accent in the palette. Used exclusively for primary call-to-action buttons (e.g., "Shop Now", "View all products"), active navigation links, selected filter states, and subtle interaction highlights. This sophisticated anchor color creates visual focus points without disrupting the serene neutral foundation.
+### 强调色与交互色
+- **深灰调青蓝**（Deep Muted Teal-Navy，#294056）——整套调色板中唯一的鲜艳强调色。专用于主要行动按钮（CTA，如 “Shop Now”、“View all products”）、当前导航链接、筛选选中态，以及细微的交互高亮。这一沉稳的锚点色既能建立视觉焦点，又不破坏宁静的中性基调。
 
-### Typography & Text Hierarchy
-- **Charcoal Near-Black** (#2C2C2C) – Primary text color for headlines and product names. Provides strong readable contrast while being softer and more refined than pure black.
-- **Soft Warm Gray** (#6B6B6B) – Secondary text used for body copy, product descriptions, and supporting metadata. Creates clear typographic hierarchy without harsh contrast.
-- **Ultra-Soft Silver Gray** (#E0E0E0) – Tertiary color for borders, dividers, and subtle structural elements. Creates separation so gentle it's almost imperceptible.
+### 文本色彩层级
+- **炭调近黑**（Charcoal Near-Black，#2C2C2C）——标题与产品名的主文本色。对比度强、易于阅读，又比纯黑更柔和精致。
+- **柔和暖灰**（Soft Warm Gray，#6B6B6B）——次级文本色，用于正文、产品描述与辅助元信息。建立清晰的文字层级，又不显生硬刺眼。
+- **极柔银灰**（Ultra-Soft Silver Gray，#E0E0E0）——三级色，用于边框、分隔线与含蓄的结构性元素。分隔效果轻柔到几乎难以察觉。
 
-### Functional States (Reserved for system feedback)
-- **Success Moss** (#10B981) – Stock availability, confirmation states, positive indicators
-- **Alert Terracotta** (#EF4444) – Low stock warnings, error states, critical alerts
-- **Informational Slate** (#64748B) – Neutral system messages, informational callouts
+### 功能状态色（专用于系统反馈）
+- **苔藓绿**（Success Moss，#10B981）——有货状态、确认反馈、正向指示
+- **警示陶土红**（Alert Terracotta，#EF4444）——库存不足警告、错误状态、紧急警报
+- **信息板岩灰**（Informational Slate，#64748B）——中性系统消息、信息提示
 
-## 3. Typography Rules
+## 3. 字体排印规则
 
-**Primary Font Family:** Manrope  
-**Character:** Modern, geometric sans-serif with gentle humanist warmth. Slightly rounded letterforms that feel contemporary yet approachable.
+**主字体：** Manrope  
+**字形气质：** 现代几何无衬线体，带有人文主义的温和气息；字形略圆润，既当代又亲和。
 
-### Hierarchy & Weights
-- **Display Headlines (H1):** Semi-bold weight (600), generous letter-spacing (0.02em for elegance), 2.75-3.5rem size. Used sparingly for hero sections and major page titles.
-- **Section Headers (H2):** Semi-bold weight (600), subtle letter-spacing (0.01em), 2-2.5rem size. Establishes clear content zones and featured collections.
-- **Subsection Headers (H3):** Medium weight (500), normal letter-spacing, 1.5-1.75rem size. Product names and category labels.
-- **Body Text:** Regular weight (400), relaxed line-height (1.7), 1rem size. Descriptions and supporting content prioritize comfortable readability.
-- **Small Text/Meta:** Regular weight (400), slightly tighter line-height (1.5), 0.875rem size. Prices, availability, and metadata remain legible but visually recessive.
-- **CTA Buttons:** Medium weight (500), subtle letter-spacing (0.01em), 1rem size. Balanced presence without visual aggression.
+### 层级与字重
+- **大标题（H1）**：半粗字重（600），放宽字距（0.02em，以求优雅），字号 2.75-3.5rem。克制使用，仅用于 hero 区块与重要页面标题。
+- **章节标题（H2）**：半粗字重（600），微调字距（0.01em），字号 2-2.5rem。划分清晰的内容分区，突出精选系列。
+- **小节标题（H3）**：中等字重（500），常规字距，字号 1.5-1.75rem。用于产品名称与品类标签。
+- **正文**：常规字重（400），宽松行高（1.7），字号 1rem。描述与辅助内容优先保证舒适的阅读体验。
+- **小号文本/元信息**：常规字重（400），行高略收紧（1.5），字号 0.875rem。价格、库存与元信息保持可读，同时在视觉上退居次位。
+- **CTA 按钮**：中等字重（500），微调字距（0.01em），字号 1rem。存在感恰到好处，不咄咄逼人。
 
-### Spacing Principles
-- Headers use slightly expanded letter-spacing for refined elegance
-- Body text maintains generous line-height (1.7) for effortless reading
-- Consistent vertical rhythm with 2-3rem between related text blocks
-- Large margins (4-6rem) between major sections to reinforce spaciousness
+### 间距原则
+- 标题略微放宽字距，营造精致优雅之感
+- 正文保持宽松行高（1.7），阅读轻松流畅
+- 垂直节奏一致，相关文本块之间相隔 2-3rem
+- 主要章节之间留出大边距（4-6rem），强化开阔感
 
-## 4. Component Stylings
+## 4. 组件样式
 
-### Buttons
-- **Shape:** Subtly rounded corners (8px/0.5rem radius) – approachable and modern without appearing playful or childish
-- **Primary CTA:** Deep Muted Teal-Navy (#294056) background with pure white text, comfortable padding (0.875rem vertical, 2rem horizontal)
-- **Hover State:** Subtle darkening to deeper navy, smooth 250ms ease-in-out transition
-- **Focus State:** Soft outer glow in the primary color for keyboard navigation accessibility
-- **Secondary CTA (if needed):** Outlined style with Deep Muted Teal-Navy border, transparent background, hover fills with whisper-soft teal tint
+### 按钮
+- **形状**：圆角含蓄（半径 8px/0.5rem）——亲和而现代，不显俏皮稚气
+- **主 CTA**：深灰调青蓝（#294056）底色配纯白文字，内边距舒适（纵向 0.875rem、横向 2rem）
+- **悬停态**：微微加深为更深的藏青，伴以 250ms 的平滑 ease-in-out 过渡
+- **聚焦态**：主色柔光外晕，照顾键盘导航的可访问性
+- **次级 CTA（按需）**：描边样式——深灰调青蓝边框、透明背景，悬停时填入一层若有似无的青蓝色
 
-### Cards & Product Containers
-- **Corner Style:** Gently rounded corners (12px/0.75rem radius) creating soft, refined edges
-- **Background:** Alternates between Warm Barely-There Cream and Crisp Very Light Gray based on layering needs
-- **Shadow Strategy:** Flat by default. On hover, whisper-soft diffused shadow appears (`0 2px 8px rgba(0,0,0,0.06)`) creating subtle depth
-- **Border:** Optional hairline border (1px) in Ultra-Soft Silver Gray for delicate definition when shadows aren't present
-- **Internal Padding:** Generous 2-2.5rem creating comfortable breathing room for content
-- **Image Treatment:** Full-bleed at the top of cards, square or 4:3 ratio, seamless edge-to-edge presentation
+### 卡片与产品容器
+- **圆角**：柔和圆角（半径 12px/0.75rem），边缘温润精致
+- **背景**：依据层级需要在微暖奶油白与清爽极浅灰之间交替
+- **阴影策略**：默认扁平。悬停时浮现极轻的弥散阴影（`0 2px 8px rgba(0,0,0,0.06)`），营造含蓄的纵深
+- **边框**：可选 1px 发丝线边框，颜色为极柔银灰，在无阴影时提供细腻的轮廓界定
+- **内边距**：充裕的 2-2.5rem，给内容留出舒适的呼吸空间
+- **图片处理**：通栏全出血（full-bleed）铺满卡片顶部，方形或 4:3 比例，边到边无缝呈现
 
-### Navigation
-- **Style:** Clean horizontal layout with generous spacing (2-3rem) between menu items
-- **Typography:** Medium weight (500), subtle uppercase, expanded letter-spacing (0.06em) for refined sophistication
-- **Default State:** Charcoal Near-Black text
-- **Active/Hover State:** Smooth 200ms color transition to Deep Muted Teal-Navy
-- **Active Indicator:** Thin underline (2px) in Deep Muted Teal-Navy appearing below current section
-- **Mobile:** Converts to elegant hamburger menu with sliding drawer
+### 导航
+- **风格**：干净的水平布局，菜单项之间留白充裕（2-3rem）
+- **排印**：中等字重（500），适度大写，放宽字距（0.06em），精致考究
+- **默认态**：炭调近黑文字
+- **激活/悬停态**：200ms 平滑颜色过渡至深灰调青蓝
+- **激活指示**：当前分区下方以深灰调青蓝绘制细下划线（2px）
+- **移动端**：收合为优雅的汉堡菜单与滑动抽屉
 
-### Inputs & Forms
-- **Stroke Style:** Refined 1px border in Soft Warm Gray
-- **Background:** Warm Barely-There Cream with transition to Crisp Very Light Gray on focus
-- **Corner Style:** Matching button roundness (8px/0.5rem) for visual consistency
-- **Focus State:** Border color shifts to Deep Muted Teal-Navy with subtle outer glow
-- **Padding:** Comfortable 0.875rem vertical, 1.25rem horizontal for touch-friendly targets
-- **Placeholder Text:** Ultra-Soft Silver Gray, elegant and unobtrusive
+### 输入框与表单
+- **描边样式**：柔和暖灰的精致 1px 边框
+- **背景**：微暖奶油白，聚焦时过渡为清爽极浅灰
+- **圆角**：与按钮一致（8px/0.5rem），保证视觉统一
+- **聚焦态**：边框色变为深灰调青蓝，并带轻微外发光
+- **内边距**：纵向 0.875rem、横向 1.25rem，触控目标舒适易点
+- **占位文本**：极柔银灰，优雅而不抢眼
 
-### Product Cards (Specific Pattern)
-- **Image Area:** Square (1:1) or landscape (4:3) ratio filling card width completely
-- **Content Stack:** Product name (H3), brief descriptor, material/finish, price
-- **Price Display:** Emphasized with semi-bold weight (600) in Charcoal Near-Black
-- **Hover Behavior:** Gentle lift effect (translateY -4px) combined with enhanced shadow
-- **Spacing:** Consistent 1.5rem internal padding below image
+### 产品卡片（特定模式）
+- **图片区**：方形（1:1）或横向（4:3）比例，铺满卡片宽度
+- **内容堆叠**：产品名（H3）、简短描述、材质/工艺、价格
+- **价格呈现**：半粗字重（600）、炭调近黑，予以强调
+- **悬停行为**：轻微上浮（translateY -4px），阴影随之增强
+- **间距**：图片下方统一 1.5rem 内边距
 
-## 5. Layout Principles
+## 5. 布局原则
 
-### Grid & Structure
-- **Max Content Width:** 1440px for optimal readability and visual balance on large displays
-- **Grid System:** Responsive 12-column grid with fluid gutters (24px mobile, 32px desktop)
-- **Product Grid:** 4 columns on large desktop, 3 on desktop, 2 on tablet, 1 on mobile
-- **Breakpoints:** 
-  - Mobile: <768px
-  - Tablet: 768-1024px  
-  - Desktop: 1024-1440px
-  - Large Desktop: >1440px
+### 栅格与结构
+- **内容最大宽度**：1440px，在大屏上获得最佳可读性与视觉平衡
+- **栅格系统**：响应式 12 栏栅格，栏距弹性（移动端 24px，桌面端 32px）
+- **产品网格**：大桌面 4 栏，桌面 3 栏，平板 2 栏，移动端 1 栏
+- **断点：**
+  - 移动端：<768px
+  - 平板：768-1024px  
+  - 桌面：1024-1440px
+  - 大桌面：>1440px
 
-### Whitespace Strategy (Critical to the Design)
-- **Base Unit:** 8px for micro-spacing, 16px for component spacing
-- **Vertical Rhythm:** Consistent 2rem (32px) base unit between related elements
-- **Section Margins:** Generous 5-8rem (80-128px) between major sections creating dramatic breathing room
-- **Edge Padding:** 1.5rem (24px) mobile, 3rem (48px) tablet/desktop for comfortable framing
-- **Hero Sections:** Extra-generous top/bottom padding (8-12rem) for impactful presentation
+### 留白策略（整套设计的关键）
+- **基准单位**：微间距 8px，组件间距 16px
+- **垂直节奏**：相关元素之间统一采用 2rem（32px）基准单位
+- **章节边距**：主要章节之间留足 5-8rem（80-128px），呼吸感极具张力
+- **边缘内边距**：移动端 1.5rem（24px），平板/桌面 3rem（48px），画面从容有度
+- **Hero 区块**：上下内边距格外充裕（8-12rem），呈现更具冲击力
 
-### Alignment & Visual Balance
-- **Text Alignment:** Left-aligned for body and navigation (optimal readability), centered for hero headlines and featured content
-- **Image to Text Ratio:** Heavily weighted toward imagery (70-30 split) reinforcing photography-first philosophy
-- **Asymmetric Balance:** Large hero images offset by compact, refined text blocks
-- **Visual Weight Distribution:** Strategic use of whitespace to draw eyes to hero products and primary CTAs
-- **Reading Flow:** Clear top-to-bottom, left-to-right pattern with intentional focal points
+### 对齐与视觉平衡
+- **文本对齐**：正文与导航左对齐（可读性最佳），hero 大标题与精选内容居中
+- **图文比例**：大幅向图像倾斜（70-30），强化“摄影为先”的理念
+- **非对称平衡**：大体量的 hero 图像与紧凑精致的文本块相互错落
+- **视觉权重分布**：策略性运用留白，把视线引向 hero 产品与主 CTA
+- **阅读动线**：自上而下、从左到右的清晰路径，焦点设置有的放矢
 
-### Responsive Behavior & Touch
-- **Mobile-First Foundation:** Core experience designed and perfected for smallest screens first
-- **Progressive Enhancement:** Additional columns, imagery, and details added gracefully at larger breakpoints
-- **Touch Targets:** Minimum 44x44px for all interactive elements (WCAG AAA compliant)
-- **Image Optimization:** Responsive images with appropriate resolutions for each breakpoint, lazy-loading for performance
-- **Collapsing Strategy:** Navigation collapses to hamburger, grid reduces columns, padding scales proportionally
+### 响应式行为与触控
+- **移动优先的根基**：核心体验先为最小屏幕设计并打磨到位
+- **渐进增强**：在更大的断点上优雅地加入更多栏位、图像与细节
+- **触控目标**：所有可交互元素最小 44x44px（符合 WCAG AAA）
+- **图片优化**：各断点匹配合适分辨率的响应式图片，配合懒加载提升性能
+- **折叠策略**：导航收合为汉堡菜单，网格减少栏数，内边距按比例缩放
 
-## 6. Design System Notes for Stitch Generation
+## 6. 供 Stitch 生成参考的设计系统说明
 
-When creating new screens for this project using Stitch, reference these specific instructions:
+使用 Stitch 为本项目创建新屏幕时，请参照以下具体指示：
 
-### Language to Use
-- **Atmosphere:** "Sophisticated minimalist sanctuary with gallery-like spaciousness"
-- **Button Shapes:** "Subtly rounded corners" (not "rounded-md" or "8px")
-- **Shadows:** "Whisper-soft diffused shadows on hover" (not "shadow-sm")
-- **Spacing:** "Generous breathing room" and "expansive whitespace"
+### 推荐用语
+- **氛围**：“典雅极简的静谧之所，带画廊般的开阔感”
+- **按钮形状**：“圆角含蓄克制”（而非 "rounded-md" 或 "8px"）
+- **阴影**：“悬停时浮现若有似无的弥散阴影”（而非 "shadow-sm"）
+- **间距**：“充裕的呼吸感”与“开阔的留白”
 
-### Color References
-Always use the descriptive names with hex codes:
-- Primary CTA: "Deep Muted Teal-Navy (#294056)"
-- Backgrounds: "Warm Barely-There Cream (#FCFAFA)" or "Crisp Very Light Gray (#F5F5F5)"
-- Text: "Charcoal Near-Black (#2C2C2C)" or "Soft Warm Gray (#6B6B6B)"
+### 颜色引用
+引用颜色时，始终使用“描述性名称 + hex 色值”：
+- 主 CTA：“深灰调青蓝（#294056）”
+- 背景：“微暖奶油白（#FCFAFA）”或“清爽极浅灰（#F5F5F5）”
+- 文字：“炭调近黑（#2C2C2C）”或“柔和暖灰（#6B6B6B）”
 
-### Component Prompts
-- "Create a product card with gently rounded corners, full-bleed square product image, and whisper-soft shadow on hover"
-- "Design a primary call-to-action button in Deep Muted Teal-Navy (#294056) with subtle rounded corners and comfortable padding"
-- "Add a navigation bar with generous spacing between items, using medium-weight Manrope with subtle uppercase and expanded letter-spacing"
+### 组件提示词
+- “创建一张产品卡片：圆角柔和，方形产品图全出血铺满，悬停时阴影轻若耳语”
+- “设计一个主行动按钮：深灰调青蓝（#294056），圆角含蓄，内边距舒适”
+- “添加一个导航栏：菜单项间距充裕，使用中等字重的 Manrope，适度大写并放宽字距”
 
-### Incremental Iteration
-When refining existing screens:
-1. Focus on ONE component at a time (e.g., "Update the product grid cards")
-2. Be specific about what to change (e.g., "Increase the internal padding of product cards from 1.5rem to 2rem")
-3. Reference this design system language consistently
+### 渐进式迭代
+精修既有屏幕时：
+1. 每次只聚焦**一个**组件（例如：“更新产品网格卡片”）
+2. 具体说明要改什么（例如：“把产品卡片的内边距从 1.5rem 增加到 2rem”）
+3. 始终沿用本设计系统的这套用语

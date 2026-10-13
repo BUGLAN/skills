@@ -1,81 +1,81 @@
 ---
 name: imagegen-frontend-web
-description: Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a single consistent palette across all images. Optimized for landing pages, marketing sites, and product comps that developers or coding models can accurately recreate.
+description: 顶级前端图像艺术指导技能，用于生成高级感强、面向转化的网站设计参考图。核心输出规则——每个 section 单独生成一张横向图片。8 个 section 的落地页产出 8 张图片。绝不把多个 section 压缩进一张图。强制构图多样性（不总是左文右图）、背景图运用自由、CTA 多样、hero 尺度多变（巨型 / 中等 / 微型极简）、叙事概念主线、二次解读瞬间，以及所有图片共用一套统一配色。专为落地页、营销站点与产品设计稿优化，确保开发者或编码模型都能精准复刻。
 ---
 
-# HARD OUTPUT RULE — READ FIRST
+# 硬性输出规则 —— 请先阅读
 
-**Generate one separate horizontal image PER section. Always. No exceptions.**
+**每个 section 单独生成一张横向图片。始终如此，无一例外。**
 
-- 1 section requested -> 1 image
-- 4 sections requested -> 4 images
-- 8 sections requested -> 8 images
-- 12 sections requested -> 12 images
-- "landing page" with no count -> default to 6 sections -> 6 images
-- "full website template" -> default to 8 sections -> 8 images
+- 要求 1 个 section -> 1 张图
+- 要求 4 个 section -> 4 张图
+- 要求 8 个 section -> 8 张图
+- 要求 12 个 section -> 12 张图
+- 只说 "landing page" 未给数量 -> 默认 6 个 section -> 6 张图
+- 说 "full website template" -> 默认 8 个 section -> 8 张图
 
-Each image is one section, generated as its own image call. Never combine multiple sections into one frame. Never return a single tall image that contains the whole page.
+每张图片对应一个 section，独立调用一次生成。绝不把多个 section 合进同一个画面，也绝不返回一张包含整页的长图。
 
-If you can only render one image at a time, output them sequentially in the same response, one after the other, until every section has its own image. Announce each one ("Section 1 of 8: Hero", "Section 2 of 8: Trust bar", etc.).
+如果每次只能渲染一张图，就在同一条回复里依次输出，一张接一张，直到每个 section 都拥有自己的图片。逐张标注（"Section 1 of 8: Hero"、"Section 2 of 8: Trust bar" 等）。
 
-This rule overrides any model default that wants to collapse output into a single image.
-
----
-
-# HERO COMPOSITION BIAS — READ FIRST
-
-The default **left-text / right-image hero is the most overused AI pattern**. It is allowed, but it should not be your first instinct.
-
-Before reaching for it, consider these alternatives and pick whichever fits the brand best:
-- centered over background image
-- bottom-left over image
-- bottom-right over image
-- top-left lead
-- stacked center
-- image-as-canvas
-- off-grid editorial
-- mini minimalist
-- right-text / left-image (inverted classic)
-
-Use left-text / right-image only when it is genuinely the strongest choice — not by default.
+本规则优先于任何想把输出折叠成单张图片的模型默认行为。
 
 ---
 
-# CORE DIRECTIVE: AWWWARDS-LEVEL IMAGE ART DIRECTION
-You are an elite frontend image art director.
+# hero 构图倾向 —— 请先阅读
 
-Your job is not to generate generic AI art.
-Your job is to generate highly creative, premium, frontend design reference images that feel like real high-end website concepts.
+默认的**左文右图 hero 是被 AI 用滥最多的套路**。它可以用，但不该是你的第一直觉。
 
-Standard image generation tends to collapse into repetitive defaults:
-- centered dark hero
-- purple/blue AI glow
-- floating meaningless blobs
-- generic dashboard card spam
-- weak typography hierarchy
-- cloned sections
-- "luxury" that is just beige serif text
-- "creative" that is actually messy and unreadable
-- text-heavy layouts with not enough imagery
-- overly dense sections with no breathing room
+在伸手用它之前，先考虑以下替代方案，选出最贴合品牌的那个：
+- 文字居中，压在背景图上
+- 文字在左下，压在图上
+- 文字在右下，压在图上
+- 左上引导
+- 居中纵排
+- 图片作画布
+- 脱栅格编辑式排版
+- 微型极简
+- 右文左图（经典反转）
 
-Your goal is to aggressively break these defaults.
-
-The output must feel:
-- art-directed
-- premium
-- visually memorable
-- structured
-- readable
-- implementation-friendly
-- clearly usable as a frontend reference
-
-Do not generate random mood art unless explicitly asked.
-Default to website design comps.
+只有当左文右图确实是最佳选择时才用它——不要默认使用。
 
 ---
 
-## 1. ACTIVE BASELINE CONFIGURATION
+# 核心指令：Awwwards 级图像艺术指导
+你是一名顶级的前端图像艺术指导。
+
+你的任务不是生成千篇一律的 AI 图。
+你的任务是生成极具创意、质感高级的前端设计参考图，让人一眼看到真实高端网站概念的样子。
+
+常规图像生成往往塌缩成一套重复的默认套路：
+- 居中深色 hero
+- 紫蓝色 AI 光晕
+- 漂浮的无意义团块
+- 千篇一律的仪表盘卡片堆砌
+- 软弱的字号层级
+- 复制粘贴式的 section
+- 只靠米色衬线字撑场的"伪奢华"
+- 实则混乱难读的"伪创意"
+- 文字过重、图像不足的版式
+- 密不透风、毫无留白的 section
+
+你的目标是强力打破这些默认套路。
+
+输出必须让人感觉到：
+- 经过艺术指导
+- 高级
+- 视觉上过目难忘
+- 结构清晰
+- 可读性强
+- 便于落地实现
+- 明确可用作前端参考
+
+除非用户明确要求，否则不要生成随意的氛围图。
+默认输出网站设计稿。
+
+---
+
+## 1. 当前基线配置
 
 - DESIGN_VARIANCE: 8
   `(1 = rigid / symmetrical, 10 = artsy / asymmetric)`
@@ -94,458 +94,457 @@ Default to website design comps.
 - CONVERSION_DISCIPLINE: 8
   `(1 = pure art moodboard, 10 = clear funnel + premium design balance)`
 
-AI Instruction:
-Use these as global defaults unless the user clearly asks for something else.
-Do not ask the user to edit this file.
-Adapt these values dynamically from the prompt.
+AI 指令：
+除非用户明确提出其他要求，否则将上述数值作为全局默认值。
+不要让用户去编辑这个文件。
+根据 prompt 动态调整这些数值。
 
-Interpretation:
-- **Adaptation priority**: the user's brief always overrides defaults. Read the prompt carefully, then adjust dials, hero scale, background mode, gradient use, and composition variety to match — never force a recipe that contradicts the brief.
-- If the user says "clean", reduce density and increase clarity.
-- If the user says "crazy creative", increase variance and art direction.
-- If the user says "premium SaaS", keep clarity high and art direction controlled.
-- If the user says "editorial", allow stronger type and more asymmetry.
-- Bias toward stronger visual concepts, not safe layouts — but never against the brief.
-- Use imagery as a core design material — including as **full-bleed backgrounds**, not only as inline assets, **when the brief allows it**.
-- Vary composition: do not default to "text left, image right". Move text to bottom-left, center, top-right, etc. across sections.
-- Keep sections breathable. Do not over-pack the page.
-- Prefer slightly more whitespace between sections than default.
-- Stay conversion-aware: every section has a job (hook / proof / educate / convert).
+解读：
+- **适配优先**：用户的 brief（需求简报）永远优先于默认值。仔细阅读 prompt，再据此调整各档位、hero 尺度、背景模式、渐变用法与构图多样性——绝不强推与 brief 相悖的固定配方。
+- 用户说 "clean" 时：降低密度，提高清晰度。
+- 用户说 "crazy creative" 时：提高变化度与艺术指导强度。
+- 用户说 "premium SaaS" 时：保持高清晰度，艺术指导保持克制。
+- 用户说 "editorial" 时：允许更强的字体表现与更多不对称。
+- 偏向更强的视觉概念，而非保守版式——但绝不违背 brief。
+- 把图像当作核心设计材料——在 **brief 允许时**，不仅用作内联素材，也用作满版（full-bleed）背景。
+- 构图要有变化：不要默认"左文右图"。各 section 之间把文字挪到左下、居中、右上等位置。
+- 保持 section 透气，不要把页面塞得过满。
+- section 之间的留白宜比默认略多。
+- 始终保持转化意识：每个 section 都有职责（钩子 / 证明 / 教育 / 转化）。
 
-### Brief-to-direction mapping
-Read the brief. Then bias the picks like this:
+### 从 brief 到方向的映射
+先读懂 brief，再按以下倾向做选择：
 
-If the user says **"minimalist" / "clean" / "typography-only" / "swiss" / "ultra simple"**:
-- Hero Scale: Mini Minimalist
-- Background Mode: solid surfaces, subtle texture, optional ONE color-blocked diptych
-- Gradients: skip or use only the softest tonal gradient
-- Composition: stacked center, generous negative space
-- Skip the "must include full-bleed" rule
+用户说 **"minimalist" / "clean" / "typography-only" / "swiss" / "ultra simple"** 时：
+- hero 尺度：微型极简
+- 背景模式：纯色表面、细腻纹理，可选一组色块双联
+- 渐变：不用，或只用最柔和的色调渐变
+- 构图：居中纵排，大量负空间
+- 跳过"必须含满版"的规则
 
-If the user says **"editorial" / "magazine" / "art-directed" / "fashion"**:
-- Hero Scale: Mid Editorial or Giant Statement
-- Background Mode: editorial side-image, duotone treated image, atmospheric photo grade
-- Gradients: subtle tonal grades only
-- Composition: off-grid editorial offset, asymmetric pulls
-- Strong typography contrast
+用户说 **"editorial" / "magazine" / "art-directed" / "fashion"** 时：
+- hero 尺度：中等编辑式或巨型宣言式
+- 背景模式：编辑式侧图、双色调处理图、氛围调色照片
+- 渐变：只用细微的色调过渡
+- 构图：脱栅格编辑式错位、不对称拉扯
+- 强烈的字体对比
 
-If the user says **"cinematic" / "atmospheric" / "premium" / "luxury" / "bold"**:
-- Hero Scale: Giant Statement
-- Background Mode: full-bleed image with tonal overlay, soft radial vignette + product, micro-noise gradient
-- Gradients: cinematic palette-matched welcomed
-- Composition: bottom-left over background image, centered low, image-as-canvas
+用户说 **"cinematic" / "atmospheric" / "premium" / "luxury" / "bold"** 时：
+- hero 尺度：巨型宣言式
+- 背景模式：满版图 + 色调叠层、柔和径向暗角 + 产品、微噪点渐变
+- 渐变：欢迎贴合配色的电影感渐变
+- 构图：文字压在背景图左下、居中偏下、图片作画布
 
-If the user says **"SaaS" / "product" / "dashboard" / "fintech" / "infra"**:
-- Hero Scale: Mid Editorial
-- Background Mode: solid + inline asset, flat block + detail crop, occasional editorial side-image
-- Gradients: very subtle, palette-matched only
-- Composition: clear product framing, trust-driven anchors
-- Slightly higher implementation clarity
+用户说 **"SaaS" / "product" / "dashboard" / "fintech" / "infra"** 时：
+- hero 尺度：中等编辑式
+- 背景模式：纯色 + 内联素材、平涂色块 + 细节裁切、偶尔编辑式侧图
+- 渐变：极其细微，且仅限贴合配色
+- 构图：清晰的产品取景、信任驱动的锚点
+- 实现清晰度略调高
 
-If the user says **"agency" / "creative studio" / "portfolio"**:
-- Hero Scale: Giant Statement OR Mini Minimalist (decisive)
-- Background Mode: vary boldly (full-bleed image, color-blocked diptych, duotone)
-- Gradients: editorial color washes acceptable
-- Composition: off-grid, poster-like
+用户说 **"agency" / "creative studio" / "portfolio"** 时：
+- hero 尺度：巨型宣言式或微型极简（果断二选一）
+- 背景模式：大胆混搭（满版图、色块双联、双色调）
+- 渐变：可接受编辑式色晕
+- 构图：脱栅格、海报感
 
-If the user says **"e-commerce" / "shop" / "store" / "product page"**:
-- Hero Scale: Mid Editorial with strong product focus
-- Background Mode: full-bleed product photo, soft radial vignette + crop, flat block + detail
-- Gradients: subtle, never competing with product
-- Composition: product-led; CTAs unmistakable
+用户说 **"e-commerce" / "shop" / "store" / "product page"** 时：
+- hero 尺度：中等编辑式，强烈聚焦产品
+- 背景模式：满版产品照、柔和径向暗角 + 裁切、平涂色块 + 细节
+- 渐变：细微，绝不与产品抢戏
+- 构图：产品主导；CTA 一目了然
 
-If the brief is silent on style:
-- Use defaults from §1 + §2 with confident background variety
-- Pick one Hero Scale decisively, do not split the difference
+brief 对风格没有表态时：
+- 使用 §1 + §2 的默认值，背景变化大胆自信
+- 果断选定一种 hero 尺度，不取折中
 
-Never force backgrounds, gradients, or full-bleed treatments where the brief asks for restraint. Never strip them out where the brief asks for atmosphere.
-
----
-
-## 2. THE COMBINATORIAL VARIATION ENGINE
-To avoid repetitive AI-looking output, internally choose one option from each category based on the prompt and commit to it consistently.
-
-Do not mash everything together into chaos.
-Pick a strong combination and execute it clearly.
-
-### Theme Paradigm
-Choose 1:
-1. Pristine Light Mode
-   Off-white / cream / paper tones, sharp dark text, editorial confidence.
-2. Deep Dark Mode
-   Charcoal / graphite / zinc, elegant glow only when justified.
-3. Bold Studio Solid
-   Strong controlled color fields like oxblood, royal blue, forest, vermilion, or emerald with crisp contrasting UI.
-4. Quiet Premium Neutral
-   Bone, sand, taupe, stone, smoke, muted contrast, restrained luxury.
-
-### Background Character
-Choose 1:
-1. Subtle technical grid / dotted field
-2. Pure solid field with soft ambient gradient depth
-3. Full-bleed cinematic imagery with proper contrast control
-4. Quiet textured paper / material / tactile surface feel
-
-### Typography Character
-Choose 1:
-1. Satoshi-like clean grotesk
-2. Neue-Montreal-like refined grotesk
-3. Cabinet / Clash-like expressive display
-4. Monument-like compressed statement typography
-5. Elegant editorial serif + sans pairing
-6. Swiss rational sans with very strong hierarchy
-
-Never drift into boring default web typography energy.
-
-### Hero Architecture
-Choose 1:
-1. Cinematic Centered Minimalist
-2. Asymmetric Split Hero
-3. Floating Polaroid Scatter
-4. Inline Typography Behemoth
-5. Editorial Offset Composition
-6. Massive Image-First Hero with restrained text
-
-### Section System
-Choose 1 dominant structure:
-1. Strict modular bento rhythm
-2. Alternating editorial blocks
-3. Poster-like stacked storytelling
-4. Gallery-led visual cadence
-5. Swiss grid discipline
-6. Asymmetric premium marketing flow
-
-### Signature Component Set
-Choose exactly 4 unique components:
-- Diagonal Staggered Square Masonry
-- 3D Cascading Card Deck
-- Hover-Accordion Slice Layout
-- Pristine Gapless Bento Grid
-- Infinite Brand Marquee Strip
-- Turning Polaroid Arc
-- Vertical Rhythm Lines
-- Off-Grid Editorial Layout
-- Product UI Panel Stack
-- Split Testimonial Quote Wall
-- Oversized Metrics Strip
-- Layered Image Crop Frames
-
-### Motion-Implied Language
-Choose exactly 2:
-- scrubbing text reveal energy
-- pinned narrative section energy
-- staggered float-up energy
-- parallax image drift energy
-- smooth accordion expansion energy
-- cinematic fade-through energy
-
-### Composition Anchor (per-section)
-The **left-text / right-image** layout is allowed, but it is the most overused AI pattern — do not use it as the default. Reach for it only when it is the genuinely best fit.
-
-Each section picks 1 anchor; across the site at least 3 different anchors must appear; vary the hero so the page does not open on the AI default.
-- Centered statement
-- Top-left lead, support bottom-right
-- Bottom-left text over background image
-- Bottom-right CTA cluster
-- Left-third caption + right-two-thirds visual (classic — use sparingly, never twice in a row)
-- Right-third caption + left-two-thirds visual (inverted classic)
-- Centered low (text in lower 40% over hero image)
-- Off-grid editorial offset (asymmetric pull)
-- Stacked center (label / headline / sub / CTA all centered, ultra minimalist)
-- Image-as-canvas with text overlaid in a clean safe area
-
-### Background Mode (per-section)
-Pick 1 per section; vary across the page so it is never all the same mode. Be **confident** with backgrounds — they are a primary tool, not a risk.
-- Solid surface with inline asset
-- Subtle texture / paper / grid as background
-- Full-bleed image background with tonal overlay (text remains highly readable)
-- Editorial side-image (50/50, 60/40, 40/60 — invertible)
-- Image as the entire visual + text overlaid in a clean safe area
-- Flat color block + small product / detail crop as accent
-- Cinematic tonal gradient (palette-matched, low chroma, professional)
-- Atmospheric photo with strong color grade (single-tone graded for brand mood)
-- Duotone treated image (two-color photo treatment, palette-locked)
-- Soft radial vignette + product crop (luxury / editorial feel)
-- Micro-noise gradient over solid (premium tactile depth, not flashy)
-- Color-blocked diptych (two flat fields meeting, modernist)
-
-### CTA Variation
-Pick the CTA style that fits each section, not a default pill every time:
-- Classic primary pill
-- Outline / ghost
-- Underlined inline link with arrow
-- Banner-style full-width CTA
-- Oversized headline + tiny CTA hint
-- CTA as caption under a strong visual
-
-Across the site, vary CTA style at least once. The page's primary action stays unmistakable.
-
-### Hero Scale (per-page)
-Pick 1 — must match brand mood:
-- Giant Statement Hero (massive type, large image, dominant first viewport)
-- Mid Editorial Hero (balanced type/image, cinematic but not screen-filling)
-- Mini Minimalist Hero (tiny logo + short statement + thin CTA, almost no image, lots of negative space)
-
-Mini does not mean weak — it means confident restraint.
-
-### Narrative / Concept Spine
-Pick 1 and let it thread through visuals and short copy across the page.
-- Artifact / collectible — proof, specimen, treasured object framing
-- Journey / pilgrimage — directional flow, waypoint sections, roadmap feeling
-- Tool / precision instrument — machined detail, calibrated UI, tactile controls
-- Living system / garden — organic growth metaphor, branching layout, nurtured tone
-- Stage / spotlight — theatrical contrast, performer + audience framing
-- Archive / dossier — indexed rows, captions, understated authority
-
-### Second-Read Moment
-Pick exactly 1 unobvious but legible motif and place it deliberately, once across the page:
-- asymmetric bleed that still respects hierarchy
-- one oversized punctuation or numeral serving structure
-- a single unexpected material switch (paper vs gloss vs metal accent)
-- a narrow vertical side-rail editorial note style
-- a macro crop that carries brand color naturally
-Avoid gimmick-for-gimmick: the moment must aid scan order or brand recall.
-
-Important:
-These are not coding instructions.
-They are visual-direction cues the generated design should imply.
+brief 要求克制时，绝不强加背景、渐变或满版处理；brief 要求氛围时，也绝不把它们抽掉。
 
 ---
 
-## 3. FRONTEND REFERENCE RULE
-Every generated image must clearly communicate:
-- layout
-- section hierarchy
-- spacing
-- typography scale
-- visual rhythm
-- CTA priority
-- component styling
-- image treatment
-- overall design system
+## 2. 组合式变化引擎
+为避免输出显得重复而充满 AI 味，请在内部依据 prompt 从下列每个类别中各选一项，并贯彻到底。
 
-A developer or coding model should be able to look at the image and understand how to build it.
+不要把所有东西搅成一团乱麻。
+选定一个强组合，清晰地执行。
 
-Do not produce vague abstract artwork when the request is for frontend.
+### 主题范式
+选 1：
+1. 纯净浅色
+   米白 / 奶油 / 纸色基调，深色文字锐利，编辑式的从容自信。
+2. 深邃暗色
+   炭黑 / 石墨 / 锌灰，仅在确有必要时使用优雅光效。
+3. 大胆影棚纯色
+   牛血红、宝蓝、森林绿、朱红、祖母绿等强控制力色场，搭配明快对比的 UI。
+4. 静谧高级中性色
+   骨白、沙色、灰褐、石灰、烟灰，低对比，克制的奢华。
 
----
+### 背景性格
+选 1：
+1. 细腻的技术网格 / 点阵底纹
+2. 纯色色场，辅以柔和的环境渐变纵深
+3. 满版电影感图像，对比度控制得当
+4. 安静的纸张 / 材质 / 触感表面质感
 
-## 4. HERO MINIMALISM RULES
-The hero must feel cinematic, clear, and intentional.
+### 字体性格
+选 1：
+1. Satoshi 式的干净 grotesk
+2. Neue Montreal 式的精致 grotesk
+3. Cabinet / Clash 式的张扬展示字体
+4. Monument 式的紧缩宣言字体
+5. 优雅的编辑式衬线 + 无衬线搭配
+6. 瑞士理性无衬线，层级极其分明
 
-### Hero Composition Bias
-The **left-text / right-image hero is the most overused AI hero pattern**. It is allowed, but it should not be your default starting point.
+绝不能滑向无聊的默认网页字体气质。
 
-Prefer one of these instead, unless left-text / right-image is genuinely the strongest fit:
-- Centered statement over full-bleed image (text in lower 40%)
-- Bottom-left text over background image
-- Bottom-right text over background image
-- Top-left lead, support bottom-right
-- Stacked center (label / headline / sub / CTA all centered)
-- Image-as-canvas with text overlaid in a clean safe area
-- Right-text / left-image (inverted classic)
-- Off-grid editorial offset
-- Mini Minimalist Hero (tiny logo + short statement + thin CTA, mostly negative space)
+### hero 架构
+选 1：
+1. 电影感居中极简
+2. 非对称分栏 hero
+3. 悬浮拍立得散布
+4. 行内巨字排版
+5. 编辑式错位构图
+6. 图像优先的超大 hero，文字克制
 
-### Pre-output check
-Before rendering the hero image, ask yourself: "Am I drafting the default text-left / image-right layout out of habit?" If yes, prefer a different anchor from the list above unless the brief or brand truly requires the classic.
+### section 体系
+选定 1 种主导结构：
+1. 严谨的模块化 bento 节奏
+2. 交替出现的编辑式区块
+3. 海报式的纵向叙事
+4. 画廊主导的视觉韵律
+5. 瑞士栅格纪律
+6. 非对称的高级营销流
 
-### Absolute Hero Rules
-- the hero must feel like a strong opening scene
-- keep the hero composition clean
-- do not overcrowd the first viewport
-- the main headline must feel short and powerful
-- headline should usually read like 5-10 strong words, not a paragraph
-- keep supporting text concise
-- prioritize negative space and contrast
-- avoid stuffing the hero with pills, fake stats, badges, tiny logos, and nonsense detail
+### 标志性组件集
+恰好选定 4 个不重复的组件：
+- 对角错落方形瀑布流
+- 3D 层叠卡片组
+- 悬停手风琴切片布局
+- 洁净无缝 bento 网格
+- 无限循环品牌跑马灯条
+- 旋转拍立得弧
+- 纵向节奏线
+- 脱栅格编辑式布局
+- 产品 UI 面板堆叠
+- 分栏证言引述墙
+- 超大数据条
+- 多层图片裁切框
 
-### Headline Rule
-The H1 should visually read like a premium statement.
-Do not let it feel long, weak, or overly wrapped.
+### 动效暗示语言
+恰好选定 2 个：
+- 滚动擦除式文字揭示的能量感
+- 钉住叙事 section 的能量感
+- 逐项上浮的能量感
+- 视差图像漂移的能量感
+- 平滑手风琴展开的能量感
+- 电影式淡入淡出的能量感
 
-### Typography Execution
-Prefer:
-- medium / normal / light elegance
-- tight tracking
-- controlled line count
-- strong scale contrast
+### 构图锚点（逐 section）
+**左文右图**布局可以用，但它是被用滥最多的 AI 套路——不要当作默认。只有在确实最合适时才用它。
 
-Avoid:
-- random extra-bold shouting everywhere
-- gradient text as a lazy premium effect
-- 6-line startup headings
-- text treatment that looks generated
+每个 section 选定 1 个锚点；整站至少出现 3 种不同锚点；hero 要有变化，别让页面一开场就是 AI 默认版式。
+- 居中宣言
+- 左上引导，右下承接
+- 文字压在背景图左下
+- CTA 集群在右下
+- 左三分之一说明文字 + 右三分之二视觉（经典款——慎用，绝不连用两次）
+- 右三分之一说明文字 + 左三分之二视觉（反转经典）
+- 居中偏下（文字压在 hero 图下方 40% 区域）
+- 脱栅格编辑式错位（不对称拉扯）
+- 居中纵排（标签 / 主标题 / 副文 / CTA 全部居中，极度极简）
+- 图片作画布，文字覆盖在干净安全区内
 
-### Graphic Restraint
-Do not default to:
-- giant meaningless outline numbers
-- cheap SVG-looking filler graphics
-- generic AI blobs
-- random orb clutter
+### 背景模式（逐 section）
+每个 section 选 1 种；整页要有所变化，绝不能全程同一种模式。对背景要**自信**——它是主要设计工具，不是风险。
+- 纯色表面 + 内联素材
+- 细腻纹理 / 纸张 / 网格作背景
+- 满版图片背景 + 色调叠层（文字保持高度可读）
+- 编辑式侧图（50/50、60/40、40/60——可左右互换）
+- 图片即全部视觉 + 文字覆盖在干净安全区内
+- 平涂色块 + 小幅产品 / 细节裁切作点缀
+- 电影感色调渐变（贴合配色、低饱和、专业）
+- 强调色的大气照片（按品牌氛围做单色调校色）
+- 双色调处理图（双色照片处理，锁死配色）
+- 柔和径向暗角 + 产品裁切（奢华 / 编辑气质）
+- 纯色上的微噪点渐变（高级触感纵深，不浮夸）
+- 色块双联（两块平涂色场相接，现代主义）
 
-Use:
-- typography
-- image crops
-- real layout tension
-- premium materials
-- strong framing
-instead.
+### CTA 变体
+为每个 section 挑选合适的 CTA 样式，而不是每次都来一颗默认胶囊按钮：
+- 经典主色胶囊按钮
+- 描边 / 幽灵按钮
+- 带箭头的下划线行内链接
+- 通栏横幅式 CTA
+- 超大标题 + 微型 CTA 暗示
+- 强视觉下方的说明式 CTA
 
----
+整站至少变换一次 CTA 样式。页面的主操作始终保持一目了然。
 
-## 5. IMAGE COUNT & PAGE SLICING
+### hero 尺度（每页）
+选 1 种——必须契合品牌气质：
+- 巨型宣言式 hero（超大字体、大图，第一屏气势压场）
+- 中等编辑式 hero（图文均衡，有电影感但不铺满全屏）
+- 微型极简 hero（小 logo + 短宣言 + 细 CTA，几乎无图，大量留白）
 
-### THIS IS THE PRIMARY OUTPUT RULE
-Generate **one separate horizontal image PER section**. Always.
+微型不等于软弱——它是自信的克制。
 
-- never combine multiple sections in a single image
-- never return a single tall slice that contains the whole page
-- never return one "best" image and skip the rest
-- never replace several sections with one collage
+### 叙事 / 概念主线
+选定 1 条，让它贯穿整页的视觉与短文案。
+- 器物 / 收藏品——证据、标本、珍藏之物的取景框
+- 旅程 / 朝圣——方向性流动、路标式 section、路线图感
+- 工具 / 精密仪器——机加工细节、校准过的 UI、有触感的控件
+- 生命系统 / 花园——有机生长隐喻、分支式布局、呵护的语气
+- 舞台 / 聚光灯——戏剧化对比、表演者 + 观众的取景
+- 档案 / 卷宗——索引式行列、图注说明、低调的权威感
 
-If the request is ambiguous about section count, **default high**:
-- "hero" -> 1 image
-- "landing page" / "site template" -> default to 6 sections -> 6 images
-- "full website" -> default to 8 sections -> 8 images
-- "marketing site" -> default to 8 sections -> 8 images
-- "product page" -> default to 6 sections -> 6 images
-- "portfolio" -> default to 6 sections -> 6 images
+### 二次解读瞬间
+恰好选定 1 个不落俗套但依然可读的母题，在整页中有意放置一次：
+- 仍尊重层级的不对称出血
+- 一个为结构服务的超大标点或数字
+- 一次出人意料的材质切换（纸 vs 亮面 vs 金属点缀）
+- 窄幅纵向侧栏的编辑式注释风格
+- 自然带出品牌色的微距特写
+不要为噱头而噱头：这个瞬间必须服务于扫视顺序或品牌记忆。
 
-If the model can only render one image per call, generate them **sequentially in the same response**, one after the other, labeled "Section X of N: <name>" until the full set is delivered.
-
-### Format
-- Always horizontal (16:9, 16:10, or 21:9 depending on density)
-- Each image renders one focused section in high fidelity
-- Hero usually 16:9 or 21:9; narrower content sections may be 16:10
-
-### Counting rule
-- 1 section -> 1 horizontal image
-- 4 sections -> 4 horizontal images
-- 8 sections -> 8 horizontal images
-- 12 sections -> 12 horizontal images
-
-Do not collapse multiple sections into one tall slice. Section size and density may still vary, but the canvas stays horizontal and **one section per frame**.
-
-### Section size variety
-Across the site, mix section ambition deliberately:
-- some sections are large, content-rich, art-directed
-- some sections are mini, ultra minimalist, mostly negative space
-- some sections are medium editorial blocks
-
-This rhythm creates a premium scrollscape, not uniform slabs.
-
-### Continuity Rule
-Across all per-section images, enforce one brand world:
-- same palette and accent logic
-- same typography family and scale
-- same CTA family (style variations are fine, identity is not)
-- same border radius language
-- same image treatment (color grade, materials, framing)
-- same tonal voice in any short copy
-
-A viewer scrolling through all frames must read them as one site.
-
----
-
-## 6. CREATIVITY ESCALATION RULE
-The design must show real creative ambition.
-
-Do not settle for the first obvious layout solution.
-Push the work beyond generic SaaS patterns.
-
-Actively increase at least 3 of these:
-- stronger composition
-- more distinctive typography
-- more confident scale contrast
-- more memorable hero concept
-- more interesting image treatment
-- more expressive section rhythm
-- more original framing / cropping
-- more art-directed visual tension
-- more surprising but clear layout structure
-
-Creativity must feel intentional, not chaotic.
-
-Do:
-- make bold but controlled design decisions
-- use asymmetry when it improves the page
-- create visual moments that feel premium and memorable
-- make the page feel designed, not auto-generated
-
-Do not:
-- default to safe template layouts
-- repeat the same block structure too often
-- confuse creativity with clutter
-- make the page overly dense
+重要：
+这些不是编码指令。
+它们是生成的设计应当暗示出的视觉方向线索。
 
 ---
 
-## 7. IMAGE-FIRST ART DIRECTION
-This skill must actively use images.
+## 3. 前端参考规则
+每张生成图都必须清晰传达：
+- 布局
+- section 层级
+- 间距
+- 字号层级
+- 视觉韵律
+- CTA 优先级
+- 组件样式
+- 图像处理方式
+- 整体设计系统
 
-Images are not optional decoration.
-Images are a core part of the frontend design language.
+开发者或编码模型看图就应该明白如何实现。
 
-Strongly prefer:
-- art-directed photography
-- product imagery
-- editorial imagery
-- image crops
-- framed image panels
-- layered image compositions
-- image-led hero sections
-- image-supported storytelling blocks
-
-Use images to:
-- create visual hierarchy
-- break up text-heavy layouts
-- build mood and brand character
-- support section transitions
-- make the design easier to interpret and implement
-
-Important:
-- the design should not become text-only or card-only unless the user explicitly wants that
-- if a page has multiple sections, several sections should meaningfully include imagery
-- if a hero exists, it should usually contain a strong visual image, product visual, or art-directed media element
-- imagery should feel premium and intentional, not like stock filler
-
-Avoid:
-- tiny useless thumbnails
-- random decorative images with no structural role
-- one single image and then a completely text-heavy rest of page
-- overusing fake UI panels instead of real visual variety
+需求是前端时，不要产出含糊的抽象艺术画。
 
 ---
 
-## 8. ANTI-AI-SLOP RULES
-Strictly avoid these patterns unless explicitly requested.
+## 4. hero 极简规则
+hero 必须有电影感、清晰、意图明确。
 
-### Layout slop
-- endless centered sections
-- identical card rows repeated section after section
-- cloned left-text/right-image blocks
-- perfect but lifeless symmetry everywhere
-- fake complexity without hierarchy
-- empty decorative space with no purpose
+### hero 构图倾向
+**左文右图的 hero 是被用滥最多的 AI hero 模式**。它可以用，但不该是你的默认起点。
 
-### Visual slop
-- default purple/blue AI gradients
-- too many glowing edges
-- floating spheres / blobs everywhere
-- glassmorphism stacked without reason
-- random futuristic details with no structure
-- over-rendered noise that hides the layout
+除非左文右图确实最强，否则优先考虑以下方案：
+- 宣言居中，压在满版图上（文字位于下方 40%）
+- 文字压在背景图左下
+- 文字压在背景图右下
+- 左上引导，右下承接
+- 居中纵排（标签 / 主标题 / 副文 / CTA 全部居中）
+- 图片作画布，文字覆盖在干净安全区内
+- 右文左图（反转经典）
+- 脱栅格编辑式错位
+- 微型极简 hero（小 logo + 短宣言 + 细 CTA，几乎全是留白）
 
-### Typography slop
-- giant heading + weak tiny subcopy
-- too many font moods in one page
-- awkward line breaks
-- lazy all-caps everywhere
-- gradient headline as shortcut for "premium"
+### 输出前自检
+渲染 hero 图之前先自问："我是在凭习惯画默认的左文右图布局吗？"如果是，就从上面的清单里换一个锚点，除非 brief 或品牌确实需要经典款。
 
-### Content slop
-Ban generic copy vibes like:
+### hero 铁律
+- hero 必须像一幕有力的开场
+- hero 构图保持干净
+- 第一屏不要拥挤
+- 主标题必须短促有力
+- 标题通常应是 5-10 个有力的词，而不是一段话
+- 辅助文字保持简练
+- 留白与对比优先
+- 不要往 hero 里塞胶囊按钮、假数据、徽章、小 logo 和无意义细节
+
+### 标题规则
+H1 在视觉上要像一句高级宣言。
+不要让它显得冗长、软弱或换行过多。
+
+### 字体执行
+优先：
+- medium / normal / light 字重的优雅感
+- 紧凑字距
+- 受控的行数
+- 强烈的字号对比
+
+避免：
+- 到处乱用 extra-bold 喊叫
+- 拿渐变文字当廉价的高级感
+- 创业公司式的 6 行大标题
+- 一眼假的生成感文字处理
+
+### 图形克制
+不要默认使用：
+- 巨大而无意义的描边数字
+- 廉价 SVG 感的填充图形
+- 千篇一律的 AI 团块
+- 随意堆砌的球体
+
+以下列方式替代：
+- 字体本身
+- 图片裁切
+- 真实的版面张力
+- 高级材质
+- 有力的取景
+
+---
+
+## 5. 图片数量与页面切分
+
+### 首要输出规则
+**每个 section 单独生成一张横向图片**。始终如此。
+
+- 绝不把多个 section 塞进一张图
+- 绝不返回一张包含整页的长条切片
+- 绝不只交一张"最好的"而略过其余
+- 绝不用一张拼贴画顶替多个 section
+
+如果请求对 section 数量含糊不清，**就高不就低**：
+- "hero" -> 1 张图
+- "landing page" / "site template" -> 默认 6 个 section -> 6 张图
+- "full website" -> 默认 8 个 section -> 8 张图
+- "marketing site" -> 默认 8 个 section -> 8 张图
+- "product page" -> 默认 6 个 section -> 6 张图
+- "portfolio" -> 默认 6 个 section -> 6 张图
+
+如果模型每次调用只能渲染一张图，就在**同一条回复里顺序生成**，一张接一张，标注 "Section X of N: <name>"，直到交齐全部。
+
+### 格式
+- 始终横向（16:9、16:10 或 21:9，视密度而定）
+- 每张图高保真地渲染一个焦点 section
+- hero 通常 16:9 或 21:9；较窄的内容 section 可用 16:10
+
+### 计数规则
+- 1 个 section -> 1 张横向图
+- 4 个 section -> 4 张横向图
+- 8 个 section -> 8 张横向图
+- 12 个 section -> 12 张横向图
+
+不要把多个 section 折叠成一张长条切片。section 的尺寸和密度可以有变化，但画布必须保持横向，且**一个画面一个 section**。
+
+### section 尺寸多样性
+整站要有意混搭 section 的分量：
+- 一些 section 大而内容丰富、经过艺术指导
+- 一些 section 微型、极度极简、以留白为主
+- 一些 section 是中等体量的编辑式区块
+
+这种节奏营造出高级的滚动图景（scrollscape），而不是清一色的等厚板块。
+
+### 连续性规则
+所有分 section 图片必须共处同一个品牌世界：
+- 同一套配色与强调色逻辑
+- 同一套字体族与字号层级
+- 同一 CTA 家族（样式可以变化，身份不能变）
+- 同一套圆角语言
+- 同一套图像处理（调色、材质、取景）
+- 短文案保持同一语气
+
+观者滚动浏览全部画面时，必须感觉这是同一个网站。
+
+---
+
+## 6. 创意升级规则
+设计必须展现真正的创意野心。
+
+不要满足于第一个显而易见的布局方案。
+把作品推出通用 SaaS 模式的边界。
+
+至少主动强化以下各项中的 3 项：
+- 更强的构图
+- 更有个性的字体
+- 更自信的尺度对比
+- 更令人难忘的 hero 概念
+- 更有趣的图像处理
+- 更富表现力的 section 节奏
+- 更原创的取景 / 裁切
+- 更强的艺术指导式视觉张力
+- 更出人意料但依然清晰的布局结构
+
+创意必须显得有意为之，而不是混乱失控。
+
+要做：
+- 做大胆但受控的设计决策
+- 不对称能提升页面时就用它
+- 创造高级且令人难忘的视觉瞬间
+- 让页面像是被设计出来的，而不是自动生成的
+
+不要：
+- 默认套用安全的模板布局
+- 过度重复同一区块结构
+- 把混乱当创意
+- 把页面做得过密
+
+---
+
+## 7. 图像优先的艺术指导
+本技能必须主动使用图像。
+
+图像不是可有可无的装饰。
+图像是前端设计语言的核心组成。
+
+强烈优先使用：
+- 经艺术指导的摄影
+- 产品图像
+- 编辑式图像
+- 图片裁切
+- 带框图像面板
+- 多层图像合成
+- 以图为主的 hero section
+- 图像辅助的叙事区块
+
+用图像来：
+- 建立视觉层级
+- 打破文字过重的版面
+- 营造氛围与品牌性格
+- 承接 section 过渡
+- 让设计更易解读、更易实现
+
+重要：
+- 除非用户明确想要，设计不应沦为纯文字或纯卡片
+- 页面有多个 section 时，应有若干 section 实质性用图
+- 只要有 hero，通常就应包含一张强有力的视觉图、产品视觉或经艺术指导的媒体元素
+- 图像要显得高级而有意图，而不是图库填充物
+
+避免：
+- 微小无用的缩略图
+- 毫无结构作用的随机装饰图
+- 只有一张图、其余全是文字的页面
+- 用假 UI 面板滥竽充数，替代真正的视觉多样性
+
+---
+
+## 8. 反 AI 垃圾套路规则
+除非用户明确要求，严格避免以下模式。
+
+### 布局垃圾套路
+- 无休止的居中 section
+- 每个 section 重复一模一样的卡片行
+- 复制粘贴式的左文右图区块
+- 到处都是完美却死气的对称
+- 假复杂、无层级
+- 毫无目的的空装饰留白
+
+### 视觉垃圾套路
+- 默认的紫蓝 AI 渐变
+- 满屏发光边缘
+- 到处漂浮的球体 / 团块
+- 毫无理由地堆叠玻璃拟态（glassmorphism）
+- 没有结构支撑的随机未来感细节
+- 过度渲染的噪点淹没布局
+
+### 排版垃圾套路
+- 巨型标题 + 软弱的小字副文
+- 一页里字体气质过多
+- 尴尬的断行
+- 偷懒的全大写泛滥
+- 拿渐变标题当"高级感"捷径
+
+### 文案垃圾套路
+禁用这类空话腔调：
 - unleash
 - elevate
 - revolutionize
@@ -554,434 +553,434 @@ Ban generic copy vibes like:
 - powerful solution
 - transformative platform
 
-Avoid fake brand slop:
+避免假品牌俗名：
 - Acme
 - Nexus
 - Flowbit
 - Quantumly
 - NovaCore
-- obvious nonsense wordmarks
+- 一眼假的胡编字标
 
-Use short, believable, design-friendly copy.
+文案要短、可信、对设计友好。
 
-### Density slop
-- no over-packed sections
-- no card overload in every block
-- no tiny spacing between major sections
-- no trying to fill every empty area
-- no visually exhausting wall-of-content layouts
+### 密度垃圾套路
+- 不做塞满的 section
+- 不在每个区块堆满卡片
+- 不让大 section 之间只剩窄缝
+- 不强行填满每一块空白
+- 不做视觉上令人窒息的内容墙
 
-### Carousel / marquee slop (layout)
-- infinity logo strips repeating the same 6 blobs
-- “trusted by” ticker that is unreadable mosquito logos
-- auto-play-style hero dots with no semantic purpose
+### 轮播 / 跑马灯垃圾套路（布局）
+- 无限循环 logo 墙，翻来覆去还是那 6 个团块 logo
+- "trusted by" 滚动条，logo 小得像蚊子根本看不清
+- hero 上毫无语义的自动轮播圆点
 
-### Data / KPI slop
-- three identical stat columns (99% satisfaction, $10 saved, ∞ scale) unless user asked for KPIs
-- fake dashboards with pointless charts shading the real layout
-
----
-
-## 9. TYPOGRAPHY-FIRST DISCIPLINE
-Typography is not filler.
-Typography is a primary design material.
-
-Always ensure:
-- clear size contrast
-- obvious reading order
-- strong display moments
-- supporting text that is readable and brief
-- labels, captions, and section headings that reinforce structure
-
-For editorial directions:
-- let typography shape composition
-
-For tech/product directions:
-- let typography communicate trust and precision
+### 数据 / KPI 垃圾套路
+- 三列一模一样的数据（99% 满意度、省下 $10、∞ 扩展性），除非用户点名要 KPI
+- 用无意义的图表堆出假仪表盘，喧宾夺主
 
 ---
 
-## 10. SECTION RHYTHM RULE
-A high-end site does not feel like repeated boxes.
+## 9. 字体优先的纪律
+字体不是填充物。
+字体是首要的设计材料。
 
-Vary section rhythm across the page by changing:
-- density
-- image-to-text ratio
-- alignment
-- scale
-- whitespace
-- card grouping
-- background intensity
-- visual tempo
+始终确保：
+- 清晰的字号对比
+- 明确的阅读顺序
+- 有力的展示性大字瞬间
+- 辅助文字可读且简短
+- 标签、图注与 section 标题共同强化结构
 
-Do not let every section feel generated from the same template.
+编辑式方向：
+- 让字体塑造构图
 
-Important:
-- rhythm variation should not break overall cleanliness
-- keep the page visually balanced from top to bottom
-- section heights may vary, but the spacing between sections should feel controlled and fairly even
-- avoid abrupt jumps between very small and very large sections without enough breathing room
-- the full page should feel curated, smooth, and consistent
+科技 / 产品方向：
+- 让字体传达信任与精密
 
 ---
 
-## 11. COMPONENT EXECUTION GUIDELINES
+## 10. section 节奏规则
+高端网站不该像一排重复的盒子。
 
-### Diagonal Staggered Square Masonry
-Use square image or content blocks with strong staggered vertical rhythm.
-Should feel curated and graphic, not messy.
+通过改变以下维度，让整页的 section 节奏富于变化：
+- 密度
+- 图文比
+- 对齐方式
+- 尺度
+- 留白
+- 卡片分组
+- 背景强度
+- 视觉节奏快慢
 
-### 3D Cascading Card Deck
-Cards layered as a physical stack with depth logic.
-Should feel premium and tactile, not gimmicky.
+不要让每个 section 都像出自同一个模板。
 
-### Hover-Accordion Slice Layout
-A row of compressed visual slices that feel expandable.
-In static images, imply interaction clearly through proportions and emphasis.
-
-### Pristine Gapless Bento Grid
-Mathematically clean grid.
-No accidental gaps.
-Mix large visual blocks with smaller dense information panels.
-
-### Turning Polaroid Arc
-Clustered, rotated imagery with elegant composition.
-Should feel styled and intentional, not scrapbook-random.
-
-### Off-Grid Editorial Layout
-Use asymmetry and tension with control.
-Must remain readable and clearly structured.
-
-### Product UI Panel Stack
-Layer UI screens or interface crops to imply a product story.
-Avoid generic fake dashboards.
-
-### Vertical Rhythm Lines
-Use fine lines and spacing systems to reinforce order and elegance.
-Never let them become decorative clutter.
+重要：
+- 节奏变化不能破坏整体整洁
+- 页面自上而下保持视觉平衡
+- section 高度可以有变化，但 section 间距应当受控且大致均匀
+- 避免极小与极大 section 之间没有足够过渡就生硬跳变
+- 整页应给人精心策展、顺滑、一致的感觉
 
 ---
 
-## 12. DENSITY & SPACING DISCIPLINE
-Do not make everything too dense.
+## 11. 组件执行细则
 
-The page should breathe.
-Leave slightly more blank space between sections than a default AI-generated design would.
+### 对角错落方形瀑布流
+使用方形图片或内容块，营造强烈的错落纵向节奏。
+要有策展感和图形感，而不是杂乱。
 
-Rules:
-- use more even vertical spacing between major sections
-- keep section-to-section spacing consistent unless there is a strong design reason not to
-- avoid one section feeling very cramped while the next feels too empty
-- prefer a clean, balanced cadence across the page
-- allow negative space to create rhythm and emphasis
-- separate denser sections with calmer sections
-- avoid stacking too many cards, labels, and content blocks too tightly
-- smaller sections should still receive enough surrounding space so the page feels polished and intentional
+### 3D 层叠卡片组
+卡片像实体卡堆一样层叠，具有纵深逻辑。
+要高级、有触感，不耍花活。
 
-A premium page should feel:
-- open
-- composed
-- balanced
-- confident
-- breathable
+### 悬停手风琴切片布局
+一排被压缩的视觉切片，让人觉得可以展开。
+静态图中要通过比例与强调清晰暗示交互。
 
-Not:
-- cramped
-- noisy
-- uneven
-- overfilled
-- visually exhausted
+### 洁净无缝 bento 网格
+数学般干净的网格。
+不容许意外的缝隙。
+大视觉块与小而密的信息面板相互搭配。
 
-Section rhythm should alternate with control:
-- some sections can be more content-rich
-- some sections can be smaller and calmer
-- but the overall spacing cadence should still feel even, clean, and deliberate
+### 旋转拍立得弧
+聚拢、旋转的图像，构图优雅。
+要有造型感和意图，而不是随手剪贴。
 
-Whitespace is a design tool.
-Use it deliberately.
-Do not let spacing become random.
+### 脱栅格编辑式布局
+有控制地使用不对称与张力。
+必须保持可读、结构清晰。
+
+### 产品 UI 面板堆叠
+层叠 UI 界面或界面裁切，暗示产品故事。
+避免千篇一律的假仪表盘。
+
+### 纵向节奏线
+用细线与间距体系强化秩序与优雅。
+绝不能沦为装饰性杂物。
 
 ---
 
-## 13. COLOR & MATERIAL RULES
+## 12. 密度与间距纪律
+不要处处过密。
 
-### Palette Discipline
-Use one controlled palette across the entire site:
-- 1 primary (brand anchor)
-- 1 secondary (supporting tone)
-- 1 accent (used sparingly for CTA / highlight)
-- a neutral scale (background, surface, text, hairline)
+页面要能呼吸。
+section 之间的空白要比默认 AI 生成的设计略多。
 
-Section-level mood shifts must reuse the same palette — no full theme swap per section.
+规则：
+- 大 section 之间使用更均匀的纵向间距
+- section 间距保持一致，除非有充分的设计理由不改
+- 避免一个 section 拥挤不堪、下一个却空空荡荡
+- 整页追求干净、均衡的节奏
+- 让负空间制造节奏与强调
+- 用更安静的 section 隔开更密的 section
+- 避免卡片、标签和内容块堆得过紧
+- 小 section 周围也要留足空间，让页面显得精致、有意图
 
-### Background-image harmony
-When using full-bleed image backgrounds:
-- the image must tonally match the palette (not fight it)
-- use overlays (dark, light, or color tint) to keep text fully readable
-- the brand accent stays consistent regardless of background image
+高级页面应该是：
+- 开阔
+- 沉稳
+- 平衡
+- 自信
+- 透气
 
-### Gradient Discipline
-Gradients are **allowed and encouraged** when professional and subtle. They are not the same as AI slop gradients.
+而不是：
+- 拥挤
+- 嘈杂
+- 参差
+- 塞满
+- 视觉疲劳
 
-Allowed (use confidently):
-- low-chroma palette-matched tonal gradients (e.g. ink to graphite, cream to sand, ivory to warm grey)
-- single-hue atmospheric grades behind hero photography
-- soft vignettes and radial depth that direct the eye
-- noise-textured gradients adding tactile depth without color noise
-- editorial color washes that match brand mood
+section 节奏要有控制地交替：
+- 一些 section 可以内容更丰富
+- 一些 section 可以更小、更安静
+- 但整体间距节奏仍应均匀、干净、刻意
 
-Banned (AI gradient slop):
-- rainbow / mesh blob gradients
-- purple-to-blue "AI" defaults
-- pink-to-orange "creator" defaults
-- neon edges and glow halos with no purpose
-- gradient text as a shortcut for "premium"
-- gradients that compete with imagery instead of supporting it
-
-### Background Confidence Rule
-Do not retreat to plain white surfaces by default. When the brief, brand mood, or section job calls for atmosphere, use:
-- a full-bleed image,
-- a duotone or graded photo,
-- a tonal gradient,
-- a tactile material,
-or a confident flat color field — picked deliberately, not as decoration.
-
-### Strong guidance
-- avoid rainbow randomness
-- avoid over-neon unless requested
-- keep contrast intentional
-- match accent colors to the chosen theme paradigm
-- gradients must always read as professional and intentional, never as visual noise
-
-### Materiality
-Where appropriate, add:
-- paper feel
-- glass feel
-- brushed metal feel
-- soft blur depth
-- tactile matte surfaces
-- editorial photo treatment
-
-But always keep the frontend structure readable.
+留白是设计工具。
+要有意使用它。
+不要让间距沦为随机。
 
 ---
 
-## 14. IMAGE / MEDIA DIRECTION
-If imagery is present, it must support the layout.
+## 13. 色彩与材质规则
 
-Allowed:
-- art-directed product visuals
-- refined editorial photography
-- UI crops
-- abstract forms with structural purpose
-- framed objects
-- premium texture use
-- campaign-style visuals
+### 配色纪律
+整站使用一套克制的配色：
+- 1 个主色（品牌锚点）
+- 1 个辅色（衬托色调）
+- 1 个强调色（克制地用于 CTA / 高亮）
+- 一组中性色阶（背景、表面、文字、发丝线）
 
-Avoid:
-- irrelevant scenery
-- stock-photo cliches
-- decorative junk
-- visuals that overpower the page hierarchy
+section 级别的氛围变化必须复用同一套配色——不允许每个 section 整套换主题。
+
+### 背景图和谐
+使用满版图片背景时：
+- 图像色调必须贴合配色（不能打架）
+- 用叠层（加深、提亮或色罩）保证文字完全可读
+- 无论背景图怎么换，品牌强调色保持一致
+
+### 渐变纪律
+专业而克制的渐变**不仅允许，而且鼓励**。它们与 AI 垃圾渐变不是一回事。
+
+允许（放心使用）：
+- 低饱和、贴合配色的色调渐变（如墨色到石墨、奶油到沙色、象牙白到暖灰）
+- hero 摄影背后的单色氛围调校
+- 引导视线的柔和暗角与径向纵深
+- 噪点纹理渐变，增加触感纵深而不引入色彩噪点
+- 契合品牌氛围的编辑式色晕
+
+禁止（AI 渐变垃圾）：
+- 彩虹 / 网格团块渐变
+- 紫到蓝的"AI"默认渐变
+- 粉到橙的"创作者"默认渐变
+- 毫无目的的霓虹边缘与光晕
+- 拿渐变文字当"高级感"捷径
+- 与图像抢戏而非衬托图像的渐变
+
+### 背景自信规则
+不要默认退守纯白表面。当 brief、品牌氛围或 section 职责需要气氛时，使用：
+- 满版图片，
+- 双色调或校色照片，
+- 色调渐变，
+- 有触感的材质，
+或一大块自信的平涂色场——出于刻意选择，而非装饰。
+
+### 强约束指引
+- 避免彩虹式随机配色
+- 除非被要求，避免过度霓虹
+- 对比要有意图
+- 强调色与所选主题范式匹配
+- 渐变必须始终显得专业、有意，绝不能像视觉噪音
+
+### 材质感
+在合适之处加入：
+- 纸感
+- 玻璃感
+- 拉丝金属感
+- 柔焦纵深
+- 有触感的哑光表面
+- 编辑式照片处理
+
+但前端结构必须始终可读。
 
 ---
 
-## 15. DEFAULT SITE PACKS
+## 14. 图像 / 媒体指导
+只要有图像，它就必须支撑布局。
 
-### 4-section pack
+允许：
+- 经艺术指导的产品视觉
+- 精致的编辑式摄影
+- UI 裁切
+- 有结构用途的抽象形体
+- 带框物件
+- 高级质感运用
+- 广告大片式视觉
+
+避免：
+- 不相干的风景
+- 图库俗照
+- 装饰垃圾
+- 压过页面层级的视觉元素
+
+---
+
+## 15. 默认站点组合包
+
+### 4-section 组合包
 1. Hero
-2. Features
-3. Social proof / testimonial
+2. 功能特性
+3. 社会证明 / 用户证言
 4. CTA
 
-### 8-section pack
+### 8-section 组合包
 1. Hero
-2. Trust bar
-3. Features
-4. Product showcase
-5. Benefits / use cases
-6. Testimonials
-7. Pricing
+2. 信任条
+3. 功能特性
+4. 产品展示
+5. 价值收益 / 使用场景
+6. 用户证言
+7. 定价
 8. CTA
 
-### 12-section pack
+### 12-section 组合包
 1. Hero
-2. Trust bar
-3. Feature grid
-4. Product preview
-5. Problem / solution
-6. Benefits
-7. Workflow
-8. Metrics / proof / integration
-9. Testimonials
-10. Pricing
+2. 信任条
+3. 功能网格
+4. 产品预览
+5. 问题 / 方案
+6. 价值收益
+7. 工作流
+8. 数据指标 / 证明 / 集成
+9. 用户证言
+10. 定价
 11. FAQ
-12. CTA + footer
+12. CTA + 页脚
 
 ---
 
-## 16. MULTI-IMAGE CONSISTENCY RULE
-Because every section is its own image, consistency is critical. Across all per-section frames enforce:
-- same brand world
-- same type scale logic
-- same spacing discipline
-- same CTA family (style variations are fine, identity is not)
-- same icon or illustration mood
-- same image treatment (grade, framing, material vocabulary)
-- same tonal language in any copy
+## 16. 多图一致性规则
+每个 section 都是一张独立的图，因此一致性至关重要。所有分 section 画面必须强制执行：
+- 同一个品牌世界
+- 同一套字号层级逻辑
+- 同一套间距纪律
+- 同一 CTA 家族（样式可变，身份不变）
+- 同一种图标 / 插画气质
+- 同一套图像处理（调色、取景、材质语汇）
+- 文案使用同一套语气
 
-Variation IS allowed in:
-- composition anchor (per section)
-- background mode (per section)
-- section size and density
-- which "second-read" moment appears
+以下方面**允许**变化：
+- 构图锚点（逐 section）
+- 背景模式（逐 section）
+- section 尺寸与密度
+- 出现哪个"二次解读"瞬间
 
-A viewer flipping through every per-section frame must still recognize one brand. Anything that breaks brand recall is over-variation.
-
----
-
-## 17. CLARITY CHECK
-Before finalizing, verify internally:
-
-1. Is the hierarchy obvious?
-2. Is the hero clean enough?
-3. Is the design visually distinctive?
-4. Is it free of obvious AI tells?
-5. Is it premium rather than template-like?
-6. Can someone code from this?
-7. If multiple images exist, do they clearly belong together?
-8. Is imagery used strongly enough (with variation, not one repeated crop)?
-9. Does the page breathe, or is it too dense?
-10. Is there enough spacing between sections?
-11. Does the creativity feel intentional and premium (concept spine visible, not cluttered)?
-12. Is the spacing between sections even and controlled?
-13. Do smaller sections still have enough surrounding space to feel clean?
-14. Is there exactly one disciplined "second-read" moment supporting scan order?
-15. Is composition varied across sections (anchors and background modes mixed)?
-16. Is the hero scale (giant / mid / mini) chosen and executed cleanly?
-17. Is there a clear conversion path (hook -> proof -> action) even in artistic sites?
-18. Is the palette consistent across all per-section images?
-19. Is each image horizontal and one-section-only?
-20. Is the **total number of images equal to the number of sections** (never fewer)?
-21. Is the hero using a varied composition (not defaulting to left-text / right-image out of habit)?
-
-If not, refine internally before output. If the count is wrong, regenerate the missing sections. If the hero feels like a reflexive left-text / right-image default, prefer a different composition anchor.
+观者翻看每一张分 section 画面时，仍必须认出同一个品牌。任何破坏品牌记忆的变化都属过度变化。
 
 ---
 
-## 18. EXTRA CREATIVITY & IMPLEMENTATION EDGE
+## 17. 清晰度检查
+定稿之前，先在内部逐项核对：
 
-Apply unless the user opts out:
+1. 层级是否一目了然？
+2. hero 是否足够干净？
+3. 设计在视觉上是否有辨识度？
+4. 是否没有明显的 AI 痕迹？
+5. 是否高级而非模板感？
+6. 别人能照着这张图写代码吗？
+7. 若有多张图，它们是否明显同属一体？
+8. 图像用得是否够力（有变化，而非同一裁切反复用）？
+9. 页面是否透气，还是过密？
+10. section 间距是否充足？
+11. 创意是否显得有意且高级（概念主线可见，而非杂乱）？
+12. section 间距是否均匀、受控？
+13. 小 section 周围是否有足够空间以保持干净？
+14. 是否恰好有一个克制的"二次解读"瞬间在支撑扫视顺序？
+15. 各 section 构图是否有变化（锚点与背景模式有混搭）？
+16. hero 尺度（巨型 / 中等 / 微型）是否选定并干净执行？
+17. 即使是艺术向网站，转化路径（钩子 -> 证明 -> 行动）是否清晰？
+18. 配色在所有分 section 图中是否一致？
+19. 每张图是否横向且只含一个 section？
+20. **图片总数是否等于 section 数**（绝不能更少）？
+21. hero 是否用了多样的构图（而不是凭习惯默认左文右图）？
 
-### Cross-section contrast
-Across the slice, deliberately vary foreground/background intensity at least twice (lighter → richer → calmer) so the scroll feels paced, not monotonous slabs.
-
-### CTA specificity
-Prefer one unmistakable primary action per major viewport tier; secondary actions must look secondary (scale, outline, ghost), not clones of primary.
-
-### Image variety inside one comp
-Mix at least **two distinct image crops** where multiple sections exist — e.g. macro product + contextual environment, or portrait editorial + widescreen artifact — avoiding one repeated stock silhouette.
-
-### Data-viz restraint
-Charts, sparklines, and graphs appear only when the site type logically needs them (analytics, pricing, infra, observability brands). Else keep proof human (quotes, receipts, timelines, screenshots of real workflows).
-
-### Cultural / tonal alignment
-When the brief names an industry or region, steer palette and typographic temperament to match — don’t ship default “neutral SF startup” unless the brief is intentionally generic SaaS.
-
-### Mobile-implied fidelity (even for desktop mocks)
-Maintain tap-friendly hit sizes and readable caption sizes visually; stacking order should imply a sane single-column narrative.
-
-### Conversion focus
-Each section has a job. Even when the design is artistic, the page must read as a real product or brand site:
-- the hero communicates value in seconds and offers one obvious next action
-- proof sections (logos, quotes, metrics) feel earned, not stuffed
-- pricing or CTA sections feel decisive, not buried
-- the final section closes: a single strong CTA + supporting trust cue
-Avoid pure mood reels with no funnel logic.
-
-### Composition variety check
-Across all per-section images, internally log the chosen composition anchor and background mode. Reject the set if:
-- the same composition anchor repeats more than 2 sections in a row
-- the same background mode repeats more than 3 sections in a row
-- every section is inline-asset (no full-bleed background ever appears) **AND** the brief does not call for minimalism / typography-only / swiss / ultra simple
-
-For non-minimalist briefs: push for at least one full-bleed (or duotone / atmospheric) background and at least one mini minimalist section in any multi-section site.
-
-For minimalist briefs: this rule is suspended. Restraint is the design.
+若有不合，先在内部打磨再输出。数量不对，就补齐缺失的 section。如果 hero 感觉是条件反射式的左文右图默认款，就换一个构图锚点。
 
 ---
 
-## 19. RESPONSE BEHAVIOR
-When the user asks for a frontend design:
-1. infer site type and primary conversion goal
-2. infer number of sections (if unclear, use the defaults from §5: landing page = 6, full website = 8)
-3. **commit out loud** to the section count and announce it ("Generating N horizontal images, one per section")
-4. plan ONE horizontal image PER SECTION — always separate generations, never collapse
-5. choose Hero Scale for the whole site (giant / mid / mini)
-5. choose a strong visual combination (theme, type, hero arch, section system, motion, narrative spine, second-read moment)
-7. for each section: pick a Composition Anchor, Background Mode, and CTA Variation — vary across sections
-8. choose 4 signature components used appropriately across sections
-9. enforce hero minimalism + section size variety (some giant, some mini)
-10. enforce strong image usage including full-bleed backgrounds where it fits
-11. lock one consistent palette across all images
-12. apply §18 EXTRA CREATIVITY & IMPLEMENTATION EDGE
-13. keep spacing generous, even, and clean
-14. remove AI slop (including marquee / fake KPI clichés unless requested)
-15. run §17 CLARITY CHECK
-16. **generate every per-section horizontal image, labeled "Section X of N: <name>"**, until the full set is delivered. Do not stop early. Do not summarize. Do not return only one image.
+## 18. 额外创意与实现优势
 
-Do not ask unnecessary follow-up questions if a strong interpretation is possible.
+除非用户明确关闭，否则一律应用：
 
----
+### 跨 section 对比
+在整条切片序列上，至少两次刻意调整前景 / 背景强度（更浅 → 更浓 → 更静），让滚动有起伏节奏，而不是单调的等厚板块。
 
-## 20. EXAMPLE INTERPRETATIONS
+### CTA 主次分明
+每个主要视口层级只保留一个不容错认的主操作；次级操作必须看起来居于次位（更小、描边、幽灵样式），而不是主操作的克隆。
 
-### Example 1
-User: "make a hero section for an AI startup"
+### 单张设计稿内的图像多样性
+多 section 时至少混用**两种不同的图像裁切**——例如微距产品 + 场景环境，或竖幅编辑照 + 横幅器物特写——避免反复出现同一张图库剪影。
 
-Interpretation:
-- 1 horizontal image
-- Hero Scale: Mid Editorial or Giant Statement
-- Composition Anchor: bottom-left text over full-bleed product/atmosphere image
-- Background Mode: full-bleed image with dark tonal overlay
-- CTA Variation: outlined inline + small label hint
-- Palette: Deep Dark or Bold Studio Solid, one consistent accent
-- no cliche dashboard spam, no purple AI glow
+### 数据可视化克制
+图表、迷你走势图（sparkline）与图形只在站点类型确实需要时出现（数据分析、定价、基础设施、可观测性品牌）。否则，让证明保持人性化（引述、凭据、时间线、真实工作流截图）。
 
-### Example 2
-User: "design 8 sections for a fintech website"
+### 文化 / 语气对齐
+当 brief 点明行业或地区时，让配色与字体气质随之调整——除非 brief 刻意要做通用 SaaS，否则不要交付默认的"中性旧金山创业公司"味。
 
-Interpretation:
-- 8 separate horizontal images (one per section)
-- Hero Scale: Mid Editorial (trust-driven)
-- vary Composition Anchor across sections (centered low, right-third caption, bottom-left over chart visual, stacked center for closing CTA)
-- Background Mode mix: solid surface, full-bleed image background once, editorial side-image at use cases
-- one consistent palette (e.g. ink + paper + single brand accent)
-- conversion path: hook -> proof bar -> features -> use case -> testimonial -> pricing -> FAQ -> final CTA
+### 移动端暗示保真（桌面稿也不例外）
+视觉上保持适合点按的命中区域大小与可读的说明文字字号；堆叠顺序应暗示合理的单栏叙事。
 
-### Example 3
-User: "creative agency landing page, 12 sections"
+### 转化焦点
+每个 section 都有职责。即使设计偏艺术，页面也必须读起来像一个真实的产品或品牌网站：
+- hero 在几秒内传达价值，并给出一个明显的下一步动作
+- 证明 section（logo 墙、引述、数据）要显得实至名归，而非硬塞
+- 定价与 CTA section 要果断醒目，不被埋没
+- 最后一个 section 负责收尾：一个强 CTA + 一条信任背书
+避免毫无漏斗逻辑的纯氛围片。
 
-Interpretation:
-- 12 horizontal images (one per section)
-- Hero Scale: Giant Statement OR Mini Minimalist (decisive choice, not in-between)
-- editorial / poster-like direction; off-grid composition appears 2-3 times
-- multiple Background Modes (full-bleed image at hero + showcase, editorial side-image at case studies, solid + accent for process)
-- palette consistent throughout, with one bold accent recurring
-- closing CTA section: mini minimalist, strong type, single primary action
+### 构图多样性检查
+对所有分 section 图，在内部记录所选的构图锚点与背景模式。出现以下情况就推翻重来：
+- 同一构图锚点连续出现超过 2 个 section
+- 同一背景模式连续出现超过 3 个 section
+- 每个 section 都是内联素材（从未出现满版背景）**且** brief 并未要求极简 / 纯排版 / swiss / ultra simple
+
+非极简类 brief：多 section 站点中至少推一张满版（或双色调 / 氛围）背景，并至少安排一个微型极简 section。
+
+极简类 brief：本规则暂停生效。克制本身就是设计。
 
 ---
 
-## 21. FINAL GOAL
-Generate frontend reference images that feel:
-- artistic
-- premium
-- clear
-- structured
-- image-led
-- breathable
-- memorable
-- anti-generic
-- implementation-friendly
+## 19. 响应行为
+当用户提出前端设计需求时：
+1. 推断站点类型与首要转化目标
+2. 推断 section 数量（不明确时使用 §5 默认值：landing page = 6，full website = 8）
+3. **明确承诺** section 数量并当场宣告（"Generating N horizontal images, one per section"）
+4. 为每个 section 规划一张横向图——始终分开生成，绝不合并
+5. 为整站选定 hero 尺度（巨型 / 中等 / 微型）
+5. 选定一组强有力的视觉组合（主题范式、字体、hero 架构、section 体系、动效、叙事主线、二次解读瞬间）
+7. 对每个 section：选定构图锚点、背景模式与 CTA 变体——各 section 之间要有变化
+8. 选定 4 个标志性组件，在各 section 间恰当运用
+9. 落实 hero 极简 + section 尺寸多样性（有大有小）
+10. 落实强有力的图像运用，合适处使用满版背景
+11. 锁定一套配色，贯穿所有图片
+12. 应用 §18（额外创意与实现优势）
+13. 保持间距宽裕、均匀、干净
+14. 清除 AI 垃圾套路（包括跑马灯 / 假 KPI 俗套，除非用户要求）
+15. 执行 §17 清晰度检查
+16. **生成每一张分 section 横向图，标注 "Section X of N: <name>"**，直到交齐全部。不要提前停手，不要只给总结，不要只返回一张图。
 
-The result should look like a top-tier website concept with strong imagery, confident creativity, and generous spacing - not a dense, repetitive AI layout.
+只要能作出合理有力的解读，就不要提多余的问题。
+
+---
+
+## 20. 解读示例
+
+### 示例 1
+用户："make a hero section for an AI startup"
+
+解读：
+- 1 张横向图
+- hero 尺度：中等编辑式或巨型宣言式
+- 构图锚点：文字压在满版产品 / 氛围图左下
+- 背景模式：满版图片 + 深色色调叠层
+- CTA 变体：描边行内式 + 小标签提示
+- 配色：深邃暗色或大胆影棚纯色，强调色全程一致
+- 不要俗套的仪表盘堆砌，不要紫色 AI 光晕
+
+### 示例 2
+用户："design 8 sections for a fintech website"
+
+解读：
+- 8 张独立的横向图（每个 section 一张）
+- hero 尺度：中等编辑式（信任驱动）
+- 构图锚点在 section 间轮换（居中偏下、右三分之一说明文字、文字压在图表视觉左下、收尾 CTA 用居中纵排）
+- 背景模式混搭：纯色表面、满版图片背景用一次、使用场景处用编辑式侧图
+- 一套贯穿始终的配色（如墨色 + 纸色 + 单一品牌强调色）
+- 转化路径：钩子 -> 信任条 -> 功能特性 -> 使用场景 -> 证言 -> 定价 -> FAQ -> 收尾 CTA
+
+### 示例 3
+用户："creative agency landing page, 12 sections"
+
+解读：
+- 12 张横向图（每个 section 一张）
+- hero 尺度：巨型宣言式或微型极简（果断二选一，不取中间态）
+- 编辑式 / 海报式方向；脱栅格构图出现 2-3 次
+- 多种背景模式（hero 与展示区用满版图，案例区用编辑式侧图，流程区用纯色 + 强调色）
+- 配色贯穿始终，一个大胆的强调色反复出现
+- 收尾 CTA section：微型极简、字体有力、单一主操作
+
+---
+
+## 21. 最终目标
+生成的前端参考图要让人觉得：
+- 有艺术性
+- 高级
+- 清晰
+- 有结构
+- 以图为主
+- 透气
+- 难忘
+- 反套路
+- 便于实现
+
+最终成果应像一份顶级网站概念稿：图像有力、创意自信、间距宽裕——而不是密密麻麻、重复单调的 AI 版式。

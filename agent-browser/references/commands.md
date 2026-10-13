@@ -1,8 +1,8 @@
-# Command Reference
+# 命令参考
 
-Complete reference for all agent-browser commands. For quick start and common patterns, see SKILL.md.
+agent-browser 全部命令的完整参考。快速上手与常见模式见 SKILL.md。
 
-## Navigation
+## 导航
 
 ```bash
 agent-browser open <url>      # Navigate to URL (aliases: goto, navigate)
@@ -15,7 +15,7 @@ agent-browser close           # Close browser (aliases: quit, exit)
 agent-browser connect 9222    # Connect to browser via CDP port
 ```
 
-## Snapshot (page analysis)
+## Snapshot（页面分析）
 
 ```bash
 agent-browser snapshot            # Full accessibility tree
@@ -25,7 +25,7 @@ agent-browser snapshot -d 3       # Limit depth to 3
 agent-browser snapshot -s "#main" # Scope to CSS selector
 ```
 
-## Interactions (use @refs from snapshot)
+## 交互（使用快照得到的 @ref）
 
 ```bash
 agent-browser click @e1           # Click
@@ -49,7 +49,7 @@ agent-browser drag @e1 @e2        # Drag and drop
 agent-browser upload @e1 file.pdf # Upload files
 ```
 
-## Get Information
+## 获取信息
 
 ```bash
 agent-browser get text @e1        # Get element text
@@ -64,7 +64,7 @@ agent-browser get box @e1         # Get bounding box
 agent-browser get styles @e1      # Get computed styles (font, color, bg, etc.)
 ```
 
-## Check State
+## 检查状态
 
 ```bash
 agent-browser is visible @e1      # Check if visible
@@ -72,7 +72,7 @@ agent-browser is enabled @e1      # Check if enabled
 agent-browser is checked @e1      # Check if checked
 ```
 
-## Screenshots and PDF
+## 截图与 PDF
 
 ```bash
 agent-browser screenshot          # Save to temporary directory
@@ -81,7 +81,7 @@ agent-browser screenshot --full   # Full page
 agent-browser pdf output.pdf      # Save as PDF
 ```
 
-## Video Recording
+## 视频录制
 
 ```bash
 agent-browser record start ./demo.webm    # Start recording
@@ -90,7 +90,7 @@ agent-browser record stop                 # Stop and save video
 agent-browser record restart ./take2.webm # Stop current + start new
 ```
 
-## Wait
+## 等待
 
 ```bash
 agent-browser wait @e1                     # Wait for element
@@ -101,7 +101,7 @@ agent-browser wait --load networkidle      # Wait for network idle (or -l)
 agent-browser wait --fn "window.ready"     # Wait for JS condition (or -f)
 ```
 
-## Mouse Control
+## 鼠标控制
 
 ```bash
 agent-browser mouse move 100 200      # Move mouse
@@ -110,7 +110,7 @@ agent-browser mouse up left           # Release button
 agent-browser mouse wheel 100         # Scroll wheel
 ```
 
-## Semantic Locators (alternative to refs)
+## 语义定位器（ref 的替代方案）
 
 ```bash
 agent-browser find role button click --name "Submit"
@@ -126,7 +126,7 @@ agent-browser find last ".item" click
 agent-browser find nth 2 "a" hover
 ```
 
-## Browser Settings
+## 浏览器设置
 
 ```bash
 agent-browser set viewport 1920 1080          # Set viewport size
@@ -140,7 +140,7 @@ agent-browser set media dark                  # Emulate color scheme
 agent-browser set media light reduced-motion  # Light mode + reduced motion
 ```
 
-## Cookies and Storage
+## Cookies 与存储
 
 ```bash
 agent-browser cookies                     # Get all cookies
@@ -152,7 +152,7 @@ agent-browser storage local set k v       # Set value
 agent-browser storage local clear         # Clear all
 ```
 
-## Network
+## 网络
 
 ```bash
 agent-browser network route <url>              # Intercept requests
@@ -163,7 +163,7 @@ agent-browser network requests                 # View tracked requests
 agent-browser network requests --filter api    # Filter requests
 ```
 
-## Tabs and Windows
+## 标签页与窗口
 
 ```bash
 agent-browser tab                 # List tabs
@@ -174,7 +174,7 @@ agent-browser tab close 2         # Close tab by index
 agent-browser window new          # New window
 ```
 
-## Frames
+## Frame
 
 ```bash
 agent-browser frame "#iframe"     # Switch to iframe by CSS selector
@@ -182,9 +182,9 @@ agent-browser frame @e3           # Switch to iframe by element ref
 agent-browser frame main          # Back to main frame
 ```
 
-### Iframe support
+### iframe 支持
 
-Iframes are detected automatically during snapshots. When the main-frame snapshot runs, `Iframe` nodes are resolved and their content is inlined beneath the iframe element in the output (one level of nesting; iframes within iframes are not expanded).
+快照会自动检测 iframe。主 frame 快照运行时，`Iframe` 节点会被解析，其内容内联到输出中该 iframe 元素的下方（只展开一层嵌套；iframe 中的 iframe 不再展开）。
 
 ```bash
 agent-browser snapshot -i
@@ -202,12 +202,12 @@ agent-browser snapshot -i             # Snapshot scoped to that iframe
 agent-browser frame main              # Return to main frame
 ```
 
-The `frame` command accepts:
-- **Element refs** — `frame @e3` resolves the ref to an iframe element
-- **CSS selectors** — `frame "#payment-iframe"` finds the iframe by selector
-- **Frame name/URL** — matches against the browser's frame tree
+`frame` 命令接受：
+- **元素 ref** —— `frame @e3` 将 ref 解析为 iframe 元素
+- **CSS 选择器** —— `frame "#payment-iframe"` 按选择器查找 iframe
+- **Frame 名称/URL** —— 与浏览器的 frame 树进行匹配
 
-## Dialogs
+## 对话框
 
 ```bash
 agent-browser dialog accept [text]  # Accept dialog
@@ -222,7 +222,7 @@ agent-browser eval -b "<base64>"             # Any JavaScript (base64 encoded)
 agent-browser eval --stdin                   # Read script from stdin
 ```
 
-Use `-b`/`--base64` or `--stdin` for reliable execution. Shell escaping with nested quotes and special characters is error-prone.
+要可靠地执行，请使用 `-b`/`--base64` 或 `--stdin`。嵌套引号加特殊字符的 shell 转义很容易出错。
 
 ```bash
 # Base64 encode your script, then:
@@ -235,14 +235,14 @@ Array.from(links).map(a => a.href);
 EOF
 ```
 
-## State Management
+## 状态管理
 
 ```bash
 agent-browser state save auth.json    # Save cookies, storage, auth state
 agent-browser state load auth.json    # Restore saved state
 ```
 
-## Global Options
+## 全局选项
 
 ```bash
 agent-browser --session <name> ...    # Isolated browser session
@@ -262,7 +262,7 @@ agent-browser --version               # Show version (-V)
 agent-browser <command> --help        # Show detailed help for a command
 ```
 
-## Debugging
+## 调试
 
 ```bash
 agent-browser --headed open example.com   # Show browser window
@@ -280,7 +280,7 @@ agent-browser profiler start              # Start Chrome DevTools profiling
 agent-browser profiler stop trace.json    # Stop and save profile
 ```
 
-## Environment Variables
+## 环境变量
 
 ```bash
 AGENT_BROWSER_SESSION="mysession"            # Default session name

@@ -1,19 +1,19 @@
-# Video Recording
+# 视频录制
 
-Capture browser automation as video for debugging, documentation, or verification.
+把浏览器自动化过程录制为视频，用于调试、文档或验证。
 
-**Related**: [commands.md](commands.md) for full command reference, [SKILL.md](../SKILL.md) for quick start.
+**相关文档**：[commands.md](commands.md)（完整命令参考）、[SKILL.md](../SKILL.md)（快速上手）。
 
-## Contents
+## 目录
 
-- [Basic Recording](#basic-recording)
-- [Recording Commands](#recording-commands)
-- [Use Cases](#use-cases)
-- [Best Practices](#best-practices)
-- [Output Format](#output-format)
-- [Limitations](#limitations)
+- [基础录制](#basic-recording)
+- [录制命令](#recording-commands)
+- [使用场景](#use-cases)
+- [最佳实践](#best-practices)
+- [输出格式](#output-format)
+- [限制](#limitations)
 
-## Basic Recording
+## 基础录制
 
 ```bash
 # Start recording
@@ -29,7 +29,7 @@ agent-browser fill @e2 "test input"
 agent-browser record stop
 ```
 
-## Recording Commands
+## 录制命令
 
 ```bash
 # Start recording to file
@@ -42,9 +42,9 @@ agent-browser record stop
 agent-browser record restart ./take2.webm
 ```
 
-## Use Cases
+## 使用场景
 
-### Debugging Failed Automation
+### 排查失败的自动化
 
 ```bash
 #!/bin/bash
@@ -64,7 +64,7 @@ agent-browser click @e1 || {
 agent-browser record stop
 ```
 
-### Documentation Generation
+### 生成文档
 
 ```bash
 #!/bin/bash
@@ -89,7 +89,7 @@ agent-browser wait 1000  # Show result
 agent-browser record stop
 ```
 
-### CI/CD Test Evidence
+### CI/CD 测试证据
 
 ```bash
 #!/bin/bash
@@ -111,9 +111,9 @@ fi
 agent-browser record stop
 ```
 
-## Best Practices
+## 最佳实践
 
-### 1. Add Pauses for Clarity
+### 1. 适当停顿，便于观看
 
 ```bash
 # Slow down for human viewing
@@ -121,7 +121,7 @@ agent-browser click @e1
 agent-browser wait 500  # Let viewer see result
 ```
 
-### 2. Use Descriptive Filenames
+### 2. 使用描述性文件名
 
 ```bash
 # Include context in filename
@@ -129,7 +129,7 @@ agent-browser record start ./recordings/login-flow-2024-01-15.webm
 agent-browser record start ./recordings/checkout-test-run-42.webm
 ```
 
-### 3. Handle Recording in Error Cases
+### 3. 出错时也要处理好录制
 
 ```bash
 #!/bin/bash
@@ -145,7 +145,7 @@ agent-browser record start ./automation.webm
 # ... automation steps ...
 ```
 
-### 4. Combine with Screenshots
+### 4. 与截图配合使用
 
 ```bash
 # Record video AND capture key frames
@@ -160,14 +160,14 @@ agent-browser screenshot ./screenshots/step2-after-click.png
 agent-browser record stop
 ```
 
-## Output Format
+## 输出格式
 
-- Default format: WebM (VP8/VP9 codec)
-- Compatible with all modern browsers and video players
-- Compressed but high quality
+- 默认格式：WebM（VP8/VP9 编码）
+- 兼容所有现代浏览器和视频播放器
+- 有压缩但画质良好
 
-## Limitations
+## 限制
 
-- Recording adds slight overhead to automation
-- Large recordings can consume significant disk space
-- Some headless environments may have codec limitations
+- 录制会给自动化带来少量开销
+- 大体积录制可能占用大量磁盘空间
+- 部分无头环境可能存在编码器限制

@@ -1,10 +1,10 @@
-# Primitive Tokens
+# 原始令牌（Primitive Tokens）
 
-Raw design values - foundation of the design system.
+未经加工的设计原始值，是整个设计系统的地基。
 
-## Color Scales
+## 色阶
 
-### Gray Scale
+### 灰阶
 
 ```css
 :root {
@@ -22,7 +22,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-### Primary Colors (Blue)
+### 主色（蓝色）
 
 ```css
 :root {
@@ -39,7 +39,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-### Status Colors
+### 状态色
 
 ```css
 :root {
@@ -60,9 +60,9 @@ Raw design values - foundation of the design system.
 }
 ```
 
-## Spacing Scale
+## 间距比例
 
-4px base unit system.
+以 4px 为基础单位的体系。
 
 ```css
 :root {
@@ -90,7 +90,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-## Typography Scale
+## 字阶
 
 ```css
 :root {
@@ -128,7 +128,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-## Border Radius
+## 圆角
 
 ```css
 :root {
@@ -144,7 +144,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-## Shadows
+## 阴影
 
 ```css
 :root {
@@ -163,7 +163,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-## Motion / Duration
+## 动效 / 时长
 
 ```css
 :root {
@@ -183,7 +183,7 @@ Raw design values - foundation of the design system.
 }
 ```
 
-## Z-Index Scale
+## Z-Index 层级
 
 ```css
 :root {

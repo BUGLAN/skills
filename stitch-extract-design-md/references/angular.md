@@ -1,34 +1,26 @@
-# Angular Extraction Patterns
+# Angular 提取模式
 
-Angular projects use a structured, convention-heavy approach to styling.
-Design systems often live in SCSS/CSS files with clear separation between
-global themes and component-scoped styles.
+Angular 项目的样式方式结构化、惯例繁多。设计系统通常栖身于 SCSS/CSS 文件，全局主题与组件级样式分离清晰。
 
-## File Discovery Order
+## 文件查找顺序
 
-1. **`angular.json`** — Lists global style files under
-   `projects.*.architect.build.options.styles`. These are the entry-point
-   CSS/SCSS files.
+1. **`angular.json`** —— 在 `projects.*.architect.build.options.styles` 下列出全局样式文件。这些是入口 CSS/SCSS 文件。
 
-2. **`src/styles.scss` / `src/styles.css`** — Global stylesheet. CSS custom
-   properties, font imports, and base styles live here.
+2. **`src/styles.scss` / `src/styles.css`** —— 全局样式表。CSS 自定义属性、字体引入和基础样式都住在这里。
 
-3. **`src/theme.scss` / `src/theme/`** — Explicit theme directory. Custom
-   Material/component palettes.
+3. **`src/theme.scss` / `src/theme/`** —— 显式的主题目录。自定义 Material/组件调色板。
 
-4. **Tailwind Config (`tailwind.config.js` or Tailwind v4 `@theme {}`)** — For Tailwind v3, read `tailwind.config.js`. For Tailwind v4, inspect `@theme {}` blocks, `@custom-variant`, and `@plugin 'tailwindcss-primeui'` in your global CSS/SCSS (e.g. `src/styles.css` or `src/assets/tailwind.css`) for CSS custom property tokens (`--color-*`, `--font-*`, `--text-*`, `--breakpoint-*`).
+4. **Tailwind 配置（`tailwind.config.js` 或 Tailwind v4 的 `@theme {}`）** —— Tailwind v3 读 `tailwind.config.js`；Tailwind v4 则在全局 CSS/SCSS（如 `src/styles.css` 或 `src/assets/tailwind.css`）中检查 `@theme {}` 块、`@custom-variant` 与 `@plugin 'tailwindcss-primeui'`，找出 CSS 自定义属性令牌（`--color-*`、`--font-*`、`--text-*`、`--breakpoint-*`）。
 
-5. **`src/app/app.component.scss`** — Root component styles, reveals global
-   layout patterns.
+5. **`src/app/app.component.scss`** —— 根组件样式，可看出全局布局模式。
 
-6. **Component `.scss` / `.css` files** — Co-located styles (ViewEncapsulation
-   scoped by default).
+6. **组件 `.scss` / `.css` 文件** —— 与组件同址的样式（默认经 ViewEncapsulation 做作用域隔离）。
 
-7. **External Template `.html` files (`src/app/**/*.component.html`)** — Essential for Angular 17+ standalone components using Tailwind CSS utility classes (`bg-*`, `text-*`, `p-*`, `rounded-*`) or structural class bindings (`[ngClass]`, `[class.*]`). Always inspect `.html` templates when styling uses utility classes.
+7. **外部模板 `.html` 文件（`src/app/**/*.component.html`）** —— 对使用 Tailwind 工具类（`bg-*`、`text-*`、`p-*`、`rounded-*`）或结构性类绑定（`[ngClass]`、`[class.*]`）的 Angular 17+ standalone 组件至关重要。只要样式用到工具类，就务必检查 `.html` 模板。
 
-## Angular Material Theme Extraction
+## Angular Material 主题提取
 
-Angular Material is the most common component library. Themes are SCSS-based:
+Angular Material 是最常用的组件库。其主题基于 SCSS：
 
 ```scss
 // src/theme.scss
@@ -55,17 +47,16 @@ $theme: mat.m2-define-light-theme((
 @include mat.all-component-themes($theme);
 ```
 
-**What to extract:**
-- Palette choices → map to functional color roles
-- Typography config → maps directly to the hierarchy section
-- Light vs dark theme → atmosphere
+**要提取什么：**
+- 调色板选择 → 映射到功能色角色
+- 字体排印配置 → 直接对应层级章节
+- 亮色还是暗色主题 → 归入氛围
 
-For Angular Material 3 (MDC-based), look for `mat.define-theme()` using
-the new token system with `--mat-*` CSS custom properties.
+若为 Angular Material 3（基于 MDC），则寻找使用新令牌体系的 `mat.define-theme()`，它依赖 `--mat-*` CSS 自定义属性。
 
-## SCSS Variable Patterns
+## SCSS 变量模式
 
-Many Angular projects use SCSS variables for tokens:
+许多 Angular 项目用 SCSS 变量承载令牌：
 
 ```scss
 // _variables.scss
@@ -87,36 +78,34 @@ $spacing-section: 5rem;
 $spacing-component: 2rem;
 ```
 
-These are explicit design tokens. Map them directly.
+这些是显式的设计令牌，直接映射即可。
 
-## ViewEncapsulation and Scoped Styles
+## ViewEncapsulation 与样式作用域
 
-Angular scopes styles by default (similar to Vue's `scoped`). When scanning
-component styles:
+Angular 默认对样式做作用域隔离（类似 Vue 的 `scoped`）。扫描组件样式时：
 
-- Look for `:host` selectors — these style the component's root element
-- `::ng-deep` (deprecated but still used) — styles that pierce encapsulation
-- Repeated values across components indicate design system conventions
+- 留意 `:host` 选择器——它作用于组件的根元素
+- `::ng-deep`（已废弃但仍有人用）——穿透封装的样式
+- 跨组件反复出现的取值，即设计系统惯例
 
 ## PrimeNG / Nebular / NG-ZORRO
 
-If component libraries are used:
-- **PrimeNG (v17/v18/v19+)**: Look for modern theme configuration in `src/app.config.ts` (e.g., `providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } })`). Check for Tailwind v4 integration via `@plugin 'tailwindcss-primeui'` in CSS assets. Inspect CSS custom properties defined by PrimeNG tokens (`--primary-color`, `--surface-*`).
-- **Nebular**: `nb-theme()` in `styles.scss` with custom theme object.
-- **NG-ZORRO (Ant Design for Angular)**: `ng-zorro-antd.less` variables
-  or custom theme config in `angular.json`.
+如果使用了组件库：
+- **PrimeNG（v17/v18/v19+）**：在 `src/app.config.ts` 中寻找新版主题配置（如 `providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } })`）。同时检查 CSS 资源里是否通过 `@plugin 'tailwindcss-primeui'` 集成了 Tailwind v4，并检查 PrimeNG 令牌定义的 CSS 自定义属性（`--primary-color`、`--surface-*`）。
+- **Nebular**：`styles.scss` 中的 `nb-theme()`，配自定义主题对象。
+- **NG-ZORRO（Angular 版 Ant Design）**：`ng-zorro-antd.less` 变量，或 `angular.json` 中的自定义主题配置。
 
-## Modern Angular (v17 - v19) Standalone Components & Control Flow
+## 现代 Angular（v17 - v19）的 Standalone 组件与控制流
 
-In modern Angular repositories:
-- **Standalone Components (`@Component({ standalone: true })`)**: Components import their own dependencies directly without NgModules. Inspect `templateUrl` and `styleUrl(s)` in component metadata to locate the template and style files.
-- **Control Flow (`@if`, `@for`, `@switch`)**: Notice how conditional layouts and lists are structured in `.html` templates when analyzing component density and spacing rules.
-- **Signals & Zoneless (`signal()`, `input()`, `computed()`, `provideZonelessChangeDetection()`)**: Dynamic styling or theme toggling is often driven by signals bound to `[class.dark]` or custom CSS classes in templates. Notice `app.config.ts` for app-wide providers.
+在现代 Angular 仓库中：
+- **Standalone 组件（`@Component({ standalone: true })`）**：组件不再经由 NgModule，而是直接自行导入依赖。查看组件元数据里的 `templateUrl` 与 `styleUrl(s)`，定位模板与样式文件。
+- **控制流（`@if`、`@for`、`@switch`）**：分析组件密度与间距规则时，注意 `.html` 模板中条件布局和列表的组织方式。
+- **Signals 与 Zoneless（`signal()`、`input()`、`computed()`、`provideZonelessChangeDetection()`）**：动态样式或主题切换常由绑定到 `[class.dark]` 或模板中自定义 CSS 类的 signal 驱动。留意 `app.config.ts` 里的全局 Provider。
 
-## Responsive Patterns
+## 响应式模式
 
-Check for:
-- `@media` queries in `styles.scss` and component styles
-- Angular CDK `BreakpointObserver` usage in components
-- Tailwind responsive prefixes if Tailwind is configured
-- Angular Flex-Layout directives (`fxLayout`, `fxFlex`) in templates
+检查：
+- `styles.scss` 与组件样式中的 `@media` 查询
+- 组件里对 Angular CDK `BreakpointObserver` 的使用
+- 若配置了 Tailwind，还有其响应式前缀
+- 模板中的 Angular Flex-Layout 指令（`fxLayout`、`fxFlex`）

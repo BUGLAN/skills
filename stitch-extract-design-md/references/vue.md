@@ -1,28 +1,22 @@
-# Vue / Nuxt Extraction Patterns
+# Vue / Nuxt 提取模式
 
-Vue projects have a distinctive styling architecture. Styles are often
-co-located with components inside `<style>` blocks, and Nuxt adds
-convention-based directories.
+Vue 项目的样式架构别具一格：样式常与组件同置于 `<style>` 块内，Nuxt 又叠加了一层约定式目录。
 
-## File Discovery Order
+## 文件查找顺序
 
-1. **`nuxt.config.ts` / `nuxt.config.js`** — May contain global CSS paths,
-   font configuration, and Tailwind/UnoCSS module config.
+1. **`nuxt.config.ts` / `nuxt.config.js`** —— 可能包含全局 CSS 路径、字体配置和 Tailwind/UnoCSS 模块配置。
 
-2. **`assets/css/main.css`** (or similar) — Global styles, CSS custom
-   properties, and font imports.
+2. **`assets/css/main.css`**（或类似文件）—— 全局样式、CSS 自定义属性与字体引入。
 
-3. **`tailwind.config.js`** (if Tailwind is used) — Same as React; extract
-   custom theme values directly.
+3. **`tailwind.config.js`**（用了 Tailwind 时）—— 同 React；直接提取自定义主题值。
 
-4. **`plugins/vuetify.ts`** (if Vuetify) — Theme definition with custom
-   palette and typography.
+4. **`plugins/vuetify.ts`**（用了 Vuetify 时）—— 主题定义，含自定义调色板与字体排印。
 
-5. **Component `<style>` blocks** — Co-located styles (scoped or global).
+5. **组件 `<style>` 块** —— 与组件同址的样式（scoped 或全局）。
 
-## Single-File Component (SFC) Patterns
+## 单文件组件（SFC）模式
 
-Vue components bundle template, script, and style together:
+Vue 组件把模板、脚本与样式打包在一起：
 
 ```vue
 <template>
@@ -47,14 +41,14 @@ Vue components bundle template, script, and style together:
 </style>
 ```
 
-**Key extraction points:**
-- `var(--*)` references → trace back to global CSS for the actual values
-- `scoped` styles → component-specific, but reveal consistent patterns
-- BEM naming (`.card__title`) → hints at component hierarchy
+**关键提取点：**
+- `var(--*)` 引用 → 回溯到全局 CSS 找实际取值
+- `scoped` 样式 → 组件私有，但能看出一致的模式
+- BEM 命名（`.card__title`）→ 暗示组件层级
 
-## Vuetify Theme Extraction
+## Vuetify 主题提取
 
-Vuetify projects define their design system explicitly:
+Vuetify 项目显式定义设计系统：
 
 ```ts
 // plugins/vuetify.ts
@@ -77,31 +71,25 @@ export default createVuetify({
 })
 ```
 
-This is the design system declaration. Map each key to a functional role
-and descriptive name.
+这就是设计系统的声明。把每个键映射到功能角色和描述性名称。
 
 ## Quasar / PrimeVue / Element Plus
 
-These component libraries use their own theming systems:
+这些组件库各有自己的主题体系：
 
-- **Quasar**: `quasar.config.js` → `framework.config.brand` for colors
-- **PrimeVue**: CSS themes in `assets/` or theme preset configuration
-- **Element Plus**: SCSS variables in `element-variables.scss`
+- **Quasar**：`quasar.config.js` → `framework.config.brand` 存放颜色
+- **PrimeVue**：`assets/` 下的 CSS 主题，或主题预设配置
+- **Element Plus**：`element-variables.scss` 中的 SCSS 变量
 
-Look for the override file — that's where the project's unique values live.
+找到覆写文件——项目独有的取值就在那里。
 
-## CSS Scoping Behavior
+## CSS 作用域行为
 
-Vue's `scoped` attribute adds data attributes for CSS isolation. When
-scanning for patterns, look at multiple components to find repeated values
-(same `border-radius`, similar `padding`, consistent color references).
-Repeated patterns across scoped styles = design system conventions.
+Vue 的 `scoped` 属性通过 data 属性实现 CSS 隔离。扫描模式时要看多个组件，找出反复出现的取值（相同的 `border-radius`、相近的 `padding`、一致的颜色引用）。跨 scoped 样式反复出现的模式，就是设计系统惯例。
 
-## Nuxt-Specific Patterns
+## Nuxt 特有模式
 
-- **`app.vue`** or **`layouts/default.vue`** — Root layout, reveals
-  global background, font loading, and overall structure.
-- **`assets/`** — Global CSS, fonts, and images.
-- **`composables/`** — May contain `useTheme` or `useDesignTokens`.
-- **`nuxt.config.ts`** `css` array — Lists global stylesheets automatically
-  injected into every page.
+- **`app.vue`** 或 **`layouts/default.vue`** —— 根布局，可见全局背景、字体加载与整体结构。
+- **`assets/`** —— 全局 CSS、字体与图片。
+- **`composables/`** —— 可能有 `useTheme` 或 `useDesignTokens`。
+- **`nuxt.config.ts`** 的 `css` 数组 —— 列出会自动注入每个页面的全局样式表。

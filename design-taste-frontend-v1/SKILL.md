@@ -1,226 +1,226 @@
 ---
 name: design-taste-frontend-v1
-description: The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
+description: v1 原版品味技能，为依赖其确切行为的项目保留。当前默认技能是 `design-taste-frontend`（v2 实验版），已大幅重写。仅在你需要完全向后兼容时，才使用这个 v1 安装名。
 ---
 
-# High-Agency Frontend Skill
+# 高自主性前端技能
 
-## 1. ACTIVE BASELINE CONFIGURATION
-* DESIGN_VARIANCE: 8 (1=Perfect Symmetry, 10=Artsy Chaos)
-* MOTION_INTENSITY: 6 (1=Static/No movement, 10=Cinematic/Magic Physics)
-* VISUAL_DENSITY: 4 (1=Art Gallery/Airy, 10=Pilot Cockpit/Packed Data)
+## 1. 生效中的基线配置
+* DESIGN_VARIANCE: 8（1=完全对称，10=艺术化混沌）
+* MOTION_INTENSITY: 6（1=静态/无动效，10=电影级/魔法物理）
+* VISUAL_DENSITY: 4（1=美术馆/疏朗，10=驾驶舱/数据密排）
 
-**AI Instruction:** The standard baseline for all generations is strictly set to these values (8, 6, 4). Do not ask the user to edit this file. Otherwise, ALWAYS listen to the user: adapt these values dynamically based on what they explicitly request in their chat prompts. Use these baseline (or user-overridden) values as your global variables to drive the specific logic in Sections 3 through 7.
+**AI 指令：** 所有生成任务的默认基线严格固定为上述数值（8、6、4）。不要请求用户编辑本文件。除此之外，永远听从用户：按其在对话提示中明确提出的要求动态调整这些数值。请将这套基线值（或用户覆盖后的值）视为你的全局变量，用以驱动第 3 至第 7 节中的具体逻辑。
 
-## 2. DEFAULT ARCHITECTURE & CONVENTIONS
-Unless the user explicitly specifies a different stack, adhere to these structural constraints to maintain consistency:
+## 2. 默认架构与约定
+除非用户明确指定其他技术栈（stack），否则请遵守以下结构性约束以保持一致性：
 
-* **DEPENDENCY VERIFICATION [MANDATORY]:** Before importing ANY 3rd party library (e.g. `framer-motion`, `lucide-react`, `zustand`), you MUST check `package.json`. If the package is missing, you MUST output the installation command (e.g. `npm install package-name`) before providing the code. **Never** assume a library exists.
-* **Framework & Interactivity:** React or Next.js. Default to Server Components (`RSC`). 
-    * **RSC SAFETY:** Global state works ONLY in Client Components. In Next.js, wrap providers in a `"use client"` component.
-    * **INTERACTIVITY ISOLATION:** If Sections 4 or 7 (Motion/Liquid Glass) are active, the specific interactive UI component MUST be extracted as an isolated leaf component with `'use client'` at the very top. Server Components must exclusively render static layouts.
-* **State Management:** Use local `useState`/`useReducer` for isolated UI. Use global state strictly for deep prop-drilling avoidance.
-* **Styling Policy:** Use Tailwind CSS (v3/v4) for 90% of styling. 
-    * **TAILWIND VERSION LOCK:** Check `package.json` first. Do not use v4 syntax in v3 projects. 
-    * **T4 CONFIG GUARD:** For v4, do NOT use `tailwindcss` plugin in `postcss.config.js`. Use `@tailwindcss/postcss` or the Vite plugin.
-* **ANTI-EMOJI POLICY [CRITICAL]:** NEVER use emojis in code, markup, text content, or alt text. Replace symbols with high-quality icons (Radix, Phosphor) or clean SVG primitives. Emojis are BANNED.
-* **Responsiveness & Spacing:**
-  * Standardize breakpoints (`sm`, `md`, `lg`, `xl`).
-  * Contain page layouts using `max-w-[1400px] mx-auto` or `max-w-7xl`.
-  * **Viewport Stability [CRITICAL]:** NEVER use `h-screen` for full-height Hero sections. ALWAYS use `min-h-[100dvh]` to prevent catastrophic layout jumping on mobile browsers (iOS Safari).
-  * **Grid over Flex-Math:** NEVER use complex flexbox percentage math (`w-[calc(33%-1rem)]`). ALWAYS use CSS Grid (`grid grid-cols-1 md:grid-cols-3 gap-6`) for reliable structures.
-* **Icons:** You MUST use exactly `@phosphor-icons/react` or `@radix-ui/react-icons` as the import paths (check installed version). Standardize `strokeWidth` globally (e.g., exclusively use `1.5` or `2.0`).
+* **依赖核验【强制】：** 导入任何第三方库（如 `framer-motion`、`lucide-react`、`zustand`）之前，必须先检查 `package.json`。若包缺失，必须先给出安装命令（如 `npm install package-name`）再提供代码。**绝不**想当然地假设某个库已存在。
+* **框架与交互：** React 或 Next.js。默认使用 Server Components（`RSC`）。
+    * **RSC 安全性：** 全局状态只在 Client Components 中生效。在 Next.js 中，请将 provider 包裹在 `"use client"` 组件里。
+    * **交互隔离：** 若第 4 节或第 7 节（动效/液态玻璃）处于激活状态，相关交互式 UI 组件必须抽取为独立的叶子组件，并在文件最顶部声明 `'use client'`。Server Components 只负责渲染静态布局。
+* **状态管理：** 独立 UI 使用局部 `useState`/`useReducer`。全局状态仅用于避免深层 prop 逐层透传这一目的。
+* **样式策略：** 90% 的样式用 Tailwind CSS（v3/v4）完成。
+    * **TAILWIND 版本锁定：** 先检查 `package.json`。不要在 v3 项目中使用 v4 语法。
+    * **T4 配置守则：** v4 项目不要在 `postcss.config.js` 中使用 `tailwindcss` 插件，应改用 `@tailwindcss/postcss` 或 Vite 插件。
+* **禁用 Emoji 政策【关键】：** 代码、标记、文本内容、alt 文本中一律不得使用 emoji。符号一律替换为高质量图标（Radix、Phosphor）或干净的 SVG 基本图形。Emoji 全面禁止。
+* **响应式与间距：**
+  * 统一断点（`sm`、`md`、`lg`、`xl`）。
+  * 用 `max-w-[1400px] mx-auto` 或 `max-w-7xl` 收束页面布局宽度。
+  * **视口稳定性【关键】：** 全高 Hero 区块绝不使用 `h-screen`。务必使用 `min-h-[100dvh]`，防止移动端浏览器（iOS Safari）出现灾难性的布局跳动。
+  * **用 Grid，不用 Flex 算术：** 绝不使用复杂的 flexbox 百分比运算（`w-[calc(33%-1rem)]`）。可靠的结构一律使用 CSS Grid（`grid grid-cols-1 md:grid-cols-3 gap-6`）。
+* **图标：** 导入路径必须严格使用 `@phosphor-icons/react` 或 `@radix-ui/react-icons`（先核对已安装版本）。全局统一 `strokeWidth`（例如只用 `1.5` 或 `2.0` 其中之一）。
 
 
-## 3. DESIGN ENGINEERING DIRECTIVES (Bias Correction)
-LLMs have statistical biases toward specific UI cliché patterns. Proactively construct premium interfaces using these engineered rules:
+## 3. 设计工程指令（偏差纠正）
+大语言模型对特定 UI 俗套模式存在统计性偏好。请主动运用以下经工程化设计的规则，构建高级感界面：
 
-**Rule 1: Deterministic Typography**
-* **Display/Headlines:** Default to `text-4xl md:text-6xl tracking-tighter leading-none`.
-    * **ANTI-SLOP:** Discourage `Inter` for "Premium" or "Creative" vibes. Force unique character using `Geist`, `Outfit`, `Cabinet Grotesk`, or `Satoshi`.
-    * **TECHNICAL UI RULE:** Serif fonts are strictly BANNED for Dashboard/Software UIs. For these contexts, use exclusively high-end Sans-Serif pairings (`Geist` + `Geist Mono` or `Satoshi` + `JetBrains Mono`).
-* **Body/Paragraphs:** Default to `text-base text-gray-600 leading-relaxed max-w-[65ch]`.
+**规则 1：确定性排版**
+* **展示型/标题字体：** 默认使用 `text-4xl md:text-6xl tracking-tighter leading-none`。
+    * **反套路：** 想要“高级”或“创意”气质时，避免使用 `Inter`。必须用 `Geist`、`Outfit`、`Cabinet Grotesk` 或 `Satoshi` 塑造独特个性。
+    * **技术型 UI 规则：** 仪表盘/软件类 UI 严格禁用衬线字体。此类场景只允许高端无衬线搭配（`Geist` + `Geist Mono` 或 `Satoshi` + `JetBrains Mono`）。
+* **正文/段落：** 默认使用 `text-base text-gray-600 leading-relaxed max-w-[65ch]`。
 
-**Rule 2: Color Calibration**
-* **Constraint:** Max 1 Accent Color. Saturation < 80%.
-* **THE LILA BAN:** The "AI Purple/Blue" aesthetic is strictly BANNED. No purple button glows, no neon gradients. Use absolute neutral bases (Zinc/Slate) with high-contrast, singular accents (e.g. Emerald, Electric Blue, or Deep Rose).
-* **COLOR CONSISTENCY:** Stick to one palette for the entire output. Do not fluctuate between warm and cool grays within the same project.
+**规则 2：色彩校准**
+* **约束：** 强调色最多 1 个，饱和度 < 80%。
+* **紫色禁令：** “AI 紫蓝”审美严格禁止。不要紫色按钮光晕，不要霓虹渐变。以绝对中性的底色（Zinc/Slate）搭配高对比的单一强调色（如 Emerald、Electric Blue 或 Deep Rose）。
+* **色彩一致性：** 整个产出沿用同一套调色板。同一项目内不得在暖灰与冷灰之间摇摆。
 
-**Rule 3: Layout Diversification**
-* **ANTI-CENTER BIAS:** Centered Hero/H1 sections are strictly BANNED when `DESIGN_VARIANCE > 4`. Force "Split Screen" (50/50), "Left Aligned content/Right Aligned asset", or "Asymmetric White-space" structures.
+**规则 3：布局多样化**
+* **反居中偏置：** 当 `DESIGN_VARIANCE > 4` 时，严格禁止居中式 Hero/H1 区块。必须采用“分屏”（50/50）、“内容左对齐/素材右对齐”或“非对称留白”结构。
 
-**Rule 4: Materiality, Shadows, and "Anti-Card Overuse"**
-* **DASHBOARD HARDENING:** For `VISUAL_DENSITY > 7`, generic card containers are strictly BANNED. Use logic-grouping via `border-t`, `divide-y`, or purely negative space. Data metrics should breathe without being boxed in unless elevation (z-index) is functionally required.
-* **Execution:** Use cards ONLY when elevation communicates hierarchy. When a shadow is used, tint it to the background hue.
+**规则 4：材质、阴影与“反卡片滥用”**
+* **仪表盘强化：** 当 `VISUAL_DENSITY > 7` 时，严格禁止通用卡片容器。用 `border-t`、`divide-y` 或纯留白做逻辑分组。数据指标应当有呼吸感，不被框死，除非层级抬升（z-index）在功能上确有必要。
+* **执行标准：** 只有当层级抬升能传达层次关系时才用卡片。使用阴影时，让阴影色调贴近背景色。
 
-**Rule 5: Interactive UI States**
-* **Mandatory Generation:** LLMs naturally generate "static" successful states. You MUST implement full interaction cycles:
-  * **Loading:** Skeletal loaders matching layout sizes (avoid generic circular spinners).
-  * **Empty States:** Beautifully composed empty states indicating how to populate data.
-  * **Error States:** Clear, inline error reporting (e.g., forms).
-  * **Tactile Feedback:** On `:active`, use `-translate-y-[1px]` or `scale-[0.98]` to simulate a physical push indicating success/action.
+**规则 5：交互式 UI 状态**
+* **强制生成：** 大语言模型天然只生成“静态成功态”。你必须实现完整的交互闭环：
+  * **加载态：** 与布局尺寸匹配的骨架屏加载器（避免千篇一律的圆形 spinner）。
+  * **空状态：** 构图讲究的空状态设计，指引用户如何填充数据。
+  * **错误态：** 清晰的内联错误提示（例如表单）。
+  * **触觉反馈：** `:active` 时使用 `-translate-y-[1px]` 或 `scale-[0.98]`，模拟物理按压，传达操作已生效。
 
-**Rule 6: Data & Form Patterns**
-* **Forms:** Label MUST sit above input. Helper text is optional but should exist in markup. Error text below input. Use a standard `gap-2` for input blocks.
+**规则 6：数据与表单模式**
+* **表单：** 标签必须位于输入框上方。辅助文字可选，但标记结构中应预留其位置。错误文字位于输入框下方。输入块统一使用标准 `gap-2`。
 
-## 4. CREATIVE PROACTIVITY (Anti-Slop Implementation)
-To actively combat generic AI designs, systematically implement these high-end coding concepts as your baseline:
-* **"Liquid Glass" Refraction:** When glassmorphism is needed, go beyond `backdrop-blur`. Add a 1px inner border (`border-white/10`) and a subtle inner shadow (`shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]`) to simulate physical edge refraction.
-* **Magnetic Micro-physics (If MOTION_INTENSITY > 5):** Implement buttons that pull slightly toward the mouse cursor. **CRITICAL:** NEVER use React `useState` for magnetic hover or continuous animations. Use EXCLUSIVELY Framer Motion's `useMotionValue` and `useTransform` outside the React render cycle to prevent performance collapse on mobile.
-* **Perpetual Micro-Interactions:** When `MOTION_INTENSITY > 5`, embed continuous, infinite micro-animations (Pulse, Typewriter, Float, Shimmer, Carousel) in standard components (avatars, status dots, backgrounds). Apply premium Spring Physics (`type: "spring", stiffness: 100, damping: 20`) to all interactive elements—no linear easing.
-* **Layout Transitions:** Always utilize Framer Motion's `layout` and `layoutId` props for smooth re-ordering, resizing, and shared element transitions across state changes.
-* **Staggered Orchestration:** Do not mount lists or grids instantly. Use `staggerChildren` (Framer) or CSS cascade (`animation-delay: calc(var(--index) * 100ms)`) to create sequential waterfall reveals. **CRITICAL:** For `staggerChildren`, the Parent (`variants`) and Children MUST reside in the identical Client Component tree. If data is fetched asynchronously, pass the data as props into a centralized Parent Motion wrapper.
+## 4. 创意主动性（反套路落地）
+为了主动对抗平庸的 AI 风设计，请将以下高端编码手法系统性地纳入基线做法：
+* **“液态玻璃”折射：** 需要玻璃拟态（glassmorphism）时，不能止步于 `backdrop-blur`。再叠加 1px 内边框（`border-white/10`）与一层细微内阴影（`shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]`），以模拟真实的边缘折射。
+* **磁性微物理（当 MOTION_INTENSITY > 5 时）：** 实现向鼠标指针轻微吸附的按钮。**关键：** 磁性悬停或连续动画绝不可使用 React `useState`。只允许在 React 渲染循环之外使用 Framer Motion 的 `useMotionValue` 与 `useTransform`，以免移动端性能崩溃。
+* **永续微交互：** 当 `MOTION_INTENSITY > 5` 时，在常规组件（头像、状态点、背景）中嵌入持续循环的微动画（Pulse、Typewriter、Float、Shimmer、Carousel）。所有交互元素一律采用高级弹簧物理（`type: "spring", stiffness: 100, damping: 20`），不用线性缓动。
+* **布局过渡：** 始终利用 Framer Motion 的 `layout` 与 `layoutId` 属性，实现状态切换时的流畅重排、缩放与共享元素过渡。
+* **错峰编排：** 列表与网格不要一次性挂载。使用 `staggerChildren`（Framer）或 CSS 级联（`animation-delay: calc(var(--index) * 100ms)`）制造顺序化的瀑布式浮现。**关键：** 使用 `staggerChildren` 时，父组件（`variants`）与子组件必须位于同一棵 Client Component 树内。若数据为异步获取，请将数据以 props 形式传入集中的父级 Motion 包裹组件。
 
-## 5. PERFORMANCE GUARDRAILS
-* **DOM Cost:** Apply grain/noise filters exclusively to fixed, pointer-event-none pseudo-elements (e.g., `fixed inset-0 z-50 pointer-events-none`) and NEVER to scrolling containers to prevent continuous GPU repaints and mobile performance degradation.
-* **Hardware Acceleration:** Never animate `top`, `left`, `width`, or `height`. Animate exclusively via `transform` and `opacity`.
-* **Z-Index Restraint:** NEVER spam arbitrary `z-50` or `z-10` unprompted. Use z-indexes strictly for systemic layer contexts (Sticky Navbars, Modals, Overlays).
+## 5. 性能护栏
+* **DOM 开销：** 颗粒/噪点滤镜只能应用于固定定位且 pointer-events-none 的伪元素（如 `fixed inset-0 z-50 pointer-events-none`），绝不应用于滚动容器，以免持续的 GPU 重绘拖垮移动端性能。
+* **硬件加速：** 绝不动画化 `top`、`left`、`width`、`height`。动画只通过 `transform` 和 `opacity` 实现。
+* **Z-Index 克制：** 绝不未经必要就随手堆砌 `z-50` 或 `z-10`。z-index 只用于系统性分层场景（粘性导航栏、模态框、遮罩层）。
 
-## 6. TECHNICAL REFERENCE (Dial Definitions)
+## 6. 技术参考（档位定义）
 
-### DESIGN_VARIANCE (Level 1-10)
-* **1-3 (Predictable):** Flexbox `justify-center`, strict 12-column symmetrical grids, equal paddings.
-* **4-7 (Offset):** Use `margin-top: -2rem` overlapping, varied image aspect ratios (e.g., 4:3 next to 16:9), left-aligned headers over center-aligned data.
-* **8-10 (Asymmetric):** Masonry layouts, CSS Grid with fractional units (e.g., `grid-template-columns: 2fr 1fr 1fr`), massive empty zones (`padding-left: 20vw`). 
-* **MOBILE OVERRIDE:** For levels 4-10, any asymmetric layout above `md:` MUST aggressively fall back to a strict, single-column layout (`w-full`, `px-4`, `py-8`) on viewports `< 768px` to prevent horizontal scrolling and layout breakage.
+### DESIGN_VARIANCE（1-10 级）
+* **1-3（可预期）：** Flexbox `justify-center`、严格的 12 列对称网格、等距内边距。
+* **4-7（错位）：** 使用 `margin-top: -2rem` 制造重叠，图片宽高比富于变化（如 4:3 与 16:9 并置），标题左对齐、数据居中对齐。
+* **8-10（非对称）：** 瀑布流布局、使用分数单位的 CSS Grid（如 `grid-template-columns: 2fr 1fr 1fr`）、大面积留白区（`padding-left: 20vw`）。
+* **移动端覆盖：** 4-10 级的所有非对称布局，凡在 `md:` 及以上断点生效者，到了小于 768px 的视口必须果断回退为严格单列布局（`w-full`、`px-4`、`py-8`），防止横向滚动与布局破碎。
 
-### MOTION_INTENSITY (Level 1-10)
-* **1-3 (Static):** No automatic animations. CSS `:hover` and `:active` states only.
-* **4-7 (Fluid CSS):** Use `transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1)`. Use `animation-delay` cascades for load-ins. Focus strictly on `transform` and `opacity`. Use `will-change: transform` sparingly.
-* **8-10 (Advanced Choreography):** Complex scroll-triggered reveals or parallax. Use Framer Motion hooks. NEVER use `window.addEventListener('scroll')`.
+### MOTION_INTENSITY（1-10 级）
+* **1-3（静态）：** 无自动动画，仅用 CSS `:hover` 与 `:active` 状态。
+* **4-7（流畅 CSS）：** 使用 `transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1)`。入场动画用 `animation-delay` 级联。严格聚焦 `transform` 与 `opacity`。`will-change: transform` 须节制使用。
+* **8-10（高级编排）：** 复杂的滚动触发浮现或视差。使用 Framer Motion hooks。绝不使用 `window.addEventListener('scroll')`。
 
-### VISUAL_DENSITY (Level 1-10)
-* **1-3 (Art Gallery Mode):** Lots of white space. Huge section gaps. Everything feels very expensive and clean.
-* **4-7 (Daily App Mode):** Normal spacing for standard web apps.
-* **8-10 (Cockpit Mode):** Tiny paddings. No card boxes; just 1px lines to separate data. Everything is packed. **Mandatory:** Use Monospace (`font-mono`) for all numbers.
+### VISUAL_DENSITY（1-10 级）
+* **1-3（美术馆模式）：** 大量留白，区块间距巨大，一切显得干净而昂贵。
+* **4-7（日常应用模式）：** 标准 Web 应用的常规间距。
+* **8-10（驾驶舱模式）：** 极小内边距。不用卡片盒子，仅以 1px 线条分隔数据。信息高度密排。**强制：** 所有数字一律使用等宽字体（`font-mono`）。
 
-## 7. AI TELLS (Forbidden Patterns)
-To guarantee a premium, non-generic output, you MUST strictly avoid these common AI design signatures unless explicitly requested:
+## 7. AI 破绽（禁止模式）
+为确保产出高级、不落俗套，除非用户明确要求，你必须严格规避以下常见的 AI 设计标志性特征：
 
-### Visual & CSS
-* **NO Neon/Outer Glows:** Do not use default `box-shadow` glows or auto-glows. Use inner borders or subtle tinted shadows.
-* **NO Pure Black:** Never use `#000000`. Use Off-Black, Zinc-950, or Charcoal.
-* **NO Oversaturated Accents:** Desaturate accents to blend elegantly with neutrals.
-* **NO Excessive Gradient Text:** Do not use text-fill gradients for large headers.
-* **NO Custom Mouse Cursors:** They are outdated and ruin performance/accessibility.
+### 视觉与 CSS
+* **禁用霓虹/外发光：** 不要使用默认 `box-shadow` 光晕或自动发光。改用内边框或细微的染色阴影。
+* **禁用纯黑：** 绝不使用 `#000000`。改用近黑（Off-Black）、Zinc-950 或炭黑。
+* **禁用过饱和强调色：** 降低强调色饱和度，使其与中性色优雅融合。
+* **禁用过度的渐变文字：** 大标题不要使用 text-fill 渐变。
+* **禁用自定义鼠标指针：** 既过时，又拖累性能与可访问性。
 
-### Typography
-* **NO Inter Font:** Banned. Use `Geist`, `Outfit`, `Cabinet Grotesk`, or `Satoshi`.
-* **NO Oversized H1s:** The first heading should not scream. Control hierarchy with weight and color, not just massive scale.
-* **Serif Constraints:** Use Serif fonts ONLY for creative/editorial designs. **NEVER** use Serif on clean Dashboards.
+### 排版
+* **禁用 Inter 字体：** 封禁。改用 `Geist`、`Outfit`、`Cabinet Grotesk` 或 `Satoshi`。
+* **禁用超大 H1：** 首个标题不应嘶吼。用字重与颜色控制层级，而非一味放大字号。
+* **衬线字体约束：** 衬线字体只用于创意/编辑类设计。干净的仪表盘**绝不**使用衬线字体。
 
-### Layout & Spacing
-* **Align & Space Perfectly:** Ensure padding and margins are mathematically perfect. Avoid floating elements with awkward gaps.
-* **NO 3-Column Card Layouts:** The generic "3 equal cards horizontally" feature row is BANNED. Use a 2-column Zig-Zag, asymmetric grid, or horizontal scrolling approach instead.
+### 布局与间距
+* **对齐与间距务必精准：** 内边距与外边距要在数学上严丝合缝。避免元素悬浮、间距尴尬。
+* **禁用三列卡片布局：** “三张等宽卡片横排”这种通用特性行已被封禁。改用两列之字形（Zig-Zag）、非对称网格或横向滚动方案。
 
-### Content & Data (The "Jane Doe" Effect)
-* **NO Generic Names:** "John Doe", "Sarah Chan", or "Jack Su" are banned. Use highly creative, realistic-sounding names.
-* **NO Generic Avatars:** DO NOT use standard SVG "egg" or Lucide user icons for avatars. Use creative, believable photo placeholders or specific styling.
-* **NO Fake Numbers:** Avoid predictable outputs like `99.99%`, `50%`, or basic phone numbers (`1234567`). Use organic, messy data (`47.2%`, `+1 (312) 847-1928`).
-* **NO Startup Slop Names:** "Acme", "Nexus", "SmartFlow". Invent premium, contextual brand names.
-* **NO Filler Words:** Avoid AI copywriting clichés like "Elevate", "Seamless", "Unleash", or "Next-Gen". Use concrete verbs.
+### 内容与数据（"Jane Doe" 效应）
+* **禁用套版人名：** "John Doe"、"Sarah Chan"、"Jack Su" 一律封禁。请使用高度拟真、富有创意的人名。
+* **禁用套版头像：** 头像不要使用标准 SVG“蛋形”图标或 Lucide 用户图标。改用有创意、可信的照片占位或专门的定制样式。
+* **禁用假数据：** 避免一眼即穿的数字，如 `99.99%`、`50%` 或简单电话号码（`1234567`）。使用自然、带噪感的数据（`47.2%`、`+1 (312) 847-1928`）。
+* **禁用创业俗名：** "Acme"、"Nexus"、"SmartFlow" 之流。请自创高级且契合语境的品牌名。
+* **禁用空洞词汇：** 避免 "Elevate"、"Seamless"、"Unleash"、"Next-Gen" 这类 AI 文案套话。使用具体有力的动词。
 
-### External Resources & Components
-* **NO Broken Unsplash Links:** Do not use Unsplash. Use absolute, reliable placeholders like `https://picsum.photos/seed/{random_string}/800/600` or SVG UI Avatars.
-* **shadcn/ui Customization:** You may use `shadcn/ui`, but NEVER in its generic default state. You MUST customize the radii, colors, and shadows to match the high-end project aesthetic.
-* **Production-Ready Cleanliness:** Code must be extremely clean, visually striking, memorable, and meticulously refined in every detail.
+### 外部资源与组件
+* **禁用失效 Unsplash 链接：** 不要使用 Unsplash。使用绝对可靠的占位服务，如 `https://picsum.photos/seed/{random_string}/800/600` 或 SVG UI Avatars。
+* **shadcn/ui 定制：** 可以使用 `shadcn/ui`，但绝不能停留在通用默认态。必须定制圆角、颜色与阴影，使之契合项目的高端气质。
+* **生产级整洁度：** 代码必须极其干净，视觉上夺目、令人过目难忘，每个细节都精雕细琢。
 
-## 8. THE CREATIVE ARSENAL (High-End Inspiration)
-Do not default to generic UI. Pull from this library of advanced concepts to ensure the output is visually striking and memorable. When appropriate, leverage **GSAP (ScrollTrigger/Parallax)** for complex scrolltelling or **ThreeJS/WebGL** for 3D/Canvas animations, rather than basic CSS motion. **CRITICAL:** Never mix GSAP/ThreeJS with Framer Motion in the same component tree. Default to Framer Motion for UI/Bento interactions. Use GSAP/ThreeJS EXCLUSIVELY for isolated full-page scrolltelling or canvas backgrounds, wrapped in strict useEffect cleanup blocks.
+## 8. 创意武器库（高端灵感）
+不要默认产出通用 UI。请从这个进阶概念库中取材，确保成品视觉夺目、令人难忘。适当时，用 **GSAP（ScrollTrigger/Parallax）** 做复杂的滚动叙事，用 **ThreeJS/WebGL** 做 3D/Canvas 动画，而非停留在基础 CSS 动效。**关键：** 绝不在同一组件树中混用 GSAP/ThreeJS 与 Framer Motion。UI/Bento 交互默认使用 Framer Motion；GSAP/ThreeJS 仅用于独立的整页滚动叙事或 Canvas 背景，且必须包裹在严格的 useEffect 清理块中。
 
-### The Standard Hero Paradigm
-* Stop doing centered text over a dark image. Try asymmetric Hero sections: Text cleanly aligned to the left or right. The background should feature a high-quality, relevant image with a subtle stylistic fade (darkening or lightening gracefully into the background color depending on if it is Light or Dark mode).
+### 标准 Hero 范式
+* 别再在深色图片上叠居中文字了。试试非对称 Hero 区块：文字干净地靠左或靠右对齐。背景应使用一张高质量且切题的图片，并做细腻的风格化渐隐（依浅色或深色模式，优雅地渐暗或渐亮至背景色）。
 
-### Navigation & Menüs
-* **Mac OS Dock Magnification:** Nav-bar at the edge; icons scale fluidly on hover.
-* **Magnetic Button:** Buttons that physically pull toward the cursor.
-* **Gooey Menu:** Sub-items detach from the main button like a viscous liquid.
-* **Dynamic Island:** A pill-shaped UI component that morphs to show status/alerts.
-* **Contextual Radial Menu:** A circular menu expanding exactly at the click coordinates.
-* **Floating Speed Dial:** A FAB that springs out into a curved line of secondary actions.
-* **Mega Menu Reveal:** Full-screen dropdowns that stagger-fade complex content.
+### 导航与菜单
+* **Mac OS Dock 放大效果：** 导航栏贴边；悬停时图标流畅缩放。
+* **磁性按钮：** 向光标产生物理吸附的按钮。
+* **黏液菜单：** 子项如黏稠液体般从主按钮分离而出。
+* **灵动岛：** 药丸形 UI 组件，可形变展示状态与提醒。
+* **情境径向菜单：** 在点击坐标处原地展开的环形菜单。
+* **悬浮 Speed Dial：** FAB 弹出后呈弧线展开一列次级操作。
+* **巨型菜单展开：** 全屏下拉，以错峰渐显呈现复杂内容。
 
-### Layout & Grids
-* **Bento Grid:** Asymmetric, tile-based grouping (e.g., Apple Control Center).
-* **Masonry Layout:** Staggered grid without fixed row heights (e.g., Pinterest).
-* **Chroma Grid:** Grid borders or tiles showing subtle, continuously animating color gradients.
-* **Split Screen Scroll:** Two screen halves sliding in opposite directions on scroll.
-* **Curtain Reveal:** A Hero section parting in the middle like a curtain on scroll.
+### 布局与网格
+* **Bento 网格：** 非对称的瓷砖式分组（如 Apple 控制中心）。
+* **瀑布流布局：** 无固定行高的错落网格（如 Pinterest）。
+* **色度网格：** 网格边框或瓷砖呈现细微且持续流动的色彩渐变。
+* **分屏滚动：** 滚动时屏幕两半向相反方向滑动。
+* **幕帘揭示：** 滚动时 Hero 区块如帷幕般从中线分开。
 
-### Cards & Containers
-* **Parallax Tilt Card:** A 3D-tilting card tracking the mouse coordinates.
-* **Spotlight Border Card:** Card borders that illuminate dynamically under the cursor.
-* **Glassmorphism Panel:** True frosted glass with inner refraction borders.
-* **Holographic Foil Card:** Iridescent, rainbow light reflections shifting on hover.
-* **Tinder Swipe Stack:** A physical stack of cards the user can swipe away.
-* **Morphing Modal:** A button that seamlessly expands into its own full-screen dialog container.
+### 卡片与容器
+* **视差倾斜卡片：** 跟随鼠标坐标做 3D 倾斜的卡片。
+* **聚光边框卡片：** 卡片边框在光标处动态点亮。
+* **玻璃拟态面板：** 带内折射边框的真实磨砂玻璃。
+* **全息箔卡片：** 悬停时虹彩光泽随之流转。
+* **Tinder 式滑动卡组：** 可供用户划走的实体卡片堆叠。
+* **形变模态框：** 按钮无缝放大为自身的全屏对话框容器。
 
-### Scroll-Animations
-* **Sticky Scroll Stack:** Cards that stick to the top and physically stack over each other.
-* **Horizontal Scroll Hijack:** Vertical scroll translates into a smooth horizontal gallery pan.
-* **Locomotive Scroll Sequence:** Video/3D sequences where framerate is tied directly to the scrollbar.
-* **Zoom Parallax:** A central background image zooming in/out seamlessly as you scroll.
-* **Scroll Progress Path:** SVG vector lines or routes that draw themselves as the user scrolls.
-* **Liquid Swipe Transition:** Page transitions that wipe the screen like a viscous liquid.
+### 滚动动画
+* **粘性滚动堆叠：** 卡片吸顶后层层实体堆叠。
+* **横向滚动劫持：** 纵向滚动转化为流畅的横向画廊平移。
+* **Locomotive Scroll 序列：** 帧率直接绑定滚动条的视频/3D 序列。
+* **缩放视差：** 中央背景图随滚动无缝推近拉远。
+* **滚动进度路径：** 随用户滚动自我绘制的 SVG 矢量线条或路线。
+* **液态滑动切换：** 如黏稠液体般抹过屏幕的页面转场。
 
-### Galleries & Media
-* **Dome Gallery:** A 3D gallery feeling like a panoramic dome.
-* **Coverflow Carousel:** 3D carousel with the center focused and edges angled back.
-* **Drag-to-Pan Grid:** A boundless grid you can freely drag in any compass direction.
-* **Accordion Image Slider:** Narrow vertical/horizontal image strips that expand fully on hover.
-* **Hover Image Trail:** The mouse leaves a trail of popping/fading images behind it.
-* **Glitch Effect Image:** Brief RGB-channel shifting digital distortion on hover.
+### 画廊与媒体
+* **穹顶画廊：** 置身全景穹顶般的 3D 画廊。
+* **Coverflow 轮播：** 中心聚焦、两侧向后倾斜的 3D 轮播。
+* **拖拽平移网格：** 可向任意方向自由拖拽的无边界网格。
+* **手风琴图片滑块：** 窄幅纵/横图片条，悬停时完全展开。
+* **悬停图片拖尾：** 鼠标身后留下一串弹出又淡去的图片。
+* **故障艺术图片：** 悬停时短暂的 RGB 通道错位式数字失真。
 
-### Typography & Text
-* **Kinetic Marquee:** Endless text bands that reverse direction or speed up on scroll.
-* **Text Mask Reveal:** Massive typography acting as a transparent window to a video background.
-* **Text Scramble Effect:** Matrix-style character decoding on load or hover.
-* **Circular Text Path:** Text curved along a spinning circular path.
-* **Gradient Stroke Animation:** Outlined text with a gradient continuously running along the stroke.
-* **Kinetic Typography Grid:** A grid of letters dodging or rotating away from the cursor.
+### 字体与文字
+* **动态跑马灯：** 随滚动反向或加速的无尽文字带。
+* **文字蒙版揭示：** 巨型文字化作透视视频背景的透明窗口。
+* **文字乱码解码效果：** 载入或悬停时《黑客帝国》式的字符解码。
+* **环形文字路径：** 文字沿旋转的圆形路径排布。
+* **渐变描边动画：** 描边文字上，渐变沿笔画持续流动。
+* **动态文字网格：** 字母网格会躲避光标或随之旋开。
 
-### Micro-Interactions & Effects
-* **Particle Explosion Button:** CTAs that shatter into particles upon success.
-* **Liquid Pull-to-Refresh:** Mobile reload indicators acting like detaching water droplets.
-* **Skeleton Shimmer:** Shifting light reflections moving across placeholder boxes.
-* **Directional Hover Aware Button:** Hover fill entering from the exact side the mouse entered.
-* **Ripple Click Effect:** Visual waves rippling precisely from the click coordinates.
-* **Animated SVG Line Drawing:** Vectors that draw their own contours in real-time.
-* **Mesh Gradient Background:** Organic, lava-lamp-like animated color blobs.
-* **Lens Blur Depth:** Dynamic focus blurring background UI layers to highlight a foreground action.
+### 微交互与特效
+* **粒子爆裂按钮：** 成功时 CTA 碎裂成粒子。
+* **液态下拉刷新：** 移动端刷新指示器，如水滴脱落般回弹。
+* **骨架屏微光：** 掠过占位框的流动光反射。
+* **方向感知悬停按钮：** 悬停填充从鼠标进入的准确一侧涌入。
+* **涟漪点击效果：** 视觉波纹从点击坐标精准扩散。
+* **SVG 线条描绘动画：** 矢量图实时勾勒自身轮廓。
+* **网格渐变背景：** 如熔岩灯般有机流动的动态色块。
+* **镜头虚化景深：** 动态虚焦背景 UI 层，突出前景操作。
 
-## 9. THE "MOTION-ENGINE" BENTO PARADIGM
-When generating modern SaaS dashboards or feature sections, you MUST utilize the following "Bento 2.0" architecture and motion philosophy. This goes beyond static cards and enforces a "Vercel-core meets Dribbble-clean" aesthetic heavily reliant on perpetual physics.
+## 9. “动效引擎” Bento 范式
+生成现代 SaaS 仪表盘或功能区块时，必须采用以下“Bento 2.0”架构与动效哲学。它超越静态卡片，强制贯彻一种“Vercel 内核遇上 Dribbble 式洁净”的美学，并深度依赖永续物理动效。
 
-### A. Core Design Philosophy
-* **Aesthetic:** High-end, minimal, and functional.
-* **Palette:** Background in `#f9fafb`. Cards are pure white (`#ffffff`) with a 1px border of `border-slate-200/50`.
-* **Surfaces:** Use `rounded-[2.5rem]` for all major containers. Apply a "diffusion shadow" (a very light, wide-spreading shadow, e.g., `shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]`) to create depth without clutter.
-* **Typography:** Strict `Geist`, `Satoshi`, or `Cabinet Grotesk` font stack. Use subtle tracking (`tracking-tight`) for headers.
-* **Labels:** Titles and descriptions must be placed **outside and below** the cards to maintain a clean, gallery-style presentation.
-* **Pixel-Perfection:** Use generous `p-8` or `p-10` padding inside cards.
+### A. 核心设计哲学
+* **审美：** 高端、极简、功能至上。
+* **调色板：** 背景为 `#f9fafb`。卡片为纯白（`#ffffff`），配 1px 的 `border-slate-200/50` 边框。
+* **表面：** 所有主要容器统一使用 `rounded-[2.5rem]`。施加“弥散阴影”（极淡且大范围扩散的阴影，如 `shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]`），营造纵深而不添乱。
+* **字体：** 严格限定 `Geist`、`Satoshi` 或 `Cabinet Grotesk` 字体栈。标题使用微收紧字距（`tracking-tight`）。
+* **标注：** 标题与描述必须置于卡片**外部下方**，保持画廊式的干净陈列。
+* **像素级完美：** 卡片内部使用宽裕的 `p-8` 或 `p-10` 内边距。
 
-### B. The Animation Engine Specs (Perpetual Motion)
-All cards must contain **"Perpetual Micro-Interactions."** Use the following Framer Motion principles:
-* **Spring Physics:** No linear easing. Use `type: "spring", stiffness: 100, damping: 20` for a premium, weighty feel.
-* **Layout Transitions:** Heavily utilize the `layout` and `layoutId` props to ensure smooth re-ordering, resizing, and shared element state transitions.
-* **Infinite Loops:** Every card must have an "Active State" that loops infinitely (Pulse, Typewriter, Float, or Carousel) to ensure the dashboard feels "alive".
-* **Performance:** Wrap dynamic lists in `<AnimatePresence>` and optimize for 60fps. **PERFORMANCE CRITICAL:** Any perpetual motion or infinite loop MUST be memoized (React.memo) and completely isolated in its own microscopic Client Component. Never trigger re-renders in the parent layout.
+### B. 动画引擎规格（永续运动）
+所有卡片都必须包含**“永续微交互”**。请遵循以下 Framer Motion 原则：
+* **弹簧物理：** 不用线性缓动。使用 `type: "spring", stiffness: 100, damping: 20`，获得高级而厚重的手感。
+* **布局过渡：** 大量使用 `layout` 与 `layoutId` 属性，确保重排、缩放与共享元素状态过渡顺滑。
+* **无限循环：** 每张卡片都要有一个无限循环的“活跃态”（Pulse、Typewriter、Float 或 Carousel），确保仪表盘始终“鲜活”。
+* **性能：** 动态列表用 `<AnimatePresence>` 包裹，并以 60fps 为优化目标。**性能攸关：** 任何永续运动或无限循环都必须做 memo 化（React.memo），并完全隔离到其专属的微型 Client Component 中。绝不触发父级布局的重渲染。
 
-### C. The 5-Card Archetypes (Micro-Animation Specs)
-Implement these specific micro-animations when constructing Bento grids (e.g., Row 1: 3 cols | Row 2: 2 cols split 70/30):
-1. **The Intelligent List:** A vertical stack of items with an infinite auto-sorting loop. Items swap positions using `layoutId`, simulating an AI prioritizing tasks in real-time.
-2. **The Command Input:** A search/AI bar with a multi-step Typewriter Effect. It cycles through complex prompts, including a blinking cursor and a "processing" state with a shimmering loading gradient.
-3. **The Live Status:** A scheduling interface with "breathing" status indicators. Include a pop-up notification badge that emerges with an "Overshoot" spring effect, stays for 3 seconds, and vanishes.
-4. **The Wide Data Stream:** A horizontal "Infinite Carousel" of data cards or metrics. Ensure the loop is seamless (using `x: ["0%", "-100%"]`) with a speed that feels effortless.
-5. **The Contextual UI (Focus Mode):** A document view that animates a staggered highlight of a text block, followed by a "Float-in" of a floating action toolbar with micro-icons.
+### C. 五种卡片原型（微动画规格）
+构建 Bento 网格时（如第 1 行：3 列 | 第 2 行：2 列按 70/30 分栏），请实现以下具体微动画：
+1. **智能列表：** 条目纵向堆叠并无限自动排序。条目通过 `layoutId` 交换位置，模拟 AI 实时排定任务优先级。
+2. **命令输入框：** 带多步打字机效果的搜索/AI 输入栏。循环输入复杂提示词，配有闪烁光标，以及带流光加载渐变的“处理中”状态。
+3. **实时状态：** 带“呼吸感”状态指示器的排期界面。含一个以“过冲”弹簧效果弹出、停留 3 秒后消失的通知徽标。
+4. **宽数据流：** 数据卡片或指标组成的横向“无限轮播”。确保循环无缝（使用 `x: ["0%", "-100%"]`），速度从容流畅。
+5. **情境化 UI（专注模式）：** 文档视图先对文本块做错峰高亮动画，随后带微型图标的浮动工具栏“飘入”。
 
-## 10. FINAL PRE-FLIGHT CHECK
-Evaluate your code against this matrix before outputting. This is the **last** filter you apply to your logic.
-- [ ] Is global state used appropriately to avoid deep prop-drilling rather than arbitrarily?
-- [ ] Is mobile layout collapse (`w-full`, `px-4`, `max-w-7xl mx-auto`) guaranteed for high-variance designs?
-- [ ] Do full-height sections safely use `min-h-[100dvh]` instead of the bugged `h-screen`?
-- [ ] Do `useEffect` animations contain strict cleanup functions?
-- [ ] Are empty, loading, and error states provided?
-- [ ] Are cards omitted in favor of spacing where possible?
-- [ ] Did you strictly isolate CPU-heavy perpetual animations in their own Client Components?
+## 10. 最终预检
+输出前，请对照这份清单逐项校验代码。这是套在逻辑上的**最后一道**过滤。
+- [ ] 全局状态是否用于恰当场景（避免深层 prop 透传），而非随意使用？
+- [ ] 高变化度设计是否确保了移动端布局塌缩（`w-full`、`px-4`、`max-w-7xl mx-auto`）？
+- [ ] 全高区块是否安全地使用 `min-h-[100dvh]`，而非有 bug 的 `h-screen`？
+- [ ] `useEffect` 动画是否包含严格的清理函数？
+- [ ] 是否提供了空状态、加载态与错误态？
+- [ ] 凡可用留白之处，是否已尽量弃用卡片？
+- [ ] 高 CPU 占用的永续动画是否已严格隔离到各自的 Client Component 中？
